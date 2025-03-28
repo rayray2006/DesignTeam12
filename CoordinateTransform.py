@@ -188,22 +188,14 @@ try:
         if point_3d_mm is None or -1:
             send_coords(home)
         else:
-            '''
-            # Draw the MediaPipe hand landmarks on the color image
-            image_rgb = cv2.cvtColor(color_image, cv2.COLOR_BGR2RGB)
-            results = hands.process(image_rgb)
-            if results.multi_hand_landmarks:
-                for hand_landmarks in results.multi_hand_landmarks:
-                    mp_drawing.draw_landmarks(color_image, hand_landmarks, mp_hands.HAND_CONNECTIONS)
-            '''
             # Compute the transformed robot base coordinates using fixed end effector values
 
 
-            coords = get_coords()
-            end_effector = coords[:3]
+            endEffectorCoords = get_coords()
+            end_effector = endEffectorCoords[:3]
 
 
-            euler_angles = coords[3:]
+            euler_angles = endEffectorCoords[3:]
 
 
             base_coords = transform_camera_to_robot(point_3d_mm, end_effector, euler_angles, angles_in_degrees=True)
