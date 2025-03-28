@@ -46,18 +46,13 @@ def serve_target_coords():
                 conn.close()
                 continue
 
-            if len(data) == struct.calcsize("6fi"):
-                data = struct.unpack("6fi", data)
-                target_coords = data[:6]
-                speed = data[6]
-                print("Received target coordinates:", target_coords, speed)
+            if len(data) == struct.calcsize("6f"):
+                data = struct.unpack("6f", data)
+                target_coords = data
+                print("Received target coordinates:", target_coords)
                 # Command the robot to move to the specified coordinates.
                 mc.clear_error_information()
-                mc.send_coords(target_coords, int(speed), 0)
-                if(mc.get_error_information()==0):
-                    conn.sendall(b"OK")
-                else:
-                    conn.sendall(b"INVALID COORDS")
+                mc.send_coords(target_coords, 100, 0)
             else:
                 print("Received data of unexpected length:", len(data))
                 conn.sendall(b"ERROR")
@@ -115,6 +110,6 @@ if __name__ == "__main__":
     print("Servers are running. Press Ctrl+C to exit.")
     try:
         while True:
-            time.sleep(1)  # Allow CPU time for other threads.
+            time.sleep(0.25)  # Allow CPU time for other threads.
     except KeyboardInterrupt:
         print("Exiting.")

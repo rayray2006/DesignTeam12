@@ -13,7 +13,7 @@ import socket
 HOST = "10.42.0.1"
 GET_COORDS_PORT = 5006
 MOVE_COORDS_PORT = 5005
-home = [50, -64, 420, -90, 0, -90]
+home = [-60.29999923706055, -90.0999984741211,320.70001220703125, -165.32000732421875, 0.3199999928474426, -179.66000366210938]
 
 
 def get_coords():
@@ -41,7 +41,7 @@ def get_coords():
         print("An exception occurred:", e)
         return None
 
-def send_coords(coords, speed):
+def send_coords(coords):
     """
     Connects to the robot's target coordinates server and sends a 6-float binary payload.
     
@@ -49,7 +49,7 @@ def send_coords(coords, speed):
         coords (list or tuple): A list or tuple containing 6 float values representing the target coordinates.
     """
     # Pack the coordinates into binary data (6 floats).
-    data = struct.pack("6fi", *coords, speed)
+    data = struct.pack("6f", *coords)
     
     # Create a socket and connect to the robot's server.
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
@@ -108,7 +108,17 @@ def transform_camera_to_robot(camera_coords, end_effector_coords, euler_angles, 
         [0, 0, 1]
     ])
     
-    camera_vec = np.array([[x_c], [y_c], [z_c]])
+
+
+
+    x_offset = 0  # replace with your desired offset in mm
+    y_offset = 0
+    z_offset = -140
+
+    camera_vec = np.array([[x_c + x_offset], [y_c + y_offset], [z_c + z_offset]])
+
+
+
     
     transformed_change = R_ee @ (R_fixed @ camera_vec)
     
@@ -174,38 +184,41 @@ config.enable_stream(rs.stream.color, 640, 480, rs.format.bgr8, 30)
 profile = pipeline.start(config)
 
 try:
+    none_counter = 0  # tracks consecutive frames without hand detection
     while True:
-        frames = pipeline.wait_for_frames()
+        frames = pipeline.poll_for_frames()
+        if not frames:
+            continue
+
         depth_frame = frames.get_depth_frame()
         color_frame = frames.get_color_frame()
         if not depth_frame or not color_frame:
             continue
         
-        # Get hand coordinates from the current frames
         point_3d_mm, pixel_x, pixel_y, color_image = get_hand_coords(color_frame, depth_frame)
-    
-        # If a hand is detected, process and annotate the image
-        if point_3d_mm is None or -1:
-            send_coords(home, 50)
+
+        if point_3d_mm is None:
+            none_counter += 1
+            if none_counter >= 10:
+                print("No hand detected for 10 frames. Sending robot home.")
+                send_coords(home)
+                none_counter = 0  # reset after sending home
+            continue
         else:
-            # Compute the transformed robot base coordinates using fixed end effector values
+            none_counter = 0  # reset the counter on successful detection
 
+        endEffectorCoords = get_coords()
+        if endEffectorCoords is None:
+            print("Robot did not return coordinates")
+            continue
 
-            endEffectorCoords = get_coords()
-            end_effector = endEffectorCoords[:3]
+        end_effector = endEffectorCoords[:3]
+        euler_angles = home  [3:]
 
-
-            euler_angles = endEffectorCoords[3:]
-
-
-            base_coords = transform_camera_to_robot(point_3d_mm, end_effector, euler_angles, angles_in_degrees=True)
-
-            target_coords = base_coords + euler_angles
-
-            send_coords(target_coords, 50)
-
-            time.sleep(5)
-            send_coords(home, 50)
+        base_coords = transform_camera_to_robot(point_3d_mm, end_effector, euler_angles, angles_in_degrees=True)
+        target_coords = np.concatenate((base_coords, euler_angles))
+        send_coords(target_coords)
+        time.sleep(1)
 
 finally:
     pipeline.stop()
