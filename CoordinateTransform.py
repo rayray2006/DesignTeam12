@@ -185,6 +185,7 @@ profile = pipeline.start(config)
 
 try:
     none_counter = 0  # tracks consecutive frames without hand detection
+    prev_coords = home
     while True:
         frames = pipeline.poll_for_frames()
         if not frames:
@@ -217,8 +218,12 @@ try:
 
         base_coords = transform_camera_to_robot(point_3d_mm, end_effector, euler_angles, angles_in_degrees=True)
         target_coords = np.concatenate((base_coords, euler_angles))
-        send_coords(target_coords)
+        if np.linalg.norm(np.array(target_coords) - np.array(prev_coords)) > 50:  # mm threshold
+            send_coords(target_coords)
+            prev_coords = target_coords
+            
         time.sleep(1)
+
 
 finally:
     pipeline.stop()
