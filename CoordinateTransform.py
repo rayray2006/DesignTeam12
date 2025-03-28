@@ -41,7 +41,7 @@ def get_coords():
         print("An exception occurred:", e)
         return None
 
-def send_coords(coords):
+def send_coords(coords, speed):
     """
     Connects to the robot's target coordinates server and sends a 6-float binary payload.
     
@@ -49,7 +49,7 @@ def send_coords(coords):
         coords (list or tuple): A list or tuple containing 6 float values representing the target coordinates.
     """
     # Pack the coordinates into binary data (6 floats).
-    data = struct.pack("6f", *coords)
+    data = struct.pack("6fi", *coords, speed)
     
     # Create a socket and connect to the robot's server.
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
@@ -186,7 +186,7 @@ try:
     
         # If a hand is detected, process and annotate the image
         if point_3d_mm is None or -1:
-            send_coords(home)
+            send_coords(home, 50)
         else:
             # Compute the transformed robot base coordinates using fixed end effector values
 
@@ -202,10 +202,10 @@ try:
 
             target_coords = base_coords + euler_angles
 
-            send_coords(target_coords)
+            send_coords(target_coords, 50)
 
             time.sleep(5)
-            send_coords(home)
+            send_coords(home, 50)
 
 finally:
     pipeline.stop()

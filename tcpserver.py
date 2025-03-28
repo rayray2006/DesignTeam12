@@ -46,12 +46,18 @@ def serve_target_coords():
                 conn.close()
                 continue
 
-            if len(data) == struct.calcsize("6f"):
-                target_coords = struct.unpack("6f", data)
-                print("Received target coordinates:", target_coords)
+            if len(data) == struct.calcsize("6fi"):
+                data = struct.unpack("6fi", data)
+                target_coords = data[:6]
+                speed = data[6]
+                print("Received target coordinates:", target_coords, speed)
                 # Command the robot to move to the specified coordinates.
-                mc.send_coords(target_coords, 100, 0)
-                conn.sendall(b"OK")
+                mc.clear_error_information()
+                mc.send_coords(target_coords, int(speed), 0)
+                if(mc.get_error_information()==0):
+                    conn.sendall(b"OK")
+                else:
+                    conn.sendall(b"INVALID COORDS")
             else:
                 print("Received data of unexpected length:", len(data))
                 conn.sendall(b"ERROR")
