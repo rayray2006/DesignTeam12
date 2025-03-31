@@ -65,5 +65,5 @@ def send_coords(coords, speed):
             print("Error connecting or sending data:", e)
 
 if __name__ == "__main__":
-    send_coords([-60.29999923706055, -90.0999984741211,320.70001220703125, -165.32000732421875, 0.3199999928474426, -179.66000366210938], 1)
+    print(get_coords())
 
