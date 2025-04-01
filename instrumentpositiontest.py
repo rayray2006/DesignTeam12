@@ -177,7 +177,40 @@ def get_hand_coords(color_frame, depth_frame):
                 # Transform the coordinate using the rotation matrix
                 transformed_coord = R_z @ coord
 
-                return transformed_coord, pixel_x, pixel_y, color_image
+                # TEST new transformed coord
+                # Retrieve landmarks 0, 5, and 17.
+                lm0 = hand_landmarks.landmark[0]    # Typically the wrist.
+                lm5 = hand_landmarks.landmark[5]
+                lm17 = hand_landmarks.landmark[17]
+                
+                # Convert normalized coordinates to pixel coordinates.
+                x0, y0 = int(lm0.x * w), int(lm0.y * h)
+                x5, y5 = int(lm5.x * w), int(lm5.y * h)
+                x17, y17 = int(lm17.x * w), int(lm17.y * h)
+                
+                # Get the depth (in meters) at each landmark pixel.
+                depth0 = depth_frame.get_distance(x0, y0)
+                depth5 = depth_frame.get_distance(x5, y5)
+                depth17 = depth_frame.get_distance(x17, y17)
+                                
+                # Deproject the 2D pixels (with depth) into 3D points.
+                point0 = rs.rs2_deproject_pixel_to_point(color_intrinsics, [x0, y0], depth0)
+                point5 = rs.rs2_deproject_pixel_to_point(color_intrinsics, [x5, y5], depth5)
+                point17 = rs.rs2_deproject_pixel_to_point(color_intrinsics, [x17, y17], depth17)
+                
+                # Convert points to numpy arrays.
+                p0   = np.array(point0)
+                p5   = np.array(point5)
+                p17  = np.array(point17)
+                
+                # Compute the weighted average so that it is 1/4 from point 17 (closer to 17).
+                p_avg = p17 + 0.25 * (p0 - p17)
+                
+                # Compute the vector from landmark 5 to the weighted average point.
+                new_point = 1000*(p5 - 0.5 * (p_avg - p5))
+
+                # use either transformed_coord or new_point
+                return new_point, pixel_x, pixel_y, color_image
             except Exception as e:
                 print("Error processing hand landmarks:", e)
                 continue
