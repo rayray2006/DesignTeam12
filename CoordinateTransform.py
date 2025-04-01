@@ -13,7 +13,7 @@ import socket
 HOST = "10.42.0.1"
 GET_COORDS_PORT = 5006
 MOVE_COORDS_PORT = 5005
-home = [-63, -79.1, 305.3, -177.03, 2.5, 135.14]
+home = [-63.6, -81.1, 303.5, -178.2, -2.05, -134.86]
 
 
 def get_coords():
@@ -111,9 +111,9 @@ def transform_camera_to_robot(camera_coords, end_effector_coords, euler_angles, 
 
 
 
-    x_offset = 0  # replace with your desired offset in mm
-    y_offset = 0
-    z_offset = 0
+    x_offset = 55  # replace with your desired offset in mm
+    y_offset = -20
+    z_offset = -95
 
     camera_vec = np.array([[x_c + x_offset], [y_c + y_offset], [z_c + z_offset]])
 
@@ -161,8 +161,23 @@ def get_hand_coords(color_frame, depth_frame):
                                                            depth_value)
                 # Convert from meters to millimeters
                 point_3d_mm = [coord * 1000 for coord in point_3d]
-                
-                return point_3d_mm, pixel_x, pixel_y, color_image
+
+                theta = math.radians(45)
+
+                # Rotation matrix for a rotation around the z-axis:
+                R_z = np.array([
+                    [math.cos(theta), -math.sin(theta), 0],
+                    [math.sin(theta),  math.cos(theta), 0],
+                    [0,                0,               1]
+                ])
+
+                # Example coordinate vector
+                coord = np.array(point_3d_mm)
+
+                # Transform the coordinate using the rotation matrix
+                transformed_coord = R_z @ coord
+
+                return transformed_coord, pixel_x, pixel_y, color_image
             except Exception as e:
                 print("Error processing hand landmarks:", e)
                 continue
@@ -185,7 +200,6 @@ profile = pipeline.start(config)
 
 try:
     none_counter = 0  # tracks consecutive frames without hand detection
-    prev_coords = home
     while True:
         frames = pipeline.poll_for_frames()
         if not frames:
@@ -218,13 +232,13 @@ try:
 
         base_coords = transform_camera_to_robot(point_3d_mm, end_effector, euler_angles, angles_in_degrees=True)
         target_coords = np.concatenate((base_coords, euler_angles))
-        if np.linalg.norm(np.array(target_coords) - np.array(prev_coords)) > 50:  # mm threshold
-            send_coords(target_coords)
-            prev_coords = target_coords
-            
+        send_coords(target_coords)
         time.sleep(1)
-
 
 finally:
     pipeline.stop()
     cv2.destroyAllWindows()
+
+
+
+
