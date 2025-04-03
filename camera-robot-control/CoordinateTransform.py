@@ -222,6 +222,7 @@ try:
         else:
             none_counter = 0  # reset the counter on successful detection
 
+
         endEffectorCoords = get_coords()
         if endEffectorCoords is None:
             print("Robot did not return coordinates")
