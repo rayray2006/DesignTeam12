@@ -232,12 +232,9 @@ config.enable_stream(rs.stream.color, 640, 480, rs.format.bgr8, 30)
 profile = pipeline.start(config)
 
 try:
-    # Start by sending the robot arm to its home position.
-    send_coords(home)
-    state = "HOME"  # "HOME" waits for a stable hand; "AT_HAND" indicates robot is at hand position.
-    stable_counter = 0      # Counts consecutive stable hand frames.
-    stable_point = None     # Stores the hand's 3D position for stability checking.
-    none_counter = 0        # Counts consecutive frames with no hand detection.
+    none_counter = 0  # tracks consecutive frames without hand detection
+    stable_count = 0  # counts consecutive frames with stable hand coordinates
+    prev_hand_coord = None  # holds the previous hand coordinate for stability comparison
 
     while True:
         frames = pipeline.poll_for_frames()
@@ -249,64 +246,56 @@ try:
         if not depth_frame or not color_frame:
             continue
 
-        point3d_mm, pixel_x, pixel_y, color_image = get_hand_coords(color_frame, depth_frame)
+        point_3d_mm, pixel_x, pixel_y, color_image = get_hand_coords(color_frame, depth_frame)
 
-        if state == "HOME":
-            if point3d_mm is not None:
-                none_counter = 0
+        # If no hand is detected, reset stability and count missing frames.
+        if point_3d_mm is None:
+            none_counter += 1
+            stable_count = 0
+            prev_hand_coord = None
+            if none_counter >= 10:
+                print("No hand detected for 10 frames. Sending robot home.")
+                send_coords(home)
+                none_counter = 0  # reset after sending home
+            continue
+        else:
+            none_counter = 0
 
-                # Check for stability using the raw 3D hand coordinates.
-                if stable_point is None:
-                    stable_point = point3d_mm
-                    stable_counter = 1
-                else:
-                    if np.linalg.norm(np.array(point3d_mm) - np.array(stable_point)) <= 50:  # 50 mm threshold
-                        stable_counter += 1
-                    else:
-                        stable_point = point3d_mm
-                        stable_counter = 1
-
-                # If the hand is stable for 5 consecutive frames, perform the transformation.
-                if stable_counter >= 5:
-                    # Only now get the robot's current coordinates and perform the transformation.
-                    endEffectorCoords = get_coords()
-                    if endEffectorCoords is None:
-                        print("Robot did not return coordinates")
-                        continue
-                    end_effector = endEffectorCoords[:3]
-                    euler_angles = home[3:]
-                    base_coords = transform_camera_to_robot(point3d_mm, end_effector, euler_angles, angles_in_degrees=True)
-                    target_coords = np.concatenate((base_coords, euler_angles))
-                    print("Hand stable for 5 frames. Moving robot to hand position.")
-                    send_coords(target_coords)
-                    state = "AT_HAND"
-                    stable_counter = 0
-                    stable_point = None
-                    none_counter = 0
+        # Check hand coordinate stability using point_3d_mm.
+        if prev_hand_coord is None:
+            prev_hand_coord = point_3d_mm
+            stable_count = 1
+        else:
+            diff = np.linalg.norm(np.array(point_3d_mm) - np.array(prev_hand_coord))
+            if diff <= 50:  # 50 mm = 5 cm threshold
+                stable_count += 1
             else:
-                # No hand detected, reset the stability check.
-                stable_counter = 0
-                stable_point = None
+                stable_count = 1  # reset if the hand moves more than 5cm
+            prev_hand_coord = point_3d_mm
 
-        elif state == "AT_HAND":
-            # In this state, wait until no hand is detected for 10 consecutive frames.
-            if point3d_mm is None:
-                none_counter += 1
-                if none_counter >= 10:
-                    print("No hand detected for 10 frames. Sending robot home.")
-                    send_coords(home)
-                    state = "HOME"
-                    stable_counter = 0
-                    stable_point = None
-                    none_counter = 0
-            else:
-                none_counter = 0
+        # Only proceed if we have 10 consecutive stable frames.
+        if stable_count < 10:
+            continue
 
-        time.sleep(0.01)
+        # Once stable for 10 frames, get the robot's current coordinates.
+        endEffectorCoords = get_coords()
+        if endEffectorCoords is None:
+            print("Robot did not return coordinates")
+            continue
+
+        end_effector = endEffectorCoords[:3]
+        euler_angles = home[3:]
+
+        # Transform the camera coordinates to the robot's coordinate system.
+        base_coords = transform_camera_to_robot(point_3d_mm, end_effector, euler_angles, angles_in_degrees=True)
+        target_coords = np.concatenate((base_coords, euler_angles))
+        send_coords(target_coords)
+
+        # Reset the stability counter after sending the move command.
+        stable_count = 0
+
+        time.sleep(1)
 
 finally:
     pipeline.stop()
     cv2.destroyAllWindows()
-
-
-

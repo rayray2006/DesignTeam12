@@ -179,6 +179,7 @@ def get_hand_coords(color_frame, depth_frame):
 
                 # TEST new transformed coord
                 # Retrieve landmarks 0, 5, and 17.
+                # Retrieve landmarks 0, 5, and 17.
                 lm0 = hand_landmarks.landmark[0]    # Typically the wrist.
                 lm5 = hand_landmarks.landmark[5]
                 lm17 = hand_landmarks.landmark[17]
@@ -187,6 +188,14 @@ def get_hand_coords(color_frame, depth_frame):
                 x0, y0 = int(lm0.x * w), int(lm0.y * h)
                 x5, y5 = int(lm5.x * w), int(lm5.y * h)
                 x17, y17 = int(lm17.x * w), int(lm17.y * h)
+                
+                # Clamp the coordinates to ensure they are within the image bounds.
+                x0 = max(0, min(x0, w - 1))
+                y0 = max(0, min(y0, h - 1))
+                x5 = max(0, min(x5, w - 1))
+                y5 = max(0, min(y5, h - 1))
+                x17 = max(0, min(x17, w - 1))
+                y17 = max(0, min(y17, h - 1))
                 
                 # Get the depth (in meters) at each landmark pixel.
                 depth0 = depth_frame.get_distance(x0, y0)
@@ -207,8 +216,7 @@ def get_hand_coords(color_frame, depth_frame):
                 p_avg = p17 + 0.25 * (p0 - p17)
                 
                 # Compute the vector from landmark 5 to the weighted average point.
-                new_point = 1000*(p5 - 0.5 * (p_avg - p5))
-
+                new_point = 1000 * (p5 - 0.5 * (p_avg - p5))
                 # use either transformed_coord or new_point
                 return new_point, pixel_x, pixel_y, color_image
             except Exception as e:
@@ -230,9 +238,11 @@ config = rs.config()
 config.enable_stream(rs.stream.depth, 640, 480, rs.format.z16, 30)
 config.enable_stream(rs.stream.color, 640, 480, rs.format.bgr8, 30)
 profile = pipeline.start(config)
-
 try:
     none_counter = 0  # tracks consecutive frames without hand detection
+    stable_count = 0  # counts consecutive frames with stable hand coordinates
+    prev_hand_coord = None  # holds the previous hand coordinate for stability comparison
+
     while True:
         frames = pipeline.poll_for_frames()
         if not frames:
@@ -242,36 +252,57 @@ try:
         color_frame = frames.get_color_frame()
         if not depth_frame or not color_frame:
             continue
-        
+
         point_3d_mm, pixel_x, pixel_y, color_image = get_hand_coords(color_frame, depth_frame)
 
+        # If no hand is detected, reset stability and count missing frames.
         if point_3d_mm is None:
             none_counter += 1
+            stable_count = 0
+            prev_hand_coord = None
             if none_counter >= 10:
                 print("No hand detected for 10 frames. Sending robot home.")
                 send_coords(home)
                 none_counter = 0  # reset after sending home
             continue
         else:
-            none_counter = 0  # reset the counter on successful detection
+            none_counter = 0
 
+        # Check hand coordinate stability using point_3d_mm.
+        if prev_hand_coord is None:
+            prev_hand_coord = point_3d_mm
+            stable_count = 1
+        else:
+            diff = np.linalg.norm(np.array(point_3d_mm) - np.array(prev_hand_coord))
+            if diff <= 50:  # 50 mm = 5 cm threshold
+                stable_count += 1
+            else:
+                stable_count = 1  # reset if the hand moves more than 5cm
+            prev_hand_coord = point_3d_mm
+
+        # Only proceed if we have 10 consecutive stable frames.
+        if stable_count < 10:
+            continue
+
+        # Once stable for 10 frames, get the robot's current coordinates.
         endEffectorCoords = get_coords()
         if endEffectorCoords is None:
             print("Robot did not return coordinates")
             continue
 
         end_effector = endEffectorCoords[:3]
-        euler_angles = home  [3:]
+        euler_angles = home[3:]
 
+        # Transform the camera coordinates to the robot's coordinate system.
         base_coords = transform_camera_to_robot(point_3d_mm, end_effector, euler_angles, angles_in_degrees=True)
         target_coords = np.concatenate((base_coords, euler_angles))
         send_coords(target_coords)
+
+        # Reset the stability counter after sending the move command.
+        stable_count = 0
+
         time.sleep(1)
 
 finally:
     pipeline.stop()
     cv2.destroyAllWindows()
-
-
-
-
