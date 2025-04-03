@@ -13,7 +13,7 @@ import socket
 HOST = "10.42.0.1"
 GET_COORDS_PORT = 5006
 MOVE_COORDS_PORT = 5005
-home = [62.5, 81.8, 305.2, -177.21, -2.56, 45.91]
+home = [62.5, 81.8, 305, -177.21, -2.56, 45.91]
 
 
 def get_coords():
@@ -41,6 +41,25 @@ def get_coords():
         print("An exception occurred:", e)
         return None
 
+def send_gripper_command(ip, state, speed, port=5007):
+    """
+    Connects to the MyCobot server and sends a gripper command.
+    
+    Parameters:
+    ip (str): IP address of the server.
+    state (float): The desired state of the gripper (e.g., 1.0 for open, 0.0 for closed).
+    speed (float): The speed at which to move the gripper.
+    port (int): Port to connect to (default is 5007).
+    """
+    try:
+        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
+            sock.connect((ip, port))
+            data = struct.pack("2f", state, speed)
+            sock.sendall(data)
+            print("Gripper command sent:", state, speed)
+    except Exception as e:
+        print("Error sending gripper command:", e)
+
 def send_coords(coords):
     """
     Connects to the robot's target coordinates server and sends a 6-float binary payload.
@@ -62,7 +81,7 @@ def send_coords(coords):
             print("Response from robot:", response.decode())
         except Exception as e:
             print("Error connecting or sending data:", e)
-send_coords(home)
+
 def euler_to_rotation_matrix(roll, pitch, yaw):
     """
     Create a rotation matrix from Euler angles (roll, pitch, yaw).
@@ -177,67 +196,61 @@ def get_hand_coords(color_frame, depth_frame):
                 # Transform the coordinate using the rotation matrix
                 transformed_coord = R_z @ coord
 
-                return transformed_coord, pixel_x, pixel_y, color_image
+                # TEST new transformed coord
+                # Retrieve landmarks 0, 5, and 17.
+                lm0 = hand_landmarks.landmark[0]    # Typically the wrist.
+                lm5 = hand_landmarks.landmark[5]
+                lm17 = hand_landmarks.landmark[17]
+                
+                # Convert normalized coordinates to pixel coordinates.
+                x0, y0 = int(lm0.x * w), int(lm0.y * h)
+                x5, y5 = int(lm5.x * w), int(lm5.y * h)
+                x17, y17 = int(lm17.x * w), int(lm17.y * h)
+                
+                # Get the depth (in meters) at each landmark pixel.
+                depth0 = depth_frame.get_distance(x0, y0)
+                depth5 = depth_frame.get_distance(x5, y5)
+                depth17 = depth_frame.get_distance(x17, y17)
+                                
+                # Deproject the 2D pixels (with depth) into 3D points.
+                point0 = rs.rs2_deproject_pixel_to_point(color_intrinsics, [x0, y0], depth0)
+                point5 = rs.rs2_deproject_pixel_to_point(color_intrinsics, [x5, y5], depth5)
+                point17 = rs.rs2_deproject_pixel_to_point(color_intrinsics, [x17, y17], depth17)
+                
+                # Convert points to numpy arrays.
+                p0   = np.array(point0)
+                p5   = np.array(point5)
+                p17  = np.array(point17)
+                
+                # Compute the weighted average so that it is 1/4 from point 17 (closer to 17).
+                p_avg = p17 + 0.25 * (p0 - p17)
+                
+                # Compute the vector from landmark 5 to the weighted average point.
+                new_point = 1000*(p5 - 0.5 * (p_avg - p5))
+
+                # use either transformed_coord or new_point
+                return new_point, pixel_x, pixel_y, color_image
             except Exception as e:
                 print("Error processing hand landmarks:", e)
                 continue
     return None, None, None, color_image
 
-mp_hands = mp.solutions.hands
-mp_drawing = mp.solutions.drawing_utils
-hands = mp_hands.Hands(
-    static_image_mode=False,
-    max_num_hands=1,
-    min_detection_confidence=0.5,
-    min_tracking_confidence=0.5)
+server_ip = "10.42.0.1"
+send_coords(home)
+time.sleep(2)
+send_gripper_command(server_ip, 100, 50)
+time.sleep(2)
+send_coords([137.5, -150.5, 97, 180, 0, 56.66])
+time.sleep(2)
+send_gripper_command(server_ip, 0, 50)
+time.sleep(2)
+send_coords(home)
+time.sleep(2)
+send_coords([137.5, -150.5, 110, 180, 0, 56.66])
+time.sleep(2)
+send_gripper_command(server_ip, 100, 50)
 
-# Configure and start the RealSense pipeline
-pipeline = rs.pipeline()
-config = rs.config()
-config.enable_stream(rs.stream.depth, 640, 480, rs.format.z16, 30)
-config.enable_stream(rs.stream.color, 640, 480, rs.format.bgr8, 30)
-profile = pipeline.start(config)
 
-try:
-    none_counter = 0  # tracks consecutive frames without hand detection
-    while True:
-        frames = pipeline.poll_for_frames()
-        if not frames:
-            continue
-
-        depth_frame = frames.get_depth_frame()
-        color_frame = frames.get_color_frame()
-        if not depth_frame or not color_frame:
-            continue
-        
-        point_3d_mm, pixel_x, pixel_y, color_image = get_hand_coords(color_frame, depth_frame)
-
-        if point_3d_mm is None:
-            none_counter += 1
-            if none_counter >= 10:
-                print("No hand detected for 10 frames. Sending robot home.")
-                send_coords(home)
-                none_counter = 0  # reset after sending home
-            continue
-        else:
-            none_counter = 0  # reset the counter on successful detection
-
-        endEffectorCoords = get_coords()
-        if endEffectorCoords is None:
-            print("Robot did not return coordinates")
-            continue
-
-        end_effector = endEffectorCoords[:3]
-        euler_angles = home  [3:]
-
-        base_coords = transform_camera_to_robot(point_3d_mm, end_effector, euler_angles, angles_in_degrees=True)
-        target_coords = np.concatenate((base_coords, euler_angles))
-        send_coords(target_coords)
-        time.sleep(1)
-
-finally:
-    pipeline.stop()
-    cv2.destroyAllWindows()
 
 
 
