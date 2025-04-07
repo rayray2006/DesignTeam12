@@ -209,7 +209,8 @@ def get_hand_angles(color_frame):
                 print("Error processing hand landmarks:", e)
                 continue
     return None, None, None, None
-def place_tool():
+
+def place_tool(coord):
     frames = pipeline.poll_for_frames()
     if not frames:
         return
@@ -226,20 +227,16 @@ def place_tool():
 
     # Convert the angle to degrees for readability.
     rotation_angle_deg = (math.degrees(rotation_angle) -90)
-    coord = get_coords()
-    if coord is not None:
-        coord = np.array(coord)
-        rz = coord[5]
-        if rz + rotation_angle_deg > 170:
-            rz -= rotation_angle_deg
-        else:
-            rz += rotation_angle_deg
-        coord[5] = rz
-        send_coords(coord)
-        
-
+    coord = np.array(coord)
+    rz = coord[5]
+    if rz + rotation_angle_deg > 180:
+        rz -= rotation_angle_deg
+    else:
+        rz += rotation_angle_deg
+    coord[5] = rz
+    send_coords(coord)
+    return
     
-
 
 mp_hands = mp.solutions.hands
 mp_drawing = mp.solutions.drawing_utils
@@ -255,6 +252,7 @@ config = rs.config()
 config.enable_stream(rs.stream.depth, 640, 480, rs.format.z16, 30)
 config.enable_stream(rs.stream.color, 640, 480, rs.format.bgr8, 30)
 profile = pipeline.start(config)
+
 
 try:
     none_counter = 0  # tracks consecutive frames without hand detection
@@ -279,7 +277,7 @@ try:
             none_counter += 1
             stable_count = 0
             prev_hand_coord = None
-            if none_counter >= 10:
+            if none_counter >= 5:
                 print("No hand detected for 10 frames. Sending robot home.")
                 send_coords(home)
                 prev_hand_coord = None
@@ -290,35 +288,14 @@ try:
             continue
         else:
             none_counter = 0
-        if(state == "hand"):
-            hand_counter += 1
-            if(hand_counter >= 10):
-                current_coords = np.array(get_coords())
-                if current_coords is None:
-                    continue
-                else:
-                    place_tool()
-                    """
-                    hand_coords = get_hand_angles
-                    current_coords[5] = (current_coords[5] + 45)
-                    send_coords(current_coords)
-                    hand_counter = 0
-                    time.sleep(3)
-                    send_coords(home)
-                    prev_hand_coord = None
-                    state = "home"
-                    none_counter = 0  # reset after sending home
-                    hand_counter = 0
-                    """
 
-            continue
         # Check hand coordinate stability using point_3d_mm.
         if prev_hand_coord is None:
             prev_hand_coord = point_3d_mm
             stable_count = 1
         else:
             diff = np.linalg.norm(np.array(point_3d_mm) - np.array(prev_hand_coord))
-            if diff <= 10:  # 50 mm = 5 cm threshold
+            if diff <= 10:  # 10 mm = 1 cm threshold
                 stable_count += 1
             else:
                 stable_count = 1  # reset if the hand moves more than 5cm
@@ -336,6 +313,31 @@ try:
 
         end_effector = endEffectorCoords[:3]
         euler_angles = home[3:]
+
+
+        if(state == "hand"):
+            place_tool(endEffectorCoords)
+            time.sleep(2)
+            send_coords(home)
+            prev_hand_coord = None
+            state = "home"
+            none_counter = 0
+            current_coords= 0  # reset after sending home
+            hand_counter = 0
+            """
+            hand_coords = get_hand_angles
+            current_coords[5] = (current_coords[5] + 45)
+            send_coords(current_coords)
+            hand_counter = 0
+            time.sleep(3)
+            send_coords(home)
+            prev_hand_coord = None
+            state = "home"
+            none_counter = 0  # reset after sending home
+            hand_counter = 0
+            """
+
+            continue
 
         # Transform the camera coordinates to the robot's coordinate system.
         base_coords = transform_camera_to_robot(point_3d_mm, end_effector, euler_angles, angles_in_degrees=True)
