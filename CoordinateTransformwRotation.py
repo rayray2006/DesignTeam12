@@ -1,5 +1,3 @@
-# We need to fix the sensing of the hand in the place_tool function
-
 import cv2
 import numpy as np
 import math
@@ -16,18 +14,8 @@ HOST = "10.42.0.1"
 GET_COORDS_PORT = 5006
 MOVE_COORDS_PORT = 5005
 home = [62.5, 81.8, 305.2, -177.21, -2.56, 45.91]
-mp_hands = mp.solutions.hands
-mp_drawing = mp.solutions.drawing_utils
-hands = mp_hands.Hands(
-    static_image_mode=False,
-    max_num_hands=1,
-    min_detection_confidence=0.5,
-    min_tracking_confidence=0.5)
-pipeline = rs.pipeline()
-config = rs.config()
-config.enable_stream(rs.stream.depth, 640, 480, rs.format.z16, 30)
-config.enable_stream(rs.stream.color, 640, 480, rs.format.bgr8, 30)
-profile = pipeline.start(config)
+
+
 def get_coords():
     """Connects to the robot's coordinates server to retrieve current coordinates."""
     try:
@@ -221,13 +209,12 @@ def get_hand_angles(color_frame):
                 print("Error processing hand landmarks:", e)
                 continue
     return None, None, None, None
-
-def place_tool(coord, frames, color_frame):
+def place_tool():
+    frames = pipeline.poll_for_frames()
     if not frames:
-        print("not frames")
         return
+    color_frame = frames.get_color_frame()
     if not color_frame:
-        print("not color frames")
         return
     wristx, wristy, indexx, indexy = get_hand_angles(color_frame)
 
@@ -239,115 +226,127 @@ def place_tool(coord, frames, color_frame):
 
     # Convert the angle to degrees for readability.
     rotation_angle_deg = (math.degrees(rotation_angle) -90)
-    coord = np.array(coord)
-    rz = coord[5]
-    if rz + rotation_angle_deg > 180:
-        rz -= rotation_angle_deg
-    else:
-        rz += rotation_angle_deg
-    coord[5] = rz
-    print(coord)
-    print("I hate rayhan")
-    send_coords(coord)
-    return
+    coord = get_coords()
+    if coord is not None:
+        coord = np.array(coord)
+        rz = coord[5]
+        if rz + rotation_angle_deg > 170:
+            rz -= rotation_angle_deg
+        else:
+            rz += rotation_angle_deg
+        coord[5] = rz
+        send_coords(coord)
+        
+
     
-def move_to_hand():
-    # Configure and start the RealSense pipeline
-    '''pipeline = rs.pipeline()
-    config = rs.config()
-    config.enable_stream(rs.stream.depth, 640, 480, rs.format.z16, 30)
-    config.enable_stream(rs.stream.color, 640, 480, rs.format.bgr8, 30)
-    profile = pipeline.start(config)'''
 
 
-    try:
-        none_counter = 0  # tracks consecutive frames without hand detection
-        stable_count = 0  # counts consecutive frames with stable hand coordinates
-        hand_counter = 0
-        prev_hand_coord = None  # holds the previous hand coordinate for stability comparison
-        state = "home"
+mp_hands = mp.solutions.hands
+mp_drawing = mp.solutions.drawing_utils
+hands = mp_hands.Hands(
+    static_image_mode=False,
+    max_num_hands=1,
+    min_detection_confidence=0.5,
+    min_tracking_confidence=0.5)
 
-        while True:
-            frames = pipeline.poll_for_frames()
-            if not frames:
-                continue
+# Configure and start the RealSense pipeline
+pipeline = rs.pipeline()
+config = rs.config()
+config.enable_stream(rs.stream.depth, 640, 480, rs.format.z16, 30)
+config.enable_stream(rs.stream.color, 640, 480, rs.format.bgr8, 30)
+profile = pipeline.start(config)
 
-            depth_frame = frames.get_depth_frame()
-            color_frame = frames.get_color_frame()
-            if not depth_frame or not color_frame:
-                continue
+try:
+    none_counter = 0  # tracks consecutive frames without hand detection
+    stable_count = 0  # counts consecutive frames with stable hand coordinates
+    hand_counter = 0
+    prev_hand_coord = None  # holds the previous hand coordinate for stability comparison
+    state = "home"
 
-            point_3d_mm, pixel_x, pixel_y, color_image = get_hand_coords(color_frame, depth_frame)
-            # If no hand is detected, reset stability and count missing frames.
-            if point_3d_mm is None:
-                none_counter += 1
-                stable_count = 0
+    while True:
+        frames = pipeline.poll_for_frames()
+        if not frames:
+            continue
+
+        depth_frame = frames.get_depth_frame()
+        color_frame = frames.get_color_frame()
+        if not depth_frame or not color_frame:
+            continue
+
+        point_3d_mm, pixel_x, pixel_y, color_image = get_hand_coords(color_frame, depth_frame)
+        # If no hand is detected, reset stability and count missing frames.
+        if point_3d_mm is None:
+            none_counter += 1
+            stable_count = 0
+            prev_hand_coord = None
+            if none_counter >= 10:
+                print("No hand detected for 10 frames. Sending robot home.")
+                send_coords(home)
                 prev_hand_coord = None
-                if none_counter >= 5:
-                    print("No hand detected for 10 frames. Sending robot home.")
+                state = "home"
+                none_counter = 0
+                current_coords= 0  # reset after sending home
+                hand_counter = 0
+            continue
+        else:
+            none_counter = 0
+        if(state == "hand"):
+            hand_counter += 1
+            if(hand_counter >= 10):
+                current_coords = np.array(get_coords())
+                if current_coords is None:
+                    continue
+                else:
+                    place_tool()
+                    """
+                    hand_coords = get_hand_angles
+                    current_coords[5] = (current_coords[5] + 45)
+                    send_coords(current_coords)
+                    hand_counter = 0
+                    time.sleep(3)
                     send_coords(home)
                     prev_hand_coord = None
                     state = "home"
-                    none_counter = 0
-                    current_coords = 0  # reset after sending home
+                    none_counter = 0  # reset after sending home
                     hand_counter = 0
-                continue
+                    """
+
+            continue
+        # Check hand coordinate stability using point_3d_mm.
+        if prev_hand_coord is None:
+            prev_hand_coord = point_3d_mm
+            stable_count = 1
+        else:
+            diff = np.linalg.norm(np.array(point_3d_mm) - np.array(prev_hand_coord))
+            if diff <= 10:  # 50 mm = 5 cm threshold
+                stable_count += 1
             else:
-                none_counter = 0
+                stable_count = 1  # reset if the hand moves more than 5cm
+            prev_hand_coord = point_3d_mm
 
-            # Check hand coordinate stability using point_3d_mm.
-            if prev_hand_coord is None:
-                prev_hand_coord = point_3d_mm
-                stable_count = 1
-            else:
-                diff = np.linalg.norm(np.array(point_3d_mm) - np.array(prev_hand_coord))
-                if diff <= 10:  # 10 mm = 1 cm threshold
-                    stable_count += 1
-                else:
-                    stable_count = 1  # reset if the hand moves more than 5cm
-                prev_hand_coord = point_3d_mm
+        # Only proceed if we have 10 consecutive stable frames.
+        if stable_count < 10:
+            continue
 
-            # Only proceed if we have 10 consecutive stable frames.
-            if stable_count < 10:
-                continue
+        # Once stable for 10 frames, get the robot's current coordinates.
+        endEffectorCoords = get_coords()
+        if endEffectorCoords is None:
+            print("Robot did not return coordinates")
+            continue
 
-            # Once stable for 10 frames, get the robot's current coordinates.
-            endEffectorCoords = get_coords()
-            if endEffectorCoords is None:
-                print("Robot did not return coordinates")
-                continue
+        end_effector = endEffectorCoords[:3]
+        euler_angles = home[3:]
 
-            end_effector = endEffectorCoords[:3]
-            euler_angles = home[3:]
+        # Transform the camera coordinates to the robot's coordinate system.
+        base_coords = transform_camera_to_robot(point_3d_mm, end_effector, euler_angles, angles_in_degrees=True)
+        target_coords = np.concatenate((base_coords, euler_angles))
+        send_coords(target_coords)
+        state = "hand"
+        # Reset the stability counter after sending the move command.
+        stable_count = 0
 
-            # Transform the camera coordinates to the robot's coordinate system.
-            base_coords = transform_camera_to_robot(point_3d_mm, end_effector, euler_angles, angles_in_degrees=True)
-            target_coords = np.concatenate((base_coords, euler_angles))
-            target_coords[2] = target_coords[2] + 60
-            time.sleep(2)
-            send_coords(target_coords)
-            time.sleep(2)
-            target_coords[2] = target_coords[2] - 60
-            frames = pipeline.poll_for_frames()
-            if not frames:
-                continue
+        time.sleep(1)
 
-            depth_frame = frames.get_depth_frame()
-            color_frame = frames.get_color_frame()
-            if not depth_frame or not color_frame:
-                continue
-            place_tool(target_coords, frames, color_frame)
-            time.sleep(2)
-            send_coords(home)
-            state = "home"
-            # Reset the stability counter after sending the move command.
-            stable_count = 0
-            hand_counter = 0
-            none_counter = 0
-            prev_hand_coord = None
-
-            time.sleep(1)
-
-    finally:
-        pipeline.stop()
-        cv2.destroyAllWindows()
+finally:
+    pipeline.stop()
+    cv2.destroyAllWindows()

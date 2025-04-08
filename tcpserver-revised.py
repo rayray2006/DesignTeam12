@@ -52,8 +52,9 @@ def serve_target_coords():
                 target_coords = data
                 print("Received target coordinates:", target_coords)
                 # Command the robot to move to the specified coordinates.
-                mc.clear_error_information()
-                mc.send_coords(target_coords, 100, 0)
+                if mc.is_moving() == 0:
+                    mc.clear_error_information()
+                    mc.send_coords(target_coords, 100, 0)
             else:
                 print("Received data of unexpected length:", len(data))
                 conn.sendall(b"ERROR")
