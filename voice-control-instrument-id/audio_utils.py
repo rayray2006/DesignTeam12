@@ -1,4 +1,4 @@
-# audio_utils.py (Refactored with Live Listening Support)
+# audio_utils.py (Final Synced Version with Two Modes + Wake Word + Feedback + Background Volume Control)
 
 import os
 import sys
@@ -16,45 +16,32 @@ from pathlib import Path
 from pydub import AudioSegment
 from tqdm import tqdm
 
-# -------------------------------
-# Install & Import Requirements
-# -------------------------------
 def install_and_import(package_name, import_name=None):
     import_name = import_name or package_name
     try:
         __import__(import_name)
     except ModuleNotFoundError:
-        print(f"{package_name} not found. Installing...")
         subprocess.check_call([sys.executable, "-m", "pip", "install", package_name])
-        print(f"{package_name} installed successfully.")
 
 for pkg in ["pydub", "librosa", "numpy", "speech_recognition", "pyttsx3"]:
     install_and_import(pkg)
 
-# -------------------------------
-# Ensure FFmpeg is Available
-# -------------------------------
-def check_ffmpeg_installed():
-    if not shutil.which("ffmpeg"):
-        print("\nFFmpeg is not installed or not in your PATH.")
-        print("Install it using Homebrew: brew install ffmpeg\n")
-        sys.exit(1)
-    else:
-        print("FFmpeg is available.")
-
-check_ffmpeg_installed()
+if not shutil.which("ffmpeg"):
+    print("FFmpeg not found. Install with: brew install ffmpeg")
+    sys.exit(1)
 
 # -------------------------------
-# Global Model & Recognizers
+# Globals
 # -------------------------------
 whisper_model = whisper.load_model("base")
 recognizer = sr.Recognizer()
 microphone = sr.Microphone()
-wake_words = ["astra", "aster", "astro"]
+wake_words = ["astra", "aster", "astro", "austro", "arstrah"]
 AUDIO_DIR = Path("/Users/charissaluk/Desktop/DT12/audio_files")
+_tts_voice_id = None
 
 # -------------------------------
-# Utility Functions
+# Audio Utils
 # -------------------------------
 def ensure_wav_format(input_path):
     input_path = str(input_path)
@@ -68,12 +55,15 @@ def ensure_wav_format(input_path):
 def db_from_percentage(volume_percent):
     return np.interp(volume_percent, [0, 100], [-60, 0])
 
+def normalize_audio(audio: AudioSegment):
+    return audio.apply_gain(-audio.max_dBFS)
+
 def identify_instruments(command, confidence_threshold=0.7):
     import difflib
     instruments = ['forceps', 'scalpel', 'scissors', 'needle']
     alt_names = {
-        'scissors': ['cesaurus', 'scizzards'],
-        'forceps': ['four steps', 'for seps', 'four step'],
+        'scissors': ['cesaurus', 'scizzards', 'sizzlers', 'sizzors', 'sizzers', 'sizzars'],
+        'forceps': ['four steps', 'for seps', 'four step', '4ceps', '4 steps'],
         'scalpel': [],
         'needle': []
     }
@@ -85,12 +75,10 @@ def identify_instruments(command, confidence_threshold=0.7):
     for inst in instruments:
         if inst in words:
             found[inst] = max(found.get(inst, 0), 1.0)
-
     for inst, alts in alt_names.items():
         for alt in alts:
             if alt in joined_text:
                 found[inst] = max(found.get(inst, 0), 0.7)
-
     for word in words:
         matches = difflib.get_close_matches(word, instruments, n=1, cutoff=confidence_threshold)
         if matches:
@@ -104,10 +92,8 @@ def identify_instruments(command, confidence_threshold=0.7):
     return list(found.items())
 
 # -------------------------------
-# TTS Voice Configuration
+# TTS & Feedback
 # -------------------------------
-_tts_voice_id = None
-
 def set_tts_voice(voice_id):
     global _tts_voice_id
     _tts_voice_id = voice_id
@@ -123,103 +109,159 @@ def speak_text(text):
     except Exception as e:
         print(f"TTS failed: {e}")
 
+def play_feedback(keyword):
+    print(f"Using AI-generated voice: Getting {keyword}")
+    speak_text(f"Getting {keyword}")
+
 def announce_test(keyword, background, volume):
     announcement = f"Starting test with {keyword} at {volume} percent volume in {background} background."
     print(announcement)
     speak_text(announcement)
 
 # -------------------------------
-# Feedback Audio or TTS
+# Pre-recorded Audio Processing
 # -------------------------------
-def play_feedback(keyword):
-    print(f"Using AI-generated voice: Getting {keyword}")
-    speak_text(f"Getting {keyword}")
+def process_mixed_audio_with_background_and_wakeword(
+    background_path,
+    voice_files_info,
+    background_offset_ms=0,
+    background_volume_percent=100,
+    play_during_transcription=True
+):
+    try:
+        background_wav = ensure_wav_format(background_path) if background_path else None
+        temp_files = [background_wav] if background_wav else []
+
+        if background_wav:
+            full_bg = normalize_audio(AudioSegment.from_wav(background_wav)).set_frame_rate(16000).set_channels(1)
+            background_audio = full_bg[background_offset_ms:]
+            bg_volume_db = db_from_percentage(background_volume_percent)
+            background_audio = background_audio + bg_volume_db
+        else:
+            background_audio = AudioSegment.silent(duration=15000)
+
+        combined = background_audio
+        for info in voice_files_info:
+            voice_wav = ensure_wav_format(info["path"])
+            if voice_wav != info["path"]:
+                temp_files.append(voice_wav)
+            voice_audio = normalize_audio(AudioSegment.from_wav(voice_wav)).set_frame_rate(16000).set_channels(1)
+            voice_audio = voice_audio + db_from_percentage(info.get("volume", 100))
+            combined = combined.overlay(voice_audio, position=info.get("start_ms", 0))
+
+        max_end = max(info.get("start_ms", 0) + AudioSegment.from_wav(ensure_wav_format(info["path"])).duration_seconds * 1000 for info in voice_files_info)
+        trim_point = int(max_end + 5000)
+        combined = AudioSegment.silent(duration=1000) + combined[:trim_point] + AudioSegment.silent(duration=1000)
+
+        final_mix_path = tempfile.NamedTemporaryFile(suffix=".wav", delete=False).name
+        combined.export(final_mix_path, format="wav")
+
+        if play_during_transcription:
+            subprocess.run(["ffplay", "-autoexit", "-nodisp", "-loglevel", "quiet", final_mix_path])
+
+        audio_data, sr = librosa.load(final_mix_path, sr=16000)
+        result = whisper_model.transcribe(audio_data.astype(np.float32), language="en", fp16=False)
+        transcription = result.get("text", "")
+
+        print(f"\nTranscription result: {transcription if transcription else 'None'}")
+
+        wake_conf = 1.0 if any(w in transcription.lower().split() for w in wake_words) else (
+            0.7 if "astra" in transcription.lower() else 0.0
+        )
+
+        instruments = identify_instruments(transcription)
+        if instruments:
+            tool, conf = instruments[0]
+            return transcription, final_mix_path, wake_conf, tool, conf
+
+        return transcription, final_mix_path, wake_conf, None, 0.0
+
+    except Exception as e:
+        print(f"Error processing audio: {e}")
+        return None, None, 0.0, None, 0.0
+
 
 # -------------------------------
-# Real-time Listening Mode
+# Live Listening Mode
 # -------------------------------
 def listen_and_transcribe_live():
-    print("Entering live mode. Say 'astra sleep' to exit.")
-    current_tool = None
-
+    print("\nEntering live mode. Say 'astra' to begin. Then give a command or say it together like 'astra give me scalpel'")
+    last_tool = None
     while True:
         with microphone as source:
             recognizer.adjust_for_ambient_noise(source)
-            print("Waiting for wake word...")
-            try:
-                audio = recognizer.listen(source, timeout=None)
-                query = recognizer.recognize_google(audio)
-                print(f"Heard: {query}")
-                query = query.lower()
+            print("Waiting...")
+            audio = recognizer.listen(source, timeout=None)
+        try:
+            text = recognizer.recognize_google(audio).lower()
+            print(f"Heard: {text}")
 
-                if any(exit_cmd in query for exit_cmd in ["astra sleep", "go to sleep", "sleep"]):
-                    speak_text("Are you sure you want to put Astra to sleep?")
-                    print("Confirmation requested: Astra sleep")
-                    try:
-                        confirmation_audio = recognizer.listen(source, timeout=10)
-                        confirmation_text = recognizer.recognize_google(confirmation_audio).lower()
-                        print(f"Confirmation response: {confirmation_text}")
-                        if any(word in confirmation_text for word in ["yes", "yeah", "yep", "affirmative", "sure"]):
-                            print("Confirmed. Exiting live mode.")
-                            speak_text("Okay. Putting Astra to sleep.")
-                            break
-                        else:
-                            print("Sleep cancelled. Continuing live mode.")
-                            speak_text("Okay, continuing.")
-                            continue
-                    except sr.WaitTimeoutError:
-                        print("No confirmation heard. Continuing.")
-                        speak_text("No confirmation heard. Continuing.")
-                        continue
+            if any(w in text for w in ["astra sleep", "go to sleep", "sleep"]):
+                speak_text("Are you sure you want to put Astra to sleep?")
+                try:
+                    with microphone as source:
+                        recognizer.adjust_for_ambient_noise(source, duration=0.3)
+                        print("Listening for confirmation (yes/no)...")
+                        confirm_audio = recognizer.listen(source, timeout=15, phrase_time_limit=3)
 
-                if any(w in query for w in wake_words):
-                    command = query
-                    for w in wake_words:
-                        command = command.replace(w, "").strip()
-
-                    if "cancel" in command:
-                        if current_tool:
-                            speak_text(f"{current_tool} cancelled")
-                            print(f"Command cancelled: {current_tool}")
-                            current_tool = None
-                        else:
-                            speak_text("No tool to cancel")
-                        continue
-
-                    if command:
-                        print("Detected command in same phrase.")
-                        command_query = command
+                    confirmation = recognizer.recognize_google(confirm_audio).lower()
+                    print(f"Confirmation response: {confirmation}")
+                    if any(resp in confirmation for resp in ["yes", "yeah", "yup", "sure", "affirmative"]):
+                        speak_text("Astra going to sleep.")
+                        return True
                     else:
-                        speak_text("Wake word detected. Awaiting command.")
-                        print("Wake word confirmed. Listening for instrument (up to 30s)...")
-                        try:
-                            audio = recognizer.listen(source, timeout=30)
-                            command_query = recognizer.recognize_google(audio)
-                            print(f"Command heard: {command_query}")
-                        except sr.WaitTimeoutError:
-                            print("Timeout: No command detected in 30s window.")
-                            continue
+                        speak_text("Sleep cancelled. Continuing live mode.")
+                        return False
 
-                    if "cancel" in command_query:
-                        if current_tool:
-                            speak_text(f"{current_tool} cancelled")
-                            print(f"Command cancelled: {current_tool}")
-                            current_tool = None
-                        else:
-                            speak_text("No tool to cancel")
+                except sr.WaitTimeoutError:
+                    print("No confirmation heard. Cancelled.")
+                    speak_text("No confirmation heard. Sleep cancelled.")
+                    return False
+
+                except sr.UnknownValueError:
+                    print("Could not understand confirmation.")
+                    speak_text("Sorry, I didn't catch that. Sleep cancelled.")
+                    return False
+
+            if any(w in text.split() for w in wake_words):
+                if "cancel" in text:
+                    canceled_tools = identify_instruments(text)
+                    if canceled_tools:
+                        for tool, _ in canceled_tools:
+                            speak_text(f"Cancelling {tool}")
+                        continue
+                    elif last_tool:
+                        speak_text(f"Cancelling {last_tool}")
+                        continue
+                    else:
+                        speak_text("Nothing to cancel.")
                         continue
 
-                    instruments = identify_instruments(command_query)
-                    spoken = set()
-                    for tool, confidence in instruments:
-                        if confidence >= 0.7 and tool not in spoken:
-                            current_tool = tool
-                            play_feedback(tool)
-                            spoken.add(tool)
-                    if not spoken:
-                        print("Tool confidence too low or not detected. No feedback played.")
+                if len(text.split()) > 1:
+                    tools = identify_instruments(text)
+                else:
+                    speak_text("Listening")
+                    try:
+                        with microphone as source:
+                            recognizer.adjust_for_ambient_noise(source, duration=0.5)
+                            print("Listening for instrument...")
+                            command_audio = recognizer.listen(source, timeout=30, phrase_time_limit=6)
+                        command_text = recognizer.recognize_google(command_audio).lower()
+                        print(f"Command heard: {command_text}")
+                        tools = identify_instruments(command_text)
+                    except Exception as e:
+                        print(f"Error listening for instrument: {e}")
+                        speak_text("Sorry, I didn't catch that.")
+                        continue
 
-            except sr.WaitTimeoutError:
-                print("Timeout: No speech detected.")
-            except Exception as e:
-                print(f"Recognition error: {e}")
+                if tools:
+                    responded = set()
+                    for tool, conf in tools:
+                        if tool not in responded and conf >= 0.7:
+                            play_feedback(tool)
+                            responded.add(tool)
+                            last_tool = tool
+                else:
+                    print("No tools confidently detected.")
+        except Exception as e:
+            print(f"Error recognizing speech: {e}")

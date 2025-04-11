@@ -1,4 +1,4 @@
-# audio_testbench.py
+# audio_testbench.py (Updated for Synced Modes and Cancel Handling)
 
 import os
 import numpy as np
@@ -6,7 +6,14 @@ import shutil
 import matplotlib.pyplot as plt
 from pathlib import Path
 from collections import defaultdict
-from audio_utils import play_feedback, announce_test, set_tts_voice, listen_and_transcribe_live
+from audio_utils import (
+    process_mixed_audio_with_background_and_wakeword,
+    play_feedback,
+    announce_test,
+    set_tts_voice,
+    listen_and_transcribe_live
+)
+
 from pydub import AudioSegment
 from tqdm import tqdm
 import subprocess
@@ -22,17 +29,17 @@ import difflib
 AUDIO_DIR = Path("/Users/charissaluk/Desktop/DT12/audio_files")
 KEYWORDS = ["scissors", "scalpel", "forceps", "needle"]
 BACKGROUNDS = [
-    AUDIO_DIR / "surgery_ambiance_talking.mp3",
-    AUDIO_DIR / "surgery_ambiance_beeps.mp3",
+    AUDIO_DIR / "surgery_ambience_talking.mp3",
+    AUDIO_DIR / "surgery_ambience_beeps.mp3",
     None
 ]
-VOLUMES = [0, 50, 100]
+VOLUMES = [0, 25, 50, 75, 100]
 RESULTS_DIR = Path("/Users/charissaluk/Desktop/DT12/DesignTeam12/voice-control-instrument-id/voice-control-tests/results")
 PLOTS_DIR = RESULTS_DIR / "graphs"
 CSV_PATH = RESULTS_DIR / "transcription_results.csv"
 GAP_BETWEEN_WAKE_AND_COMMAND = 3000
 GAP = 5000
-DURATION_PER_PAIR = 10000
+DURATION_PER_PAIR = 15000
 
 FILENAME_MAP = {
     "astra": "wakeword_female.m4a",
@@ -45,10 +52,6 @@ FILENAME_MAP = {
 PLOTS_DIR.mkdir(parents=True, exist_ok=True)
 
 from itertools import product
-
-def fuzzy_match(keyword, text):
-    matches = difflib.get_close_matches(keyword, text.split(), n=1, cutoff=0.7)
-    return len(matches) > 0
 
 def select_tts_voice():
     import pyttsx3
@@ -107,8 +110,13 @@ def run_tests():
             background_path=str(bg) if bg else None,
             voice_files_info=voice_files_info,
             background_offset_ms=start_time_dict[bg_name] if bg_name in start_time_dict else 0,
+            background_volume_percent=vol,  # <-- ADD THIS LINE
             play_during_transcription=True
         )
+
+
+        if command_name and command_confidence >= 0.7:
+            play_feedback(command_name)
 
         records.append({
             "tool": keyword,
@@ -164,7 +172,7 @@ def plot_confidence_breakdown(df):
     pass
 
 # ------------------------------
-# Run Everything
+# Run
 # ------------------------------
 if __name__ == "__main__":
     select_tts_voice()
@@ -174,7 +182,10 @@ if __name__ == "__main__":
     mode = input("Enter 1 or 2: ").strip()
 
     if mode == "2":
-        listen_and_transcribe_live()
+        while True:
+            done = listen_and_transcribe_live()
+            if done:
+                break
     else:
         df_results = run_tests()
         plot_background_vs_accuracy(df_results)
