@@ -12,9 +12,10 @@ import socket
 
 
 # --- Raspberry Pi Connection Details ---
-HOST = "10.42.0.1"
+HOST = "172.20.10.2"
 GET_COORDS_PORT = 5006
 MOVE_COORDS_PORT = 5005
+MOVE_GRIPPER_PORT = 5007
 home = [62.5, 81.8, 305.2, -177.21, -2.56, 45.91]
 mp_hands = mp.solutions.hands
 mp_drawing = mp.solutions.drawing_utils
@@ -52,6 +53,20 @@ def get_coords():
     except Exception as e:
         print("An exception occurred:", e)
         return None
+
+
+
+def send_gripper_command(state, speed):
+    try:
+        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
+            sock.connect((HOST, MOVE_GRIPPER_PORT))
+            data = struct.pack("2f", state, speed)
+            sock.sendall(data)
+            print("Gripper command sent:", state, speed)
+    except Exception as e:
+        print("Error sending gripper command:", e)
+
+
 
 def send_coords(coords):
     """
@@ -122,9 +137,9 @@ def transform_camera_to_robot(camera_coords, end_effector_coords, euler_angles, 
 
 
 
-    x_offset = 55  # replace with your desired offset in mm
-    y_offset = -20
-    z_offset = -115
+    x_offset = 75  # replace with your desired offset in mm
+    y_offset = -35
+    z_offset = -100
 
     camera_vec = np.array([[x_c + x_offset], [y_c + y_offset], [z_c + z_offset]])
 
@@ -153,25 +168,41 @@ def get_hand_coords(color_frame, depth_frame):
                 
                 # Use the index finger tip (landmark 9) as an example
                 index_tip = hand_landmarks.landmark[5]
-                pixel_x, pixel_y = int(index_tip.x * w), int(index_tip.y * h)
+                wrist = hand_landmarks.landmark[0]
+                otherFinger = hand_landmarks.landmark[17]
+                indexpixel_x, indexpixel_y = int(index_tip.x * w), int(index_tip.y * h)
+                wristpixel_x, wristpixel_y = int(wrist.x * w), int(wrist.y * h)
+                otherpixel_x, otherpixel_y = int(otherFinger.x * w), int(otherFinger.y * h)
                 # Ensure pixel coordinates are within image bounds
-                pixel_x = max(0, min(pixel_x, w - 1))
-                pixel_y = max(0, min(pixel_y, h - 1))
+                indexpixel_x = max(0, min(indexpixel_x, w - 1))
+                indexpixel_y = max(0, min(indexpixel_y, h - 1))
+                wristpixel_x = max(0, min(wristpixel_x, w - 1))
+                wristpixel_y = max(0, min(wristpixel_y, h - 1))
+                otherpixel_x = max(0, min(otherpixel_x, w - 1))
+                otherpixel_y = max(0, min(otherpixel_y, h - 1))
                 
                 # Get the depth at the pixel (in meters)
-                depth_value = depth_frame.get_distance(pixel_x, pixel_y)
-                if depth_value == 0:
+                indexdepth_value = depth_frame.get_distance(indexpixel_x, indexpixel_y)
+                otherdepth_value = depth_frame.get_distance(otherpixel_x, otherpixel_y)
+                wristdepth_value = depth_frame.get_distance(wristpixel_x, wristpixel_y)
+                if indexdepth_value == 0 or wristdepth_value == 0 or otherdepth_value==0:
                     continue
+                wristdepth_value = otherdepth_value
+                
                 
                 # Get intrinsics from the color stream
                 color_intrinsics = color_frame.profile.as_video_stream_profile().get_intrinsics()
                 
                 # Deproject the 2D pixel (with depth) to a 3D point (in meters)
-                point_3d = rs.rs2_deproject_pixel_to_point(color_intrinsics,
-                                                           [pixel_x, pixel_y],
-                                                           depth_value)
+                indexpoint_3d = rs.rs2_deproject_pixel_to_point(color_intrinsics,
+                                                           [indexpixel_x, indexpixel_y],
+                                                           indexdepth_value)
+                wristpoint_3d = rs.rs2_deproject_pixel_to_point(color_intrinsics,
+                                                           [wristpixel_x, wristpixel_y],
+                                                           wristdepth_value)
                 # Convert from meters to millimeters
-                point_3d_mm = [coord * 1000 for coord in point_3d]
+                indexpoint_3d_mm = [coord * 1000 for coord in indexpoint_3d]
+                wristpoint_3d_mm = [coord * 1000 for coord in wristpoint_3d]
 
                 theta = math.radians(45)
 
@@ -183,83 +214,38 @@ def get_hand_coords(color_frame, depth_frame):
                 ])
 
                 # Example coordinate vector
-                coord = np.array(point_3d_mm)
+                indexcoord = np.array(indexpoint_3d_mm)
+                wristcoord = np.array(wristpoint_3d_mm)
 
                 # Transform the coordinate using the rotation matrix
-                transformed_coord = R_z @ coord
-
-                return transformed_coord, pixel_x, pixel_y, color_image
+                indextransformed_coord = R_z @ indexcoord
+                wristtransformed_coord = R_z @ wristcoord
+                return indextransformed_coord, wristtransformed_coord
             except Exception as e:
                 print("Error processing hand landmarks:", e)
                 continue
-    return None, None, None, color_image
-def get_hand_angles(color_frame):
-    color_image = np.asanyarray(color_frame.get_data())
-    image_rgb = cv2.cvtColor(color_image, cv2.COLOR_BGR2RGB)
-    
-    # Process image for hand landmarks using the global 'hands' object
-    results = hands.process(image_rgb)
-    
-    if results.multi_hand_landmarks:
-        for hand_landmarks in results.multi_hand_landmarks:
-            try:
-                h, w, _ = color_image.shape
-                
-                # Use the index finger tip (landmark 9) as an example
-                index_tip = hand_landmarks.landmark[5]
-                wrist_tip = hand_landmarks.landmark[0]
-                pixel_wrist_x, pixel_wrist_y = int(wrist_tip.x * w), int(wrist_tip.y * h)
-                pixel_index_x, pixel_index_y = int(index_tip.x * w), int(index_tip.y * h)
-                # Ensure pixel coordinates are within image bounds
-                pixel_wrist_x = max(0, min(pixel_wrist_x, w - 1))
-                pixel_wrist_y = max(0, min(pixel_wrist_y, h - 1))
-                pixel_index_x = max(0, min(pixel_index_x, w - 1))
-                pixel_index_y = max(0, min(pixel_index_y, h - 1))
-                
-                return pixel_wrist_x, pixel_wrist_y, pixel_index_x, pixel_index_y
-            except Exception as e:
-                print("Error processing hand landmarks:", e)
-                continue
-    return None, None, None, None
-
-def place_tool(coord, frames, color_frame):
-    if not frames:
-        print("not frames")
-        return
-    if not color_frame:
-        print("not color frames")
-        return
-    wristx, wristy, indexx, indexy = get_hand_angles(color_frame)
-
+    return None, None
+def get_hand_angles(indexPoint, wristPoint):
+    indexx = indexPoint[0]
+    indexy = indexPoint[1]
+    wristx = wristPoint[0]
+    wristy = wristPoint[1]
     # Calculate the angle (in radians) between the wrist and index finger relative to the x-axis.
-    theta = math.atan2(indexy - wristy, indexx - wristx)
-
+    theta = math.atan((indexy - wristy)/(indexx - wristx))
+    if (indexy - wristy < 0):
+        theta = math.pi - theta
+    
     # Compute the rotation angle needed to align this line with the y-axis.
     rotation_angle = (math.pi / 2) - theta
 
     # Convert the angle to degrees for readability.
-    rotation_angle_deg = (math.degrees(rotation_angle) -90)
-    coord = np.array(coord)
-    rz = coord[5]
-    if rz + rotation_angle_deg > 180:
-        rz -= rotation_angle_deg
-    else:
-        rz += rotation_angle_deg
-    coord[5] = rz
-    print(coord)
-    print("I hate rayhan")
-    send_coords(coord)
-    return
+    rotation_angle_deg = (math.degrees(rotation_angle)) -90
+    return abs(rotation_angle_deg)
+
+    
+
     
 def move_to_hand():
-    # Configure and start the RealSense pipeline
-    '''pipeline = rs.pipeline()
-    config = rs.config()
-    config.enable_stream(rs.stream.depth, 640, 480, rs.format.z16, 30)
-    config.enable_stream(rs.stream.color, 640, 480, rs.format.bgr8, 30)
-    profile = pipeline.start(config)'''
-
-
     try:
         none_counter = 0  # tracks consecutive frames without hand detection
         stable_count = 0  # counts consecutive frames with stable hand coordinates
@@ -277,13 +263,18 @@ def move_to_hand():
             if not depth_frame or not color_frame:
                 continue
 
-            point_3d_mm, pixel_x, pixel_y, color_image = get_hand_coords(color_frame, depth_frame)
+            indexpoint_3d_mm, wristpoint_3d_mm = get_hand_coords(color_frame, depth_frame)
+           
+            #if indexpoint_3d_mm is not None and wristpoint_3d_mm is not None:
+               # angle = get_hand_angles(indexpoint_3d_mm, wristpoint_3d_mm)
+            #    get_hand_angles(indexpoint_3d_mm, wristpoint_3d_mm)
+
             # If no hand is detected, reset stability and count missing frames.
-            if point_3d_mm is None:
+            if indexpoint_3d_mm is None:
                 none_counter += 1
                 stable_count = 0
                 prev_hand_coord = None
-                if none_counter >= 5:
+                if none_counter >= 10:
                     print("No hand detected for 10 frames. Sending robot home.")
                     send_coords(home)
                     prev_hand_coord = None
@@ -294,18 +285,19 @@ def move_to_hand():
                 continue
             else:
                 none_counter = 0
-
+            if state=="hand":
+                continue
             # Check hand coordinate stability using point_3d_mm.
             if prev_hand_coord is None:
-                prev_hand_coord = point_3d_mm
+                prev_hand_coord = indexpoint_3d_mm
                 stable_count = 1
             else:
-                diff = np.linalg.norm(np.array(point_3d_mm) - np.array(prev_hand_coord))
+                diff = np.linalg.norm(np.array(indexpoint_3d_mm) - np.array(prev_hand_coord))
                 if diff <= 10:  # 10 mm = 1 cm threshold
                     stable_count += 1
                 else:
                     stable_count = 1  # reset if the hand moves more than 5cm
-                prev_hand_coord = point_3d_mm
+                prev_hand_coord = indexpoint_3d_mm
 
             # Only proceed if we have 10 consecutive stable frames.
             if stable_count < 10:
@@ -321,24 +313,19 @@ def move_to_hand():
             euler_angles = home[3:]
 
             # Transform the camera coordinates to the robot's coordinate system.
-            base_coords = transform_camera_to_robot(point_3d_mm, end_effector, euler_angles, angles_in_degrees=True)
+            base_coords = transform_camera_to_robot(indexpoint_3d_mm, end_effector, euler_angles, angles_in_degrees=True)
             target_coords = np.concatenate((base_coords, euler_angles))
-            target_coords[2] = target_coords[2] + 60
-            time.sleep(2)
+            turn = get_hand_angles(indexpoint_3d_mm, wristpoint_3d_mm)
+            rz = home[5]
+            if rz + turn >= 170:
+                rz -= turn
+            else:
+                rz +=turn
+            target_coords[5] = rz
             send_coords(target_coords)
-            time.sleep(2)
-            target_coords[2] = target_coords[2] - 60
-            frames = pipeline.poll_for_frames()
-            if not frames:
-                continue
-
-            depth_frame = frames.get_depth_frame()
-            color_frame = frames.get_color_frame()
-            if not depth_frame or not color_frame:
-                continue
-            place_tool(target_coords, frames, color_frame)
-            time.sleep(2)
-            send_coords(home)
+            time.sleep(1)    
+            send_gripper_command(0, 50)
+            send_coords(home)       
             state = "home"
             # Reset the stability counter after sending the move command.
             stable_count = 0
@@ -346,7 +333,6 @@ def move_to_hand():
             none_counter = 0
             prev_hand_coord = None
 
-            time.sleep(1)
 
     finally:
         pipeline.stop()
