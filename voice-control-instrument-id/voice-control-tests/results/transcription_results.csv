@@ -1,0 +1,61 @@
+tool,background,volume,transcription,wakeword_confidence,command_detected,command_confidence
+scissors,surgery_ambience_talking,0, Astra Scissors,1.0,1,1.0
+scissors,surgery_ambience_talking,25, Astra Scissors,1.0,1,1.0
+scissors,surgery_ambience_talking,50, Astra. Scissors.,0.7,1,1.0
+scissors,surgery_ambience_talking,75, That's why the dad. Astra. Scissors. Disruption. What about those who call me Will?,0.7,1,1.0
+scissors,surgery_ambience_talking,100, That's why there's bad. Astra. Sizzlers. Disruption? We're not going to use that. Unless you go. What about the relief? The relief. The relief. The relief. So we'll bring it.,0.7,1,0.7
+scissors,surgery_ambience_beeps,0, Astra Scissors,1.0,1,1.0
+scissors,surgery_ambience_beeps,25, Astra Scissors,1.0,1,1.0
+scissors,surgery_ambience_beeps,50, Astra Sizzors,1.0,1,0.7
+scissors,surgery_ambience_beeps,75, Astra Scissors,1.0,1,1.0
+scissors,surgery_ambience_beeps,100, Astro Sizzr,1.0,0,0.0
+scissors,none,0, Astra Scissors,1.0,1,1.0
+scissors,none,25, Astra Scissors,1.0,1,1.0
+scissors,none,50, Astra Scissors,1.0,1,1.0
+scissors,none,75, Astra Scissors,1.0,1,1.0
+scissors,none,100, Astra Scissors,1.0,1,1.0
+scalpel,surgery_ambience_talking,0, Astra. Scalpel.,0.7,1,1.0
+scalpel,surgery_ambience_talking,25, Astra. Scalpel.,0.7,1,1.0
+scalpel,surgery_ambience_talking,50," Astro, scalpelism.",0.0,1,0.7
+scalpel,surgery_ambience_talking,75, Astra. Scalpel. We're not gonna use that. What about the movie? Probably will. So we'll bring that up.,0.7,1,1.0
+scalpel,surgery_ambience_talking,100, That's why there's bad stuff. Astra. Scalpel. Scalpel. What about the movie? Bobby Will. So we'll bring that up. Bobby Will. So we'll bring that up.,0.7,1,1.0
+scalpel,surgery_ambience_beeps,0, Astra. Scalpel.,0.7,1,1.0
+scalpel,surgery_ambience_beeps,25, Astra. Scalpel.,0.7,1,1.0
+scalpel,surgery_ambience_beeps,50, Astra. Scalpel.,0.7,1,1.0
+scalpel,surgery_ambience_beeps,75, Astra. Scalpel.,0.7,1,1.0
+scalpel,surgery_ambience_beeps,100, Astra. Scalpel.,0.7,1,1.0
+scalpel,none,0, Astra. Scalpel.,0.7,1,1.0
+scalpel,none,25, Astra. Scalpel.,0.7,1,1.0
+scalpel,none,50, Astra. Scalpel.,0.7,1,1.0
+scalpel,none,75, Astra. Scalpel.,0.7,1,1.0
+scalpel,none,100, Astra. Scalpel.,0.7,1,1.0
+forceps,surgery_ambience_talking,0, ...Astra. Four steps.,0.7,1,0.7
+forceps,surgery_ambience_talking,25, Four steps.,0.0,1,0.7
+forceps,surgery_ambience_talking,50, four steps,0.0,1,0.7
+forceps,surgery_ambience_talking,75, That's why the dad... Astra... Four steps...,0.7,1,0.7
+forceps,surgery_ambience_talking,100," That's why there's a bad... Astra. We'll need that for the... Four steps. Yes, sir. We're not gonna use that. Let's go. What about the... Bobby will. So we'll bring that up and we'll...",0.7,1,0.7
+forceps,surgery_ambience_beeps,0, Astra 4 steps,1.0,0,0.0
+forceps,surgery_ambience_beeps,25, matters.,0.0,0,0.0
+forceps,surgery_ambience_beeps,50, a4 seus,0.0,0,0.0
+forceps,surgery_ambience_beeps,75, Astro 4ceps,1.0,0,0.0
+forceps,surgery_ambience_beeps,100, Oh Astra,1.0,0,0.0
+forceps,none,0, Arstrah. sats um,0.0,0,0.0
+forceps,none,25," aster, forceps.",0.0,1,1.0
+forceps,none,50," Astra, four steps.",0.7,1,0.7
+forceps,none,75, Demonstration Austro Four steps,0.0,1,0.7
+forceps,none,100,07,0.0,0,0.0
+needle,surgery_ambience_talking,0, Aster Needle,1.0,1,1.0
+needle,surgery_ambience_talking,25, Aster Needle,1.0,1,1.0
+needle,surgery_ambience_talking,50, Astra N medo,1.0,0,0.0
+needle,surgery_ambience_talking,75," That's why the dad... Astra... Needle... No, reception? Yeah, let's be going. What about the movie? The movie will. So we'll bring that...",0.7,1,1.0
+needle,surgery_ambience_talking,100," That's why there's bad. Astra. Needle. Deception? Yeah, let's be real. What about the movie? Bobby will. So we'll bring that. What about the movie? Bobby will. So we'll bring that.",0.7,1,1.0
+needle,surgery_ambience_beeps,0, Aster Needle,1.0,1,1.0
+needle,surgery_ambience_beeps,25, Aster Needle,1.0,1,1.0
+needle,surgery_ambience_beeps,50, Aster Needle,1.0,1,1.0
+needle,surgery_ambience_beeps,75, Astra Needle,1.0,1,1.0
+needle,surgery_ambience_beeps,100, Aster Needle,1.0,1,1.0
+needle,none,0, Aster Needle,1.0,1,1.0
+needle,none,25, Aster Needle,1.0,1,1.0
+needle,none,50, Aster Needle,1.0,1,1.0
+needle,none,75, Aster Needle,1.0,1,1.0
+needle,none,100, Aster Needle,1.0,1,1.0
