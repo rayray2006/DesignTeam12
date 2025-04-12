@@ -1,22 +1,30 @@
-from RayhansCoordinateTransform import move_to_hand
-from RayhansCoordinateTransform import send_coords
-from RayhansCoordinateTransform import send_gripper_command
+# from RayhansCoordinateTransform import move_to_hand
+import os 
+import sys
 import cv2
 import numpy as np
 import math
-import mediapipe as mp
+# import mediapipe as mp
 import pyrealsense2 as rs
 import time
 import struct
 import socket
+import torch
+instrument_module_path = os.path.abspath(os.path.join(__file__, "..", "..", "voice_control_instrument_id"))
+sys.path.append(instrument_module_path) 
+from voice_instrument_functions import *
 
-HOST = "172.20.10.2"
-GET_COORDS_PORT = 5006
-MOVE_COORDS_PORT = 5005
-MOVE_GRIPPER_PORT = 5007
-home = [62.5, 81.8, 305.2, -177.21, -2.56, 45.91]
-send_gripper_command(100, 100)
-time.sleep(2)
-send_gripper_command(0, 100)
-time.sleep(2)
-move_to_hand()
+# porcupine, cobra, recorder = load_voice_model()
+# command = get_voice_command(Wporcupine, cobra, recorder)
+
+# inst = get_instrument_name(command)
+
+model = load_model('./voice_control_instrument_id/models/instrument_detector_model.pt', False)
+
+#x_mid, y_midW = identify_instrument(model, os.path.abspath('./voice_control_instrument_id/eval-images/inst-notape.jpg'), inst)
+
+# HOST = "10.42.0.1"
+# GET_COORDS_PORT = 5006
+# MOVE_COORDS_PORT = 5005
+# home = [62.5, 81.8, 305.2, -177.21, -2.56, 45.91]
+# move_to_hand()
