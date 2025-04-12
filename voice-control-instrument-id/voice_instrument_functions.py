@@ -10,6 +10,7 @@ from pvrecorder import PvRecorder
 import torch
 import string
 from ultralytics import YOLO
+import cv2
 
 
 class Transcriber:
@@ -129,6 +130,21 @@ def get_instrument_name(command):
     return instrument
 
 # Yolo trained on DocCheck (Rona) dataset
+
+def get_camera_img(pipeline):
+    img_name = "inst-camera.png"
+    # Wait for a coherent pair of frames: depth and color
+    frames = pipeline.poll_for_frames()
+    # depth_frame = frames.get_depth_frame()
+    color_frame = frames.get_color_frame()
+    if not color_frame:
+        print("Failed to get frames")
+    else:
+        # Convert images to numpy arrays
+        color_image = np.asanyarray(color_frame.get_data())
+        cv2.imwrite(img_name, color_image)
+    
+    return img_name
 
 def load_model(path, reload):
     # load yolov5 from online
