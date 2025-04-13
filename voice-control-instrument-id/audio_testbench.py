@@ -2,10 +2,6 @@
 
 import os
 import numpy as np
-import shutil
-import matplotlib.pyplot as plt
-from pathlib import Path
-from collections import defaultdict
 from audio_utils import (
     process_mixed_audio_with_background_and_wakeword,
     play_feedback,
@@ -13,7 +9,10 @@ from audio_utils import (
     set_tts_voice,
     listen_and_transcribe_live
 )
-
+import shutil
+import matplotlib.pyplot as plt
+from pathlib import Path
+from collections import defaultdict
 from pydub import AudioSegment
 from tqdm import tqdm
 import subprocess
