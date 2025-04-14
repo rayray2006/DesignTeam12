@@ -36,7 +36,7 @@ if not shutil.which("ffmpeg"):
 whisper_model = whisper.load_model("base")
 recognizer = sr.Recognizer()
 microphone = sr.Microphone()
-wake_words = ["astra", "aster", "astro", "austro", "arstrah"]
+wake_words = ["astra", "aster", "astro", "austro", "arstrah", "extra", "hey astra", "ast", "hey ast"]
 AUDIO_DIR = Path("/Users/charissaluk/Desktop/DT12/audio_files")
 _tts_voice_id = None
 
@@ -58,40 +58,6 @@ def db_from_percentage(volume_percent):
 def normalize_audio(audio: AudioSegment):
     return audio.apply_gain(-audio.max_dBFS)
 
-'''
-def identify_instruments(command, confidence_threshold=0.7):
-    import difflib
-    instruments = ['forceps', 'scalpel', 'scissors', 'needle']
-    alt_names = {
-        'scissors': ['cesaurus', 'scizzards', 'sizzlers', 'sizzors', 'sizzers', 'sizzars'],
-        'forceps': ['four steps', 'for seps', 'four step', '4ceps', '4 steps'],
-        'scalpel': [],
-        'needle': []
-    }
-    found = {}
-    cleaned = command.translate(str.maketrans('', '', string.punctuation)).lower()
-    words = cleaned.split()
-    joined_text = " ".join(words)
-
-    for inst in instruments:
-        if inst in words:
-            found[inst] = max(found.get(inst, 0), 1.0)
-    for inst, alts in alt_names.items():
-        for alt in alts:
-            if alt in joined_text:
-                found[inst] = max(found.get(inst, 0), 0.7)
-    for word in words:
-        matches = difflib.get_close_matches(word, instruments, n=1, cutoff=confidence_threshold)
-        if matches:
-            found[matches[0]] = max(found.get(matches[0], 0), 0.7)
-
-    for inst, conf in found.items():
-        if conf == 1.0:
-            print(f"Instrument identified: {inst} (Confidence: 100%)")
-        elif conf == 0.7:
-            print(f"Instrument identified (Fuzzy Match): {inst} (Confidence: ~70%)")
-    return list(found.items())
-'''
 
 def identify_instruments(command, confidence_threshold=0.7):
     import difflib
@@ -169,6 +135,16 @@ def play_feedback(keyword):
     print(f"Using AI-generated voice: Getting {keyword}")
     speak_text(f"Getting {keyword}")
 
+def play_feedback_multiple(tool_list):
+    if not tool_list:
+        return
+    if len(tool_list) == 1:
+        play_feedback(tool_list[0])
+    else:
+        joined = ", then ".join(tool_list)
+        print(f"Using AI-generated voice: Getting {joined}")
+        speak_text(f"Getting {joined}")
+
 def announce_test(keyword, background, volume):
     announcement = f"Starting test with {keyword} at {volume} percent volume in {background} background."
     print(announcement)
@@ -240,10 +216,15 @@ def process_mixed_audio_with_background_and_wakeword(
 # -------------------------------
 # Live Listening Mode
 # -------------------------------
-'''
-def listen_and_transcribe_live():
+#def listen_and_transcribe_live():
+def listen_and_transcribe_live(phrase_time_limit=20):
     print("\nEntering live mode. Say 'astra' to begin. Then give a command or say it together like 'astra give me scalpel'")
+    speak_text("Aastra ready.")
+
+    tools = []  # Initialize tools to avoid reference before assignment
     last_tool = None
+    issued_tools = set()  # ✅ Track issued tools for cancellation
+    
     while True:
         with microphone as source:
             recognizer.adjust_for_ambient_noise(source)
@@ -253,18 +234,18 @@ def listen_and_transcribe_live():
             text = recognizer.recognize_google(audio).lower()
             print(f"Heard: {text}")
 
-            if any(w in text for w in ["astra sleep", "go to sleep", "sleep"]):
-                speak_text("Are you sure you want to put Astra to sleep?")
+            if any(w in text for w in ["astra sleep", "go to sleep", "sleep", "bye astra", "buy astra", "goodbye astra", "by astra"]):
+                speak_text("Are you sure you want to put Aastra to sleep?")
                 try:
                     with microphone as source:
                         recognizer.adjust_for_ambient_noise(source, duration=0.3)
                         print("Listening for confirmation (yes/no)...")
-                        confirm_audio = recognizer.listen(source, timeout=15, phrase_time_limit=3)
+                        confirm_audio = recognizer.listen(source, timeout=15, phrase_time_limit=15)
 
                     confirmation = recognizer.recognize_google(confirm_audio).lower()
                     print(f"Confirmation response: {confirmation}")
                     if any(resp in confirmation for resp in ["yes", "yeah", "yup", "sure", "affirmative"]):
-                        speak_text("Astra going to sleep.")
+                        speak_text("aastra going to sleep. Bye Bye.")
                         return True
                     else:
                         speak_text("Sleep cancelled. Continuing live mode.")
@@ -281,120 +262,71 @@ def listen_and_transcribe_live():
                     return False
 
             if any(w in text.split() for w in wake_words):
+                command_text = ""  # reset
+
                 if "cancel" in text:
                     canceled_tools = identify_instruments(text)
                     if canceled_tools:
                         for tool, _ in canceled_tools:
-                            speak_text(f"Cancelling {tool}")
+                            if tool in issued_tools:
+                                speak_text(f"Cancelling {tool}")
+                                issued_tools.remove(tool)
+                            else:
+                                speak_text(f"{tool} was not queued. Cannot cancel.")
                         continue
                     elif last_tool:
                         speak_text(f"Cancelling {last_tool}")
+                        issued_tools.discard(last_tool)
                         continue
                     else:
                         speak_text("Nothing to cancel.")
                         continue
 
-                if len(text.split()) > 1:
-                    tools = identify_instruments(text)
-                else:
-                    speak_text("Listening")
-                    try:
-                        with microphone as source:
-                            recognizer.adjust_for_ambient_noise(source, duration=0.5)
-                            print("Listening for instrument...")
-                            command_audio = recognizer.listen(source, timeout=30, phrase_time_limit=6)
-                        command_text = recognizer.recognize_google(command_audio).lower()
-                        print(f"Command heard: {command_text}")
-                        tools = identify_instruments(command_text)
-                    except Exception as e:
-                        print(f"Error listening for instrument: {e}")
-                        speak_text("Sorry, I didn't catch that.")
+                # Case 1: wake + tool in same sentence
+                tools = identify_instruments(text)
+
+                # Case 2: wake only → listen again
+                if not tools:
+                    speak_text("Listening.")
+                    retry_count = 0
+                    while retry_count < 3:
+                        try:
+                            with microphone as source:
+                                recognizer.adjust_for_ambient_noise(source, duration=0.5)
+                                print("Listening for instrument...")
+                                command_audio = recognizer.listen(source, timeout=10, phrase_time_limit=phrase_time_limit)
+                            command_text = recognizer.recognize_google(command_audio).lower()
+                            print(f"Command heard: {command_text}")
+                            tools = identify_instruments(command_text)
+                            if tools:
+                                break
+                            retry_count += 1
+                            speak_text("Sorry, I didn't catch that. Please repeat.")
+                        except Exception as e:
+                            print(f"Error listening for instrument: {e}")
+                            retry_count += 1
+                            speak_text("Something went wrong. Try again.")
+
+                    if not tools:
+                        speak_text("No valid command detected. Listening for new command.")
                         continue
 
-                if tools:
-                    responded = set()
-                    for tool, conf in tools:
-                        if tool not in responded and conf >= 0.7:
-                            play_feedback(tool)
-                            responded.add(tool)
-                            last_tool = tool
-                else:
-                    print("No tools confidently detected.")
-        except Exception as e:
-            print(f"Error recognizing speech: {e}")
-'''
-
-def listen_and_transcribe_live():
-    print("\nEntering live mode. Say 'astra' to begin. Then give a command or say it together like 'astra give me scalpel'")
-    last_tool = None
-    while True:
-        with microphone as source:
-            recognizer.adjust_for_ambient_noise(source)
-            print("Waiting...")
-            audio = recognizer.listen(source, timeout=None)
-        try:
-            text = recognizer.recognize_google(audio).lower()
-            print(f"Heard: {text}")
-
-            if any(w in text for w in ["astra sleep", "go to sleep", "sleep"]):
-                speak_text("Are you sure you want to put Astra to sleep?")
-                try:
-                    with microphone as source:
-                        recognizer.adjust_for_ambient_noise(source, duration=0.3)
-                        print("Listening for confirmation (yes/no)...")
-                        confirm_audio = recognizer.listen(source, timeout=15, phrase_time_limit=3)
-
-                    confirmation = recognizer.recognize_google(confirm_audio).lower()
-                    print(f"Confirmation response: {confirmation}")
-                    if any(resp in confirmation for resp in ["yes", "yeah", "yup", "sure", "affirmative"]):
-                        speak_text("Astra going to sleep.")
-                        return True
-                    else:
-                        speak_text("Sleep cancelled. Continuing live mode.")
-                        return False
-
-                except sr.WaitTimeoutError:
-                    print("No confirmation heard. Cancelled.")
-                    speak_text("No confirmation heard. Sleep cancelled.")
-                    return False
-
-                except sr.UnknownValueError:
-                    print("Could not understand confirmation.")
-                    speak_text("Sorry, I didn't catch that. Sleep cancelled.")
-                    return False
-
-            if any(w in text.split() for w in wake_words):
-                if "cancel" in text:
-                    canceled_tools = identify_instruments(text)
-                    if canceled_tools:
-                        for tool, _ in canceled_tools:
-                            speak_text(f"Cancelling {tool}")
-                        continue
-                    elif last_tool:
-                        speak_text(f"Cancelling {last_tool}")
-                        continue
-                    else:
-                        speak_text("Nothing to cancel.")
-                        continue
 
                 # Parse tool command
-                tools = identify_instruments(text)
-                '''
-                if not tools and len(text.split()) <= 1:
-                    speak_text("Listening")
-                    try:
-                        with microphone as source:
-                            recognizer.adjust_for_ambient_noise(source, duration=0.5)
-                            print("Listening for instrument...")
-                            command_audio = recognizer.listen(source, timeout=30, phrase_time_limit=6)
-                        command_text = recognizer.recognize_google(command_audio).lower()
-                        print(f"Command heard: {command_text}")
-                        tools = identify_instruments(command_text)
-                    except Exception as e:
-                        print(f"Error listening for instrument: {e}")
-                        speak_text("Sorry, I didn't catch that.")
-                        continue
-                    '''
+                #tools = identify_instruments(text)
+                
+                if "cancel" in command_text:
+                    if tools:
+                        for tool, _ in tools:
+                            if tool == last_tool:
+                                speak_text(f"Cancelling {tool}")
+                                last_tool = None
+                            else:
+                                speak_text(f"Sorry, {tool} wasn't queued up.")
+                    else:
+                        speak_text("I didn’t catch what you want to cancel.")
+                    continue
+
                 
                 if not tools and len(text.split()) <= 1:
                     speak_text("Listening.")
@@ -406,9 +338,34 @@ def listen_and_transcribe_live():
                             with microphone as source:
                                 recognizer.adjust_for_ambient_noise(source, duration=0.5)
                                 print("Listening for instrument...")
-                                command_audio = recognizer.listen(source, timeout=10, phrase_time_limit=4)
+                                #command_audio = recognizer.listen(source, timeout=10, phrase_time_limit=15)
+                                command_audio = recognizer.listen(source, timeout=15, phrase_time_limit=phrase_time_limit) # command for adaptive listening
                             command_text = recognizer.recognize_google(command_audio).lower()
                             print(f"Command heard: {command_text}")
+                            if any(sleep_phrase in command_text for sleep_phrase in ["go to sleep", "astra sleep", "bye astra", "goodbye astra", "buy astra", "sleep"]):
+                                speak_text("Are you sure you want to put Astra to sleep?")
+                                try:
+                                    with microphone as source:
+                                        recognizer.adjust_for_ambient_noise(source, duration=0.3)
+                                        print("Listening for confirmation (yes/no)...")
+                                        confirm_audio = recognizer.listen(source, timeout=15, phrase_time_limit=15)
+                                    confirmation = recognizer.recognize_google(confirm_audio).lower()
+                                    print(f"Confirmation response: {confirmation}")
+                                    if any(resp in confirmation for resp in ["yes", "yeah", "yup", "sure", "affirmative"]):
+                                        speak_text("Astra going to sleep. Bye Bye.")
+                                        return True
+                                    else:
+                                        speak_text("Sleep cancelled. Continuing live mode.")
+                                        return False
+                                except sr.WaitTimeoutError:
+                                    print("No confirmation heard. Cancelled.")
+                                    speak_text("No confirmation heard. Sleep cancelled.")
+                                    return False
+                                except sr.UnknownValueError:
+                                    print("Could not understand confirmation.")
+                                    speak_text("Sorry, I didn't catch that. Sleep cancelled.")
+                                    return False
+
                             tools = identify_instruments(command_text)
                             if not tools:
                                 retry_count += 1
@@ -423,39 +380,56 @@ def listen_and_transcribe_live():
                         continue
 
 
-                # Failsafe: Check tool confidence
-                if tools:
-                    tools = sorted(tools, key=lambda x: -x[1])  # sort by confidence
-                    top_tool, top_conf = tools[0]
+            # Failsafe: Check tool confidence
+                
+            if tools:
+                # Keep order as spoken — no sorting
+                confirmed_tools = []
+                low_confidence_tools = []
 
-                    if top_conf < 0.7:  # updated threshold
-                        if len(tools) > 1:
-                            second_tool, second_conf = tools[1]
-                            speak_text(f"Sorry, did you say {top_tool} or {second_tool}?")
-                        else:
-                            speak_text(f"Did you say {top_tool}? Please confirm.")
-
-                        try:
-                            with microphone as source:
-                                recognizer.adjust_for_ambient_noise(source, duration=0.3)
-                                print("Listening for confirmation...")
-                                confirm_audio = recognizer.listen(source, timeout=10, phrase_time_limit=3)
-
-                            confirmation = recognizer.recognize_google(confirm_audio).lower()
-                            print(f"Confirmation response: {confirmation}")
-                            if top_tool in confirmation:
-                                play_feedback(top_tool)
-                                last_tool = top_tool
-                            else:
-                                speak_text("Command not confirmed. Cancelling.")
-                        except Exception as e:
-                            print(f"Could not confirm: {e}")
-                            speak_text("Sorry, I didn't catch that. Cancelling.")
+                for tool, conf in tools:
+                    if conf >= 0.7:
+                        confirmed_tools.append((tool, conf))
                     else:
-                        play_feedback(top_tool)
-                        last_tool = top_tool
+                        low_confidence_tools.append((tool, conf))
+
+                if confirmed_tools:
+                    tool_names = [tool for tool, conf in confirmed_tools if tool not in issued_tools]
+                    if tool_names:
+                        tools_text = ", then ".join(tool_names)
+                        play_feedback_multiple(tool_names)
+                        issued_tools.update(tool_names)
+                        last_tool = tool_names[-1]
+
+                elif low_confidence_tools:
+                    top_tool, _ = low_confidence_tools[0]
+                    alt_tool = low_confidence_tools[1][0] if len(low_confidence_tools) > 1 else None
+                    if alt_tool:
+                        speak_text(f"Sorry, did you say {top_tool} or {alt_tool}?")
+                    else:
+                        speak_text(f"Did you say {top_tool}? Please confirm.")
+
+                    try:
+                        with microphone as source:
+                            recognizer.adjust_for_ambient_noise(source, duration=0.3)
+                            print("Listening for confirmation...")
+                            # confirm_audio = recognizer.listen(source, timeout=10, phrase_time_limit=10)
+                            confirm_audio = recognizer.listen(source, timeout=10, phrase_time_limit=phrase_time_limit) # adaptive version
+
+
+                        confirmation = recognizer.recognize_google(confirm_audio).lower()
+                        print(f"Confirmation response: {confirmation}")
+                        if top_tool in confirmation:
+                            play_feedback(top_tool)
+                            last_tool = top_tool
+                        else:
+                            speak_text("Command not confirmed. Cancelling.")
+                    except Exception as e:
+                        print(f"Could not confirm: {e}")
+                        speak_text("Sorry, I didn't catch that. Cancelling.")
                 else:
                     print("No tools confidently detected.")
                     speak_text("I didn't catch the instrument. Please repeat.")
         except Exception as e:
             print(f"Error recognizing speech: {e}")
+
