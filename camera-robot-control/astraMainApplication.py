@@ -63,6 +63,9 @@ while True:
     # Convert yolo instrument coords to 3D coords
     inst_coords = get_inst_coords(color_frame, depth_frame, x_mid, y_mid)
 
+    target_coords = inst_coords + [home[3], home[4], home[5]]
+    send_coords(target_coords)
+
     # Pseudo code of what's next:
         # send coords to instrument. For base_coords (0,1,2) use inst_coords. For (3,4,5) use whatever the euler angles are to make the end effector in line with the instrument
         # pick up instrument
