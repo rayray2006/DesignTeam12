@@ -154,6 +154,7 @@ def load_model(path, reload):
 
 def identify_instrument(model, img_path, instrument):
     results = model(img_path)  # predict on an image
+    #results.save()
 
     # Translate results
     results.names = {0: 'Standard Anatomical Tweezers',

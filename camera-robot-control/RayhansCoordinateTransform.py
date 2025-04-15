@@ -12,7 +12,7 @@ import socket
 
 
 # --- Raspberry Pi Connection Details ---
-HOST = "172.20.10.2"
+HOST = "10.42.0.1"
 GET_COORDS_PORT = 5006
 MOVE_COORDS_PORT = 5005
 MOVE_GRIPPER_PORT = 5007
