@@ -30,7 +30,6 @@ KEYWORDS = ["scissors", "scalpel", "forceps", "needle"]
 BACKGROUNDS = [
     AUDIO_DIR / "surgery_ambience_talking.mp3",
     AUDIO_DIR / "surgery_ambience_beeps.mp3",
-    None
 ]
 VOLUMES = [0, 25, 50, 75, 100]
 RESULTS_DIR = Path("/Users/charissaluk/Desktop/DT12/DesignTeam12/voice-control-instrument-id/voice-control-tests/results")

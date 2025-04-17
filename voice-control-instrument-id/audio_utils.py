@@ -11,10 +11,27 @@ import numpy as np
 import librosa
 import whisper
 import random
+import nltk
+from nltk.corpus import words
 import speech_recognition as sr
 from pathlib import Path
 from pydub import AudioSegment
 from tqdm import tqdm
+
+#nltk.download('words')
+
+try:
+    nltk.data.find("corpora/words")
+except LookupError:
+    nltk.download("words")
+
+english_words = set(words.words())
+custom_valid = {"astra", "scissors", "scalpel", "forceps", "needle", "give", "me", "please"}
+valid_words = english_words.union(custom_valid)
+
+def is_valid_english(word):
+    return word.lower() in valid_words and word.isascii()
+
 
 def install_and_import(package_name, import_name=None):
     import_name = import_name or package_name
@@ -36,9 +53,20 @@ if not shutil.which("ffmpeg"):
 whisper_model = whisper.load_model("base")
 recognizer = sr.Recognizer()
 microphone = sr.Microphone()
-wake_words = ["astra", "aster", "astro", "austro", "arstrah", "extra", "hey astra", "ast", "hey ast"]
+wake_words = [
+    "astra", "hey astra", "astraa", "austrah", "extra", "ast", "astra give", "hey astra give",
+    "aster", "astro", "austro", "arstrah"
+]
+
 AUDIO_DIR = Path("/Users/charissaluk/Desktop/DT12/audio_files")
 _tts_voice_id = None
+
+# Basic whitelist (extend as needed)
+VALID_TOOL_WORDS = {
+    "scissors", "scalpel", "forceps", "needle", 
+    "give", "me", "please", "grab", "get", "tool", "pass", "hand"
+}
+
 
 # -------------------------------
 # Audio Utils
@@ -61,6 +89,8 @@ def normalize_audio(audio: AudioSegment):
 
 def identify_instruments(command, confidence_threshold=0.7):
     import difflib
+
+
     print(f"[DEBUG] Raw transcription: {command}")
     print(f"[DEBUG] Cleaned command: {command.translate(str.maketrans('', '', string.punctuation)).lower()}")
 
@@ -69,16 +99,25 @@ def identify_instruments(command, confidence_threshold=0.7):
         'scissors': [
             'cesaurus', 'scizzards', 'sizzlers', 'sizzors', 
             'sizzers', 'sizzars', 'scissor', 'seesaws', 'sizars', 
-            'scizzles', 'cicero', 'cissors', 'sizzled', 'seizer'
+            'scizzles', 'cicero', 'cissors', 'sizzled', 'seizer', 'cizzars'
         ],
         'forceps': [
-            'four steps', 'for seps', 'four step', '4ceps', '4 steps',
-            'forces', 'forecepts', 'forks ups', 'forsyths', 'forcepses',
-            'forsips', 'force apps', 'forcepts', 'fourseps'
+            'four steps', 'for steps', '4 steps', 'foursteps', 'forsteps', '4steps',
+            'four seps', 'for step', '4 step', 'fourstep', 'forstep', '4step',
+            'fourceps', 'forceps', '4ceps', 'four ceps', 'for ceps', '4 ceps',
+            'foursips', 'forsips', '4sips', 'four sips', 'for sips', '4 sips',
+            'foursip', 'forsip', '4sip', 'four sip', 'for sip', '4 sip',
+            'foursep', 'forsep', '4sep', 'four sep', 'for sep', '4 sep',
+            'forsets', 'for sets', '4 sets', 'four sets', 'for sets', '4 sets',
+            'forset', 'for set', '4 set', 'four set', 'for set', '4 set',
+            'force', 'forces', 'forecepts', 'forks ups', 'forsyths', 'forcepses',
+            'force apps', 'force epts', 'force eps', 'forseps', '4 seps',
+            'for seps', 'four seps', 'forseize', 'fourseize', '4 seize', '4seps',
+    
         ],
         'scalpel': [
             'scalpels', 'scalpel blade', 'scalp', 'scale pill', 'scalball',
-            'skull pill', 'scapple', 'scalp bell', 'scowl pill'
+            'skull pill', 'scapple', 'scalp bell', 'scowl pill', 'sculpel', 'sculptor'
         ],
         'needle': [
             'needles', 'kneadle', 'neato', 'knee doll', 'neadle',
@@ -87,12 +126,27 @@ def identify_instruments(command, confidence_threshold=0.7):
     }
 
     found = {}
+    # Remove punctuation and lowercase
     cleaned = command.translate(str.maketrans('', '', string.punctuation)).lower()
     words = cleaned.split()
+
+    # Preserve original cleaned command for alias matching
     joined_text = " ".join(words)
 
+    # Filter out non-English/irrelevant words for primary + fuzzy matching only
+    filtered_words = [w for w in words if is_valid_english(w)]
+    filtered_joined_text = " ".join(filtered_words)
+
+    print(f"[DEBUG] Cleaned command: {joined_text}")
+    print(f"[DEBUG] Filtered words: {filtered_words}")
+
+
+        
+
+
     for inst in instruments:
-        if inst in joined_text:
+        #if inst in joined_text:
+        if inst in filtered_joined_text:
             found[inst] = max(found.get(inst, 0), 0.9)
     for inst, alts in alt_names.items():
         for alt in alts:
@@ -193,7 +247,12 @@ def process_mixed_audio_with_background_and_wakeword(
 
         audio_data, sr = librosa.load(final_mix_path, sr=16000)
         result = whisper_model.transcribe(audio_data.astype(np.float32), language="en", fp16=False)
-        transcription = result.get("text", "")
+        raw_transcription = result.get("text", "")
+        raw_transcription = result.get("text", "")
+        transcription = raw_transcription.strip().lower()
+        print(f"\nTranscription result: {transcription if transcription else 'None'}")
+
+
 
         print(f"\nTranscription result: {transcription if transcription else 'None'}")
 
