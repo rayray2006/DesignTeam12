@@ -156,7 +156,21 @@ def get_inst_coords(color_frame, depth_frame, x_mid, y_mid):
                                                            instdepth_value)
     instpoint_3d_mm = [coord * 1000 for coord in instpoint_3d]
 
-    return instpoint_3d_mm
+    theta = math.radians(35)
+
+    # Rotation matrix for a rotation around the z-axis:
+    R_z = np.array([
+        [math.cos(theta), -math.sin(theta), 0],
+        [math.sin(theta),  math.cos(theta), 0],
+        [0,                0,               1]
+    ])
+
+    # Example coordinate vector
+    instpoint_3d_mm_new = np.array(instpoint_3d_mm)
+
+    # Transform the coordinate using the rotation matrix
+    insttransformed_coord = R_z @ instpoint_3d_mm_new
+    return insttransformed_coord
 
 def get_hand_coords(color_frame, depth_frame):
     color_image = np.asanyarray(color_frame.get_data())
@@ -323,16 +337,18 @@ def move_to_hand(home, pipeline):
             else:
                 rz +=turn
             target_coords[5] = rz
-            send_coords(target_coords)
-            time.sleep(1)    
-            send_gripper_command(0, 50)
-            send_coords(home)       
-            state = "home"
+            #send_coords(target_coords)
+            #time.sleep(4)    
+            #send_gripper_command(0, 50)
+            #time.sleep(4) 
+            #send_coords(home)       
+            #state = "home"
             # Reset the stability counter after sending the move command.
             stable_count = 0
             hand_counter = 0
             none_counter = 0
             prev_hand_coord = None
+            print(target_coords)
 
     finally:
         pipeline.stop()

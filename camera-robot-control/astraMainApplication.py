@@ -43,6 +43,9 @@ config.enable_stream(rs.stream.depth, 640, 480, rs.format.z16, 30)
 config.enable_stream(rs.stream.color, 640, 480, rs.format.bgr8, 30)
 profile = pipeline.start(config)
 
+#inst_img = get_camera_img(pipeline)
+
+
 while True:
     send_coords(home, HOST, MOVE_COORDS_PORT) # send robot to home
     time.sleep(2) # TODO: better way to wait for arm to be stable before getting frame of tray
@@ -63,12 +66,15 @@ while True:
 
     # Convert yolo instrument coords to 3D coords
     inst_coords = get_inst_coords(color_frame, depth_frame, x_mid, y_mid)
-    # print(inst_coords)
+    print(inst_coords)
 
     # target_coords = inst_coords + [home[3], home[4], home[5]]
     curr_coords = list(get_coords(HOST, GET_COORDS_PORT))
     target_coords = transform_camera_to_robot(inst_coords, curr_coords[:3], curr_coords[3:])
     target_coords = list(target_coords) + curr_coords[3:]
+    print(target_coords)
+    x_0 = 98.61891367364547
+
     send_coords(target_coords, HOST, MOVE_COORDS_PORT)
     time.sleep(3)
 

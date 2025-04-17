@@ -154,7 +154,7 @@ def load_model(path, reload):
 
 def identify_instrument(model, img_path, instrument):
     results = model(img_path)  # predict on an image
-    #results.save()
+    
 
     # Translate results
     results.names = {0: 'Standard Anatomical Tweezers',
@@ -169,6 +169,22 @@ def identify_instrument(model, img_path, instrument):
      9: 'Surgical Scissors Sharp/Narrow',
      10: 'Standard Dissecting Scissors',
      11: 'Dissecting Needle'}
+    
+    #### COMMENT THIS LATER
+    results.names = {0: 'Tweezers',
+     1: 'Tweezers',
+     2: 'Tweezers',
+     3: 'Tweezers',
+     4: 'Scalpel',
+     5: 'Scalpel',
+     6: 'Scalpel',
+     7: 'Scalpel',
+     8: 'Scissors',
+     9: 'Scissors',
+     10: 'Scissors',
+     11: 'Needle'}
+
+    results.save()
     
     # map labels to basic voice commands "forceps", "scalpel", "scissors", "needle"
     map_instruments = {results.names[0]: 'forceps',
@@ -186,7 +202,7 @@ def identify_instrument(model, img_path, instrument):
 
     detections = results.xyxy[0]
 
-    conf_threshold = 0.65
+    conf_threshold = 0.10
     # instruments = 'forceps'
     
     # TODO: account for when there's multiple types of the same instrument

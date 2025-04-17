@@ -181,7 +181,7 @@ def get_hand_coords(color_frame, depth_frame):
                 # Convert from meters to millimeters
                 point_3d_mm = [coord * 1000 for coord in point_3d]
 
-                theta = math.radians(45)
+                theta = math.radians(0)
 
                 # Rotation matrix for a rotation around the z-axis:
                 R_z = np.array([
