@@ -13,7 +13,7 @@ import socket
 HOST = "10.42.0.1"
 GET_COORDS_PORT = 5006
 MOVE_COORDS_PORT = 5005
-home = [62.5, 81.8, 305.2, -177.21, -2.56, 45.91]
+home = [90,0,0,-90,0 ,0]
 
 
 def get_coords():
@@ -237,6 +237,10 @@ try:
     prev_hand_coord = None  # holds the previous hand coordinate for stability comparison
 
     while True:
+        send_coords(home)
+        time.sleep(5)
+        print(get_coords())
+        break
         frames = pipeline.poll_for_frames()
         if not frames:
             continue

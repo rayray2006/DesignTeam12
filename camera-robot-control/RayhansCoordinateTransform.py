@@ -16,7 +16,7 @@ HOST = "10.42.0.1"
 GET_COORDS_PORT = 5006
 MOVE_COORDS_PORT = 5005
 MOVE_GRIPPER_PORT = 5007
-home = [62.5, 81.8, 305.2, -177.21, -2.56, 45.91]
+home = [62.0, 147.9, 270.8, -179.56, -0.43, 45.78]
 mp_hands = mp.solutions.hands
 mp_drawing = mp.solutions.drawing_utils
 hands = mp_hands.Hands(
@@ -137,7 +137,7 @@ def transform_camera_to_robot(camera_coords, end_effector_coords, euler_angles, 
 
 
 
-    x_offset = 75  # replace with your desired offset in mm
+    x_offset = 55  # replace with your desired offset in mm
     y_offset = -35
     z_offset = -100
 
@@ -204,7 +204,7 @@ def get_hand_coords(color_frame, depth_frame):
                 indexpoint_3d_mm = [coord * 1000 for coord in indexpoint_3d]
                 wristpoint_3d_mm = [coord * 1000 for coord in wristpoint_3d]
 
-                theta = math.radians(44)
+                theta = math.radians(45)
 
                 # Rotation matrix for a rotation around the z-axis:
                 R_z = np.array([
@@ -314,6 +314,8 @@ try:
         euler_angles = home[3:]
 
         # Transform the camera coordinates to the robot's coordinate system.
+        indexpoint_3d_mm[0] *= 1.35
+        indexpoint_3d_mm[1] *= 1.25
         base_coords = transform_camera_to_robot(indexpoint_3d_mm, end_effector, euler_angles, angles_in_degrees=True)
         print(indexpoint_3d_mm)
         target_coords = np.concatenate((base_coords, euler_angles))
@@ -325,7 +327,7 @@ try:
         #    rz +=turn
         #target_coords[5] = rz
         send_coords(target_coords)
-        time.sleep(2)    
+        time.sleep(4)    
             #send_gripper_command(0, 50)
             #time.sleep(4) 
         send_coords(home)       
