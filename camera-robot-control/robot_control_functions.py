@@ -130,7 +130,7 @@ def transform_camera_to_robot(camera_coords, end_effector_coords, euler_angles, 
         [0, 0, 1]
     ])
     
-    x_offset = 75  # replace with your desired offset in mm
+    x_offset = 55  # replace with your desired offset in mm
     y_offset = -35
     z_offset = -100
 
@@ -279,9 +279,10 @@ def move_to_hand(home, pipeline):
                 continue
 
             indexpoint_3d_mm, wristpoint_3d_mm = get_hand_coords(color_frame, depth_frame)
-           
+            
+
             #if indexpoint_3d_mm is not None and wristpoint_3d_mm is not None:
-               # angle = get_hand_angles(indexpoint_3d_mm, wristpoint_3d_mm)
+                # angle = get_hand_angles(indexpoint_3d_mm, wristpoint_3d_mm)
             #    get_hand_angles(indexpoint_3d_mm, wristpoint_3d_mm)
 
             # If no hand is detected, reset stability and count missing frames.
@@ -328,28 +329,30 @@ def move_to_hand(home, pipeline):
             euler_angles = home[3:]
 
             # Transform the camera coordinates to the robot's coordinate system.
+            indexpoint_3d_mm[0] *= 1.35
+            indexpoint_3d_mm[1] *= 1.25
             base_coords = transform_camera_to_robot(indexpoint_3d_mm, end_effector, euler_angles, angles_in_degrees=True)
+            print(indexpoint_3d_mm)
             target_coords = np.concatenate((base_coords, euler_angles))
-            turn = get_hand_angles(indexpoint_3d_mm, wristpoint_3d_mm)
-            rz = home[5]
-            if rz + turn >= 170:
-                rz -= turn
-            else:
-                rz +=turn
-            target_coords[5] = rz
-            #send_coords(target_coords)
-            #time.sleep(4)    
-            #send_gripper_command(0, 50)
-            #time.sleep(4) 
-            #send_coords(home)       
-            #state = "home"
-            # Reset the stability counter after sending the move command.
+            #turn = get_hand_angles(indexpoint_3d_mm, wristpoint_3d_mm)
+            #rz = home[5]
+            #if rz + turn >= 170:
+            #    rz -= turn
+            #else:
+            #    rz +=turn
+            #target_coords[5] = rz
+            send_coords(target_coords)
+            time.sleep(4)    
+                #send_gripper_command(0, 50)
+                #time.sleep(4) 
+            send_coords(home)       
+            state = "home"
+                # Reset the stability counter after sending the move command.
             stable_count = 0
             hand_counter = 0
             none_counter = 0
             prev_hand_coord = None
             print(target_coords)
-
     finally:
         pipeline.stop()
         cv2.destroyAllWindows()

@@ -17,14 +17,14 @@ from voice_instrument_functions import *
 # porcupine, cobra, recorder = load_voice_model()
 inst_model = load_model('./voice-control-instrument-id/models/instrument_detector_model.pt', False)
 
-from RayhansCoordinateTransformNew import * # Because of mediapipe, need to import AFTER loading instrument id model
+from robot_control_functions import * # Because of mediapipe, need to import AFTER loading instrument id model
 
 # Set up MyCoBot 280
 HOST = "10.42.0.1"
 GET_COORDS_PORT = 5006
 MOVE_COORDS_PORT = 5005
 MOVE_GRIPPER_PORT = 5007
-home = [62.5, 81.8, 305.2, -177.21, -2.56, 45.91]
+home = [62.0, 147.9, 270.8, -179.56, -0.43, 45.78]
 
 # Set up Mediapipe hand tracking
 mp_hands = mp.solutions.hands
@@ -67,6 +67,9 @@ while True:
     # Convert yolo instrument coords to 3D coords
     inst_coords = get_inst_coords(color_frame, depth_frame, x_mid, y_mid)
     print(inst_coords)
+    ### multiply X by 1.35 and Y by 1.25 to correct ??? ###
+    inst_coords[0] *= 1.35
+    inst_coords[1] *= 1.25
 
     # target_coords = inst_coords + [home[3], home[4], home[5]]
     curr_coords = list(get_coords(HOST, GET_COORDS_PORT))
@@ -78,10 +81,3 @@ while True:
     send_coords(target_coords, HOST, MOVE_COORDS_PORT)
     time.sleep(3)
 
-    # Pseudo code of what's next:
-        # send coords to instrument. For base_coords (0,1,2) use inst_coords. For (3,4,5) use whatever the euler angles are to make the end effector in line with the instrument
-        # pick up instrument
-        # go into position to look for hand (same as home?)
-        # go to hand
-        # release instrument
-        # go back home/looking at tray

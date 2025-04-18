@@ -299,7 +299,8 @@ def listen_and_transcribe_live(phrase_time_limit=20):
                             print(f"Command heard: {command_text}")
                             tools = identify_instruments(command_text)
                             if tools:
-                                break
+                                return True, tools
+                                # break
                             retry_count += 1
                             speak_text("Sorry, I didn't catch that. Please repeat.")
                         except Exception as e:
