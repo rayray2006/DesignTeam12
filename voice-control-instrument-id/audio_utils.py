@@ -284,9 +284,10 @@ def listen_and_transcribe_live(phrase_time_limit=20):
 
                 # Case 1: wake + tool in same sentence
                 tools = identify_instruments(text)
-
+                if tools:
+                    return True, tools
                 # Case 2: wake only → listen again
-                if not tools:
+                else:
                     speak_text("Listening.")
                     retry_count = 0
                     while retry_count < 3:
