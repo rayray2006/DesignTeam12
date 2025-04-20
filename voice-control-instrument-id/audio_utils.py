@@ -55,7 +55,7 @@ recognizer = sr.Recognizer()
 microphone = sr.Microphone()
 wake_words = [
     "astra", "hey astra", "astraa", "austrah", "extra", "ast", "astra give", "hey astra give",
-    "aster", "astro", "austro", "arstrah"
+    "aster", "astro", "austro", "arstrah", "estra", "ausstra", "ausstrah", "ashtar"
 ]
 
 AUDIO_DIR = Path("/Users/charissaluk/Desktop/DT12/audio_files")
@@ -116,12 +116,13 @@ def identify_instruments(command, confidence_threshold=0.7):
     
         ],
         'scalpel': [
-            'scalpels', 'scalpel blade', 'scalp', 'scale pill', 'scalball',
+            'scalpels', 'scalpel blade', 'scalp', 'scale pill', 'scalball', 'skelple',
             'skull pill', 'scapple', 'scalp bell', 'scowl pill', 'sculpel', 'sculptor'
         ],
         'needle': [
-            'needles', 'kneadle', 'neato', 'knee doll', 'neadle',
-            'knead all', 'neato', 'noodle','needle', 'kneel', 'neil'
+            'needles', 'kneadle', 'neato', 'knee doll', 'neadle', 'nidho',
+            'knead all', 'neato', 'noodle','needle', 'kneel', 'neil', 'nido', 
+            'nidole', 'nitto'
         ]
     }
 
@@ -245,12 +246,27 @@ def process_mixed_audio_with_background_and_wakeword(
         if play_during_transcription:
             subprocess.run(["ffplay", "-autoexit", "-nodisp", "-loglevel", "quiet", final_mix_path])
 
-        audio_data, sr = librosa.load(final_mix_path, sr=16000)
-        result = whisper_model.transcribe(audio_data.astype(np.float32), language="en", fp16=False)
-        raw_transcription = result.get("text", "")
-        raw_transcription = result.get("text", "")
-        transcription = raw_transcription.strip().lower()
+        #audio_data, sr = librosa.load(final_mix_path, sr=16000)
+        #result = whisper_model.transcribe(audio_data.astype(np.float32), language="en", fp16=False)
+        #raw_transcription = result.get("text", "")
+        #transcription = raw_transcription.strip().lower()
+        #print(f"\nTranscription result: {transcription if transcription else 'None'}")
+
+        result = whisper_model.transcribe(
+            final_mix_path,
+            language="en",
+            task="transcribe",
+            fp16=False,
+            temperature=0.0  # ensures deterministic output. 1.0 is stochastic output.
+        )
+
+        print(f"Transcription result: {result}")
+
+
+        transcription = result.get("text", "").strip().lower()
         print(f"\nTranscription result: {transcription if transcription else 'None'}")
+
+        
 
 
 
