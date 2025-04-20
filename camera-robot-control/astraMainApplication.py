@@ -9,7 +9,7 @@ import struct
 import socket
 import torch
 # Import modules from voice-control-instrument-id/voice_instrument_functions.py
-instrument_module_path = os.path.abspath(os.path.join(__file__, "..", "..", "voice-control-instrument-id"))
+instrument_module_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "voice-control-instrument-id"))
 sys.path.append(instrument_module_path) 
 from voice_instrument_functions import *
 

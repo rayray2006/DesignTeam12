@@ -130,17 +130,26 @@ def transform_camera_to_robot(camera_coords, end_effector_coords, euler_angles, 
         [0, 0, 1]
     ])
     
-    x_offset = 55  # replace with your desired offset in mm
-    y_offset = -35
-    z_offset = -100
 
-    camera_vec = np.array([[x_c + x_offset], [y_c + y_offset], [z_c + z_offset]])
 
+
+
+    camera_vec = np.array([[x_c], [y_c], [z_c]])
+
+
+
+    
     transformed_change = R_ee @ (R_fixed @ camera_vec)
     
     # Multiply y and z changes by -1 before adding translation.
-    
-    robot_vec = np.array([[X_ee], [Y_ee], [Z_ee]]) + transformed_change
+    x_offset = 0  # replace with your desired offset in mm
+    y_offset = 60
+    z_offset = 100
+
+
+    robot_vec = np.array([[X_ee+ x_offset], [Y_ee  + y_offset], [Z_ee + z_offset]]) + transformed_change
+
+
     
     return robot_vec.flatten()
 
@@ -156,7 +165,7 @@ def get_inst_coords(color_frame, depth_frame, x_mid, y_mid):
                                                            instdepth_value)
     instpoint_3d_mm = [coord * 1000 for coord in instpoint_3d]
 
-    theta = math.radians(35)
+    theta = math.radians(45)
 
     # Rotation matrix for a rotation around the z-axis:
     R_z = np.array([

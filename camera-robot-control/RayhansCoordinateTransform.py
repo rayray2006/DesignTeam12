@@ -137,11 +137,8 @@ def transform_camera_to_robot(camera_coords, end_effector_coords, euler_angles, 
 
 
 
-    x_offset = 55  # replace with your desired offset in mm
-    y_offset = -35
-    z_offset = -100
 
-    camera_vec = np.array([[x_c + x_offset], [y_c + y_offset], [z_c + z_offset]])
+    camera_vec = np.array([[x_c], [y_c], [z_c]])
 
 
 
@@ -149,8 +146,14 @@ def transform_camera_to_robot(camera_coords, end_effector_coords, euler_angles, 
     transformed_change = R_ee @ (R_fixed @ camera_vec)
     
     # Multiply y and z changes by -1 before adding translation.
-    
-    robot_vec = np.array([[X_ee], [Y_ee], [Z_ee]]) + transformed_change
+    x_offset = 0  # replace with your desired offset in mm
+    y_offset = 60
+    z_offset = 100
+
+
+    robot_vec = np.array([[X_ee+ x_offset], [Y_ee  + y_offset], [Z_ee + z_offset]]) + transformed_change
+
+
     
     return robot_vec.flatten()
 
@@ -232,7 +235,7 @@ def get_hand_angles(indexPoint, wristPoint):
     wristy = wristPoint[1]
     # Calculate the angle (in radians) between the wrist and index finger relative to the x-axis.
     theta = math.atan((indexy - wristy)/(indexx - wristx))
-    if (indexy - wristy < 0):
+    if (indexy - wristy > 0):
         theta = math.pi - theta
     
     # Compute the rotation angle needed to align this line with the y-axis.
@@ -314,17 +317,19 @@ try:
         euler_angles = home[3:]
 
         # Transform the camera coordinates to the robot's coordinate system.
-        indexpoint_3d_mm[0] *= 1.35
-        indexpoint_3d_mm[1] *= 1.25
+        
+        turn = get_hand_angles(indexpoint_3d_mm, wristpoint_3d_mm)
+        rz = euler_angles[2]
+        if rz + turn >= 170:
+            rz -= turn
+        else:
+           rz +=turn
+
+
         base_coords = transform_camera_to_robot(indexpoint_3d_mm, end_effector, euler_angles, angles_in_degrees=True)
         print(indexpoint_3d_mm)
         target_coords = np.concatenate((base_coords, euler_angles))
-        #turn = get_hand_angles(indexpoint_3d_mm, wristpoint_3d_mm)
-        #rz = home[5]
-        #if rz + turn >= 170:
-        #    rz -= turn
-        #else:
-        #    rz +=turn
+
         #target_coords[5] = rz
         send_coords(target_coords)
         time.sleep(4)    
