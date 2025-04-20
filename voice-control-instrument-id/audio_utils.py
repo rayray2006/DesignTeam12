@@ -36,7 +36,7 @@ if not shutil.which("ffmpeg"):
 whisper_model = whisper.load_model("base")
 recognizer = sr.Recognizer()
 microphone = sr.Microphone()
-wake_words = ["astra", "aster", "astro", "austro", "arstrah", "extra", "hey astra", "ast", "hey ast"]
+wake_words = ["astra", "aster", "astrum", "astro", "astros", "austro", "arstrah", "extra", "hey astra", "ast", "hey ast"]
 AUDIO_DIR = Path("/Users/charissaluk/Desktop/DT12/audio_files")
 _tts_voice_id = None
 
@@ -68,7 +68,7 @@ def identify_instruments(command, confidence_threshold=0.7):
     alt_names = {
         'scissors': [
             'cesaurus', 'scizzards', 'sizzlers', 'sizzors', 
-            'sizzers', 'sizzars', 'scissor', 'seesaws', 'sizars', 
+            'sizzers', 'sizzars', 'cizars', 'cizzars', 'cizars,' 'scissor', 'seesaws', 'sizars', 
             'scizzles', 'cicero', 'cissors', 'sizzled', 'seizer'
         ],
         'forceps': [
@@ -231,7 +231,7 @@ def listen_and_transcribe_live(phrase_time_limit=20):
             print("Waiting...")
             audio = recognizer.listen(source, timeout=None)
         try:
-            text = recognizer.recognize_google(audio).lower()
+            text = recognizer.recognize_whisper(audio, language="english").lower()
             print(f"Heard: {text}")
 
             if any(w in text for w in ["astra sleep", "go to sleep", "sleep", "bye astra", "buy astra", "goodbye astra", "by astra"]):
@@ -242,7 +242,7 @@ def listen_and_transcribe_live(phrase_time_limit=20):
                         print("Listening for confirmation (yes/no)...")
                         confirm_audio = recognizer.listen(source, timeout=15, phrase_time_limit=15)
 
-                    confirmation = recognizer.recognize_google(confirm_audio).lower()
+                    confirmation = recognizer.recognize_whisper(confirm_audio).lower()
                     print(f"Confirmation response: {confirmation}")
                     if any(resp in confirmation for resp in ["yes", "yeah", "yup", "sure", "affirmative"]):
                         speak_text("aastra going to sleep. Bye Bye.")
@@ -296,7 +296,7 @@ def listen_and_transcribe_live(phrase_time_limit=20):
                                 recognizer.adjust_for_ambient_noise(source, duration=0.5)
                                 print("Listening for instrument...")
                                 command_audio = recognizer.listen(source, timeout=10, phrase_time_limit=phrase_time_limit)
-                            command_text = recognizer.recognize_google(command_audio).lower()
+                            command_text = recognizer.recognize_whisper(command_audio).lower()
                             print(f"Command heard: {command_text}")
                             tools = identify_instruments(command_text)
                             if tools:
@@ -342,7 +342,7 @@ def listen_and_transcribe_live(phrase_time_limit=20):
                                 print("Listening for instrument...")
                                 #command_audio = recognizer.listen(source, timeout=10, phrase_time_limit=15)
                                 command_audio = recognizer.listen(source, timeout=15, phrase_time_limit=phrase_time_limit) # command for adaptive listening
-                            command_text = recognizer.recognize_google(command_audio).lower()
+                            command_text = recognizer.recognize_whisper(command_audio).lower()
                             print(f"Command heard: {command_text}")
                             if any(sleep_phrase in command_text for sleep_phrase in ["go to sleep", "astra sleep", "bye astra", "goodbye astra", "buy astra", "sleep"]):
                                 speak_text("Are you sure you want to put Astra to sleep?")
@@ -351,7 +351,7 @@ def listen_and_transcribe_live(phrase_time_limit=20):
                                         recognizer.adjust_for_ambient_noise(source, duration=0.3)
                                         print("Listening for confirmation (yes/no)...")
                                         confirm_audio = recognizer.listen(source, timeout=15, phrase_time_limit=15)
-                                    confirmation = recognizer.recognize_google(confirm_audio).lower()
+                                    confirmation = recognizer.recognize_whisper(confirm_audio).lower()
                                     print(f"Confirmation response: {confirmation}")
                                     if any(resp in confirmation for resp in ["yes", "yeah", "yup", "sure", "affirmative"]):
                                         speak_text("Astra going to sleep. Bye Bye.")
@@ -419,7 +419,7 @@ def listen_and_transcribe_live(phrase_time_limit=20):
                             confirm_audio = recognizer.listen(source, timeout=10, phrase_time_limit=phrase_time_limit) # adaptive version
 
 
-                        confirmation = recognizer.recognize_google(confirm_audio).lower()
+                        confirmation = recognizer.recognize_whisper(confirm_audio).lower()
                         print(f"Confirmation response: {confirmation}")
                         if top_tool in confirmation:
                             play_feedback(top_tool)

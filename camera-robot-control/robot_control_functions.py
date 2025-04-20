@@ -144,7 +144,7 @@ def transform_camera_to_robot(camera_coords, end_effector_coords, euler_angles, 
     # Multiply y and z changes by -1 before adding translation.
     x_offset = 0  # replace with your desired offset in mm
     y_offset = 60
-    z_offset = 100
+    z_offset = 120
 
 
     robot_vec = np.array([[X_ee+ x_offset], [Y_ee  + y_offset], [Z_ee + z_offset]]) + transformed_change
