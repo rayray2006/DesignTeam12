@@ -67,9 +67,8 @@ while True:
     # Convert yolo instrument coords to 3D coords
     inst_coords = get_inst_coords(color_frame, depth_frame, x_mid, y_mid)
     print(inst_coords)
-    # multiply X by 1.35 and Y by 1.25 to improve accuracy of robot targetting
-    inst_coords[0] *= 1.35
-    inst_coords[1] *= 1.25
+
+
 
     # target_coords = inst_coords + [home[3], home[4], home[5]]
     curr_coords = list(get_coords(HOST, GET_COORDS_PORT))
