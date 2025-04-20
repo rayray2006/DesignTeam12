@@ -166,8 +166,8 @@ def get_inst_coords(color_frame, depth_frame, x_mid, y_mid):
     instpoint_3d_mm = [coord * 1000 for coord in instpoint_3d]
 
     theta = math.radians(45)
-    insttransformed_coord[0] = insttransformed_coord[0]*1.25
-    insttransformed_coord[1] = insttransformed_coord[1]*1.25
+    instpoint_3d_mm[0] = instpoint_3d_mm[0]*1.25
+    instpoint_3d_mm[1] = instpoint_3d_mm[1]*1.25
 
     # Rotation matrix for a rotation around the z-axis:
     R_z = np.array([
