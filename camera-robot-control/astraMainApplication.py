@@ -24,7 +24,7 @@ HOST = "10.42.0.1"
 GET_COORDS_PORT = 5006
 MOVE_COORDS_PORT = 5005
 MOVE_GRIPPER_PORT = 5007
-home = [62.0, 147.9, 270.8, -179.56, -0.43, 45.78]
+home = [90, 0, 0, -90, 0, -45]
 
 # Set up Mediapipe hand tracking
 mp_hands = mp.solutions.hands
@@ -47,7 +47,7 @@ profile = pipeline.start(config)
 
 
 while True:
-    send_coords(home, HOST, MOVE_COORDS_PORT) # send robot to home
+    send_coords(home, HOST, MOVE_COORDS_PORT, 1) # send robot to home
     time.sleep(2) # TODO: better way to wait for arm to be stable before getting frame of tray
     inst_img = get_camera_img(pipeline) # get png of tray to run instrument id
 

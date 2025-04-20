@@ -16,7 +16,7 @@ HOST = "10.42.0.1"
 GET_COORDS_PORT = 5006
 MOVE_COORDS_PORT = 5005
 MOVE_GRIPPER_PORT = 5007
-home = [62.0, 147.9, 270.8, -179.56, -0.43, 45.78]
+home = [90, 0, 0, -90, 0, -45]
 mp_hands = mp.solutions.hands
 mp_drawing = mp.solutions.drawing_utils
 hands = mp_hands.Hands(
@@ -281,7 +281,7 @@ try:
             prev_hand_coord = None
             if none_counter >= 10:
                 print("No hand detected for 10 frames. Sending robot home.")
-                send_coords(home)
+                send_coords(home, 1)
                 prev_hand_coord = None
                 state = "home"
                 none_counter = 0
@@ -315,7 +315,7 @@ try:
             continue
 
         end_effector = endEffectorCoords[:3]
-        euler_angles = home[3:]
+        euler_angles = endEffectorCoords[3:]
 
         # Transform the camera coordinates to the robot's coordinate system.
         
@@ -336,7 +336,7 @@ try:
         time.sleep(4)    
             #send_gripper_command(0, 50)
             #time.sleep(4) 
-        send_coords(home)       
+        send_coords(home, 1)       
         state = "home"
             # Reset the stability counter after sending the move command.
         stable_count = 0

@@ -311,7 +311,7 @@ def move_to_hand(home, pipeline):
                 prev_hand_coord = None
                 if none_counter >= 10:
                     print("No hand detected for 10 frames. Sending robot home.")
-                    send_coords(home)
+                    send_coords(home, 1)
                     prev_hand_coord = None
                     state = "home"
                     none_counter = 0
@@ -345,7 +345,7 @@ def move_to_hand(home, pipeline):
                 continue
 
             end_effector = endEffectorCoords[:3]
-            euler_angles = home[3:]
+            euler_angles = endEffectorCoords[3:]
 
             # Transform the camera coordinates to the robot's coordinate system.
 
@@ -363,7 +363,7 @@ def move_to_hand(home, pipeline):
             time.sleep(4)    
                 #send_gripper_command(0, 50)
                 #time.sleep(4) 
-            send_coords(home)       
+            send_coords(home, 1)       
             state = "home"
                 # Reset the stability counter after sending the move command.
             stable_count = 0
