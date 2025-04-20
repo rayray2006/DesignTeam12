@@ -338,8 +338,7 @@ def move_to_hand(home, pipeline):
             euler_angles = home[3:]
 
             # Transform the camera coordinates to the robot's coordinate system.
-            indexpoint_3d_mm[0] *= 1.35
-            indexpoint_3d_mm[1] *= 1.25
+
             base_coords = transform_camera_to_robot(indexpoint_3d_mm, end_effector, euler_angles, angles_in_degrees=True)
             print(indexpoint_3d_mm)
             target_coords = np.concatenate((base_coords, euler_angles))

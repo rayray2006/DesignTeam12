@@ -76,7 +76,6 @@ while True:
     target_coords = transform_camera_to_robot(inst_coords, curr_coords[:3], curr_coords[3:])
     target_coords = list(target_coords) + curr_coords[3:]
     print(target_coords)
-    x_0 = 98.61891367364547
 
     send_coords(target_coords, HOST, MOVE_COORDS_PORT)
     time.sleep(3)
