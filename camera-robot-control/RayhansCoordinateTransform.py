@@ -68,7 +68,7 @@ def send_gripper_command(state, speed):
 
 
 
-def send_coords(coords):
+def send_coords(coords , type = 0):
     """
     Connects to the robot's target coordinates server and sends a 6-float binary payload.
     
@@ -76,7 +76,7 @@ def send_coords(coords):
         coords (list or tuple): A list or tuple containing 6 float values representing the target coordinates.
     """
     # Pack the coordinates into binary data (6 floats).
-    data = struct.pack("6f", *coords)
+    data = struct.pack("6fi", *coords, type)
     
     # Create a socket and connect to the robot's server.
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
@@ -208,7 +208,8 @@ def get_hand_coords(color_frame, depth_frame):
                 wristpoint_3d_mm = [coord * 1000 for coord in wristpoint_3d]
 
                 theta = math.radians(45)
-
+                indexpoint_3d_mm[0] = indexpoint_3d_mm[0]*1.25
+                indexpoint_3d_mm[1] = indexpoint_3d_mm[1]*1.25
                 # Rotation matrix for a rotation around the z-axis:
                 R_z = np.array([
                     [math.cos(theta), -math.sin(theta), 0],

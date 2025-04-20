@@ -166,6 +166,8 @@ def get_inst_coords(color_frame, depth_frame, x_mid, y_mid):
     instpoint_3d_mm = [coord * 1000 for coord in instpoint_3d]
 
     theta = math.radians(45)
+    insttransformed_coord[0] = insttransformed_coord[0]*1.25
+    insttransformed_coord[1] = insttransformed_coord[1]*1.25
 
     # Rotation matrix for a rotation around the z-axis:
     R_z = np.array([
@@ -179,6 +181,8 @@ def get_inst_coords(color_frame, depth_frame, x_mid, y_mid):
 
     # Transform the coordinate using the rotation matrix
     insttransformed_coord = R_z @ instpoint_3d_mm_new
+
+
     return insttransformed_coord
 
 def get_hand_coords(color_frame, depth_frame):
@@ -232,7 +236,11 @@ def get_hand_coords(color_frame, depth_frame):
                 wristpoint_3d_mm = [coord * 1000 for coord in wristpoint_3d]
 
                 theta = math.radians(45)
+                indexpoint_3d_mm[0] = indexpoint_3d_mm[0]*1.25
+                indexpoint_3d_mm[1] = indexpoint_3d_mm[1]*1.25
 
+                wristpoint_3d_mm[0] = wristpoint_3d_mm[0]*1.25
+                wristpoint_3d_mm[1] = wristpoint_3d_mm[1]*1.25
                 # Rotation matrix for a rotation around the z-axis:
                 R_z = np.array([
                     [math.cos(theta), -math.sin(theta), 0],
@@ -247,6 +255,8 @@ def get_hand_coords(color_frame, depth_frame):
                 # Transform the coordinate using the rotation matrix
                 indextransformed_coord = R_z @ indexcoord
                 wristtransformed_coord = R_z @ wristcoord
+
+
                 return indextransformed_coord, wristtransformed_coord
             except Exception as e:
                 print("Error processing hand landmarks:", e)

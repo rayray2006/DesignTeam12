@@ -42,7 +42,7 @@ def serve_target_coords():
     while True:
         conn, addr = sock.accept()
         try:
-            data = conn.recv(1024)  # Expecting 24 bytes for 6 floats.
+            data = conn.recv(28)  # Expecting 24 bytes for 6 floats.
             if not data:
                 conn.close()
                 continue
