@@ -205,8 +205,6 @@ def identify_instruments(command, confidence_threshold=0.7):
     for inst in instruments:
         #if inst in joined_text:
         if inst in filtered_joined_text:
-        #if inst in joined_text:
-        if inst in filtered_joined_text:
             found[inst] = max(found.get(inst, 0), 0.9)
     for inst, alts in alt_names.items():
         for alt in alts:
