@@ -146,9 +146,11 @@ def transform_camera_to_robot(camera_coords, end_effector_coords, euler_angles, 
     transformed_change = R_ee @ (R_fixed @ camera_vec)
     
     # Multiply y and z changes by -1 before adding translation.
+  # Multiply y and z changes by -1 before adding translation.
     x_offset = 0  # replace with your desired offset in mm
     y_offset = 60
-    z_offset = 100
+    z_offset = 90
+
 
 
     robot_vec = np.array([[X_ee+ x_offset], [Y_ee  + y_offset], [Z_ee + z_offset]]) + transformed_change
@@ -246,7 +248,14 @@ def get_hand_angles(indexPoint, wristPoint):
     rotation_angle_deg = (math.degrees(rotation_angle)) -90
     return abs(rotation_angle_deg)
 
-    
+
+def pickSequence(coords):
+    send_gripper_command(100, 100)
+    time.sleep(1)
+    send_coords(coords)
+    time.sleep(1)
+    send_gripper_command(0, 100)
+    time.sleep(1)
 
 
 
@@ -319,12 +328,12 @@ try:
 
         # Transform the camera coordinates to the robot's coordinate system.
         
-        turn = get_hand_angles(indexpoint_3d_mm, wristpoint_3d_mm)
-        rz = euler_angles[2]
-        if rz + turn >= 170:
-            rz -= turn
-        else:
-           rz +=turn
+        #turn = get_hand_angles(indexpoint_3d_mm, wristpoint_3d_mm)
+        #rz = euler_angles[2]
+        #if rz + turn >= 170:
+        #    rz -= turn
+        #else:
+        #   rz +=turn
 
 
         base_coords = transform_camera_to_robot(indexpoint_3d_mm, end_effector, euler_angles, angles_in_degrees=True)
@@ -332,7 +341,7 @@ try:
         target_coords = np.concatenate((base_coords, euler_angles))
 
         #target_coords[5] = rz
-        send_coords(target_coords)
+        pickSequence(target_coords)
         time.sleep(4)    
             #send_gripper_command(0, 50)
             #time.sleep(4) 

@@ -144,11 +144,11 @@ def transform_camera_to_robot(camera_coords, end_effector_coords, euler_angles, 
     # Multiply y and z changes by -1 before adding translation.
     x_offset = 0  # replace with your desired offset in mm
     y_offset = 60
-    z_offset = 100
+    z_offset = 90 + X_ee/10
 
 
     robot_vec = np.array([[X_ee+ x_offset], [Y_ee  + y_offset], [Z_ee + z_offset]]) + transformed_change
-    robot_vec[0] = robot_vec[0] + robot_vec[0]*0.152489
+    robot_vec[0] = robot_vec[0] + robot_vec[0]*0.132489
 
 
     
@@ -236,11 +236,11 @@ def get_hand_coords(color_frame, depth_frame):
                 wristpoint_3d_mm = [coord * 1000 for coord in wristpoint_3d]
 
                 theta = math.radians(45)
-                indexpoint_3d_mm[0] = indexpoint_3d_mm[0]*1.25
-                indexpoint_3d_mm[1] = indexpoint_3d_mm[1]*1.25
+                # indexpoint_3d_mm[0] = indexpoint_3d_mm[0]*1.25
+                # indexpoint_3d_mm[1] = indexpoint_3d_mm[1]*1.25
 
-                wristpoint_3d_mm[0] = wristpoint_3d_mm[0]*1.25
-                wristpoint_3d_mm[1] = wristpoint_3d_mm[1]*1.25
+                # wristpoint_3d_mm[0] = wristpoint_3d_mm[0]*1.25
+                # wristpoint_3d_mm[1] = wristpoint_3d_mm[1]*1.25
                 # Rotation matrix for a rotation around the z-axis:
                 R_z = np.array([
                     [math.cos(theta), -math.sin(theta), 0],
@@ -281,13 +281,10 @@ def get_hand_angles(indexPoint, wristPoint):
 def pickSequence(coords, HOST, MOVE_COORDS_PORT, MOVE_GRIPPER_PORT):
     send_gripper_command(100, 100, HOST, MOVE_GRIPPER_PORT)
     time.sleep(1)
-    # if coords[5] < 80:
-    #     coords[5] = coords[5] + 90
-    # else:
-    #     coords[5] = coords[5] -90
+    coords[5] = coords[5] - 90
     send_coords(coords, HOST, MOVE_COORDS_PORT)
     time.sleep(2)
-    send_gripper_command(0, 100, HOST, MOVE_GRIPPER_PORT)
+    send_gripper_command(0, 50, HOST, MOVE_GRIPPER_PORT)
 def move_to_hand(home, pipeline):
     try:
         none_counter = 0  # tracks consecutive frames without hand detection
