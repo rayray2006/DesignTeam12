@@ -13,10 +13,27 @@ import whisper
 import random
 import nltk
 from nltk.corpus import words
+import nltk
+from nltk.corpus import words
 import speech_recognition as sr
 from pathlib import Path
 from pydub import AudioSegment
 from tqdm import tqdm
+
+#nltk.download('words')
+
+try:
+    nltk.data.find("corpora/words")
+except LookupError:
+    nltk.download("words")
+
+english_words = set(words.words())
+custom_valid = {"astra", "scissors", "scalpel", "forceps", "needle", "give", "me", "please"}
+valid_words = english_words.union(custom_valid)
+
+def is_valid_english(word):
+    return word.lower() in valid_words and word.isascii()
+
 
 #nltk.download('words')
 
@@ -58,8 +75,20 @@ wake_words = [
     "aster", "astro", "austro", "arstrah", "estra", "ausstra", "ausstrah", "ashtar"
 ]
 
+wake_words = [
+    "astra", "hey astra", "astraa", "austrah", "extra", "ast", "astra give", "hey astra give",
+    "aster", "astro", "austro", "arstrah", "estra", "ausstra", "ausstrah", "ashtar"
+]
+
 AUDIO_DIR = Path("/Users/charissaluk/Desktop/DT12/audio_files")
 _tts_voice_id = None
+
+# Basic whitelist (extend as needed)
+VALID_TOOL_WORDS = {
+    "scissors", "scalpel", "forceps", "needle", 
+    "give", "me", "please", "grab", "get", "tool", "pass", "hand"
+}
+
 
 # Basic whitelist (extend as needed)
 VALID_TOOL_WORDS = {
@@ -114,8 +143,22 @@ def identify_instruments(command, confidence_threshold=0.7):
             'force apps', 'force epts', 'force eps', 'forseps', '4 seps',
             'for seps', 'four seps', 'forseize', 'fourseize', '4 seize', '4seps',
     
+            'four steps', 'for steps', '4 steps', 'foursteps', 'forsteps', '4steps',
+            'four seps', 'for step', '4 step', 'fourstep', 'forstep', '4step',
+            'fourceps', 'forceps', '4ceps', 'four ceps', 'for ceps', '4 ceps',
+            'foursips', 'forsips', '4sips', 'four sips', 'for sips', '4 sips',
+            'foursip', 'forsip', '4sip', 'four sip', 'for sip', '4 sip',
+            'foursep', 'forsep', '4sep', 'four sep', 'for sep', '4 sep',
+            'forsets', 'for sets', '4 sets', 'four sets', 'for sets', '4 sets',
+            'forset', 'for set', '4 set', 'four set', 'for set', '4 set',
+            'force', 'forces', 'forecepts', 'forks ups', 'forsyths', 'forcepses',
+            'force apps', 'force epts', 'force eps', 'forseps', '4 seps',
+            'for seps', 'four seps', 'forseize', 'fourseize', '4 seize', '4seps',
+    
         ],
         'scalpel': [
+            'scalpels', 'scalpel blade', 'scalp', 'scale pill', 'scalball', 'skelple',
+            'skull pill', 'scapple', 'scalp bell', 'scowl pill', 'sculpel', 'sculptor'
             'scalpels', 'scalpel blade', 'scalp', 'scale pill', 'scalball', 'skelple',
             'skull pill', 'scapple', 'scalp bell', 'scowl pill', 'sculpel', 'sculptor'
         ],
@@ -128,8 +171,11 @@ def identify_instruments(command, confidence_threshold=0.7):
 
     found = {}
     # Remove punctuation and lowercase
+    # Remove punctuation and lowercase
     cleaned = command.translate(str.maketrans('', '', string.punctuation)).lower()
     words = cleaned.split()
+
+    # Preserve original cleaned command for alias matching
 
     # Preserve original cleaned command for alias matching
     joined_text = " ".join(words)
@@ -145,7 +191,20 @@ def identify_instruments(command, confidence_threshold=0.7):
         
 
 
+    # Filter out non-English/irrelevant words for primary + fuzzy matching only
+    filtered_words = [w for w in words if is_valid_english(w)]
+    filtered_joined_text = " ".join(filtered_words)
+
+    print(f"[DEBUG] Cleaned command: {joined_text}")
+    print(f"[DEBUG] Filtered words: {filtered_words}")
+
+
+        
+
+
     for inst in instruments:
+        #if inst in joined_text:
+        if inst in filtered_joined_text:
         #if inst in joined_text:
         if inst in filtered_joined_text:
             found[inst] = max(found.get(inst, 0), 0.9)
@@ -306,7 +365,8 @@ def listen_and_transcribe_live(phrase_time_limit=20):
             print("Waiting...")
             audio = recognizer.listen(source, timeout=None)
         try:
-            text = recognizer.recognize_google(audio).lower()
+            text = recognizer.recognize_vosk(audio).lower()
+            text = text.translate(str.maketrans('', '', string.punctuation))
             print(f"Heard: {text}")
 
             if any(w in text for w in ["astra sleep", "go to sleep", "sleep", "bye astra", "buy astra", "goodbye astra", "by astra"]):
@@ -317,7 +377,8 @@ def listen_and_transcribe_live(phrase_time_limit=20):
                         print("Listening for confirmation (yes/no)...")
                         confirm_audio = recognizer.listen(source, timeout=15, phrase_time_limit=15)
 
-                    confirmation = recognizer.recognize_google(confirm_audio).lower()
+                    confirmation = recognizer.recognize_vosk(confirm_audio).lower()
+                    confirmation = confirmation.translate(str.maketrans('', '', string.punctuation))
                     print(f"Confirmation response: {confirmation}")
                     if any(resp in confirmation for resp in ["yes", "yeah", "yup", "sure", "affirmative"]):
                         speak_text("aastra going to sleep. Bye Bye.")
@@ -370,7 +431,8 @@ def listen_and_transcribe_live(phrase_time_limit=20):
                                 recognizer.adjust_for_ambient_noise(source, duration=0.5)
                                 print("Listening for instrument...")
                                 command_audio = recognizer.listen(source, timeout=10, phrase_time_limit=phrase_time_limit)
-                            command_text = recognizer.recognize_google(command_audio).lower()
+                            command_text = recognizer.recognize_vosk(command_audio).lower()
+                            command_text = command_text.translate(str.maketrans('', '', string.punctuation))
                             print(f"Command heard: {command_text}")
                             tools = identify_instruments(command_text)
                             if tools:
@@ -415,7 +477,8 @@ def listen_and_transcribe_live(phrase_time_limit=20):
                                 print("Listening for instrument...")
                                 #command_audio = recognizer.listen(source, timeout=10, phrase_time_limit=15)
                                 command_audio = recognizer.listen(source, timeout=15, phrase_time_limit=phrase_time_limit) # command for adaptive listening
-                            command_text = recognizer.recognize_google(command_audio).lower()
+                            command_text = recognizer.recognize_vosk(command_audio).lower()
+                            command_text = command_text.translate(str.maketrans('', '', string.punctuation))
                             print(f"Command heard: {command_text}")
                             if any(sleep_phrase in command_text for sleep_phrase in ["go to sleep", "astra sleep", "bye astra", "goodbye astra", "buy astra", "sleep"]):
                                 speak_text("Are you sure you want to put Astra to sleep?")
@@ -424,7 +487,8 @@ def listen_and_transcribe_live(phrase_time_limit=20):
                                         recognizer.adjust_for_ambient_noise(source, duration=0.3)
                                         print("Listening for confirmation (yes/no)...")
                                         confirm_audio = recognizer.listen(source, timeout=15, phrase_time_limit=15)
-                                    confirmation = recognizer.recognize_google(confirm_audio).lower()
+                                    confirmation = recognizer.recognize_vosk(confirm_audio).lower()
+                                    confirmation = confirmation.translate(str.maketrans('', '', string.punctuation))
                                     print(f"Confirmation response: {confirmation}")
                                     if any(resp in confirmation for resp in ["yes", "yeah", "yup", "sure", "affirmative"]):
                                         speak_text("Astra going to sleep. Bye Bye.")
@@ -492,7 +556,8 @@ def listen_and_transcribe_live(phrase_time_limit=20):
                             confirm_audio = recognizer.listen(source, timeout=10, phrase_time_limit=phrase_time_limit) # adaptive version
 
 
-                        confirmation = recognizer.recognize_google(confirm_audio).lower()
+                        confirmation = recognizer.recognize_vosk(confirm_audio).lower()
+                        confirmation = confirmation.translate(str.maketrans('', '', string.punctuation))
                         print(f"Confirmation response: {confirmation}")
                         if top_tool in confirmation:
                             play_feedback(top_tool)
@@ -507,4 +572,3 @@ def listen_and_transcribe_live(phrase_time_limit=20):
                     speak_text("I didn't catch the instrument. Please repeat.")
         except Exception as e:
             print(f"Error recognizing speech: {e}")
-

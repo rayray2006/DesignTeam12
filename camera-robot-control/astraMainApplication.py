@@ -9,7 +9,7 @@ import struct
 import socket
 import torch
 # Import modules from voice-control-instrument-id/voice_instrument_functions.py
-instrument_module_path = os.path.abspath(os.path.join(__file__, "..", "..", "voice-control-instrument-id"))
+instrument_module_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "voice-control-instrument-id"))
 sys.path.append(instrument_module_path) 
 from voice_instrument_functions import *
 
@@ -17,14 +17,14 @@ from voice_instrument_functions import *
 # porcupine, cobra, recorder = load_voice_model()
 inst_model = load_model('./voice-control-instrument-id/models/instrument_detector_model.pt', False)
 
-from RayhansCoordinateTransformNew import * # Because of mediapipe, need to import AFTER loading instrument id model
+from robot_control_functions import * # Because of mediapipe, need to import AFTER loading instrument id model
 
 # Set up MyCoBot 280
 HOST = "10.42.0.1"
 GET_COORDS_PORT = 5006
 MOVE_COORDS_PORT = 5005
 MOVE_GRIPPER_PORT = 5007
-home = [62.5, 81.8, 305.2, -177.21, -2.56, 45.91]
+home = [90, 0, 0, -90, 0, -45]
 
 # Set up Mediapipe hand tracking
 mp_hands = mp.solutions.hands
@@ -47,7 +47,7 @@ profile = pipeline.start(config)
 
 
 while True:
-    send_coords(home, HOST, MOVE_COORDS_PORT) # send robot to home
+    send_coords(home, HOST, MOVE_COORDS_PORT, 1) # send robot to home
     time.sleep(2) # TODO: better way to wait for arm to be stable before getting frame of tray
     inst_img = get_camera_img(pipeline) # get png of tray to run instrument id
 
@@ -68,20 +68,14 @@ while True:
     inst_coords = get_inst_coords(color_frame, depth_frame, x_mid, y_mid)
     print(inst_coords)
 
+
+
     # target_coords = inst_coords + [home[3], home[4], home[5]]
     curr_coords = list(get_coords(HOST, GET_COORDS_PORT))
     target_coords = transform_camera_to_robot(inst_coords, curr_coords[:3], curr_coords[3:])
     target_coords = list(target_coords) + curr_coords[3:]
     print(target_coords)
-    x_0 = 98.61891367364547
 
     send_coords(target_coords, HOST, MOVE_COORDS_PORT)
     time.sleep(3)
 
-    # Pseudo code of what's next:
-        # send coords to instrument. For base_coords (0,1,2) use inst_coords. For (3,4,5) use whatever the euler angles are to make the end effector in line with the instrument
-        # pick up instrument
-        # go into position to look for hand (same as home?)
-        # go to hand
-        # release instrument
-        # go back home/looking at tray

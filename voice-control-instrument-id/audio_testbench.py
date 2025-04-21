@@ -25,7 +25,7 @@ import difflib
 # ------------------------------
 # Configuration
 # ------------------------------
-AUDIO_DIR = Path("/Users/charissaluk/Desktop/DT12/audio_files")
+AUDIO_DIR = Path("./voice-control-instrument-id")
 KEYWORDS = ["scissors", "scalpel", "forceps", "needle"]
 BACKGROUNDS = [
     AUDIO_DIR / "surgery_ambience_talking.mp3",

@@ -16,7 +16,7 @@ def poll_coords():
     global current_coords
     while True:
         try:
-            coords = mc.get_coords()
+            coords = mc.get_angles()
             with coords_lock:
                 current_coords = coords
         except Exception as e:
@@ -54,7 +54,7 @@ def serve_target_coords():
                 mc.clear_error_information()
                 print(mc.is_moving())
                 if(mc.is_moving() == 0):
-                    mc.send_coords(target_coords, 100, 0)
+                    mc.send_angles(target_coords, 100)
             else:
                 print("Received data of unexpected length:", len(data))
                 conn.sendall(b"ERROR")

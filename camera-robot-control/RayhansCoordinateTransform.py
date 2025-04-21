@@ -16,7 +16,7 @@ HOST = "10.42.0.1"
 GET_COORDS_PORT = 5006
 MOVE_COORDS_PORT = 5005
 MOVE_GRIPPER_PORT = 5007
-home = [62.5, 81.8, 305.2, -177.21, -2.56, 45.91]
+home = [90, 0, 0, -90, 0, -45]
 mp_hands = mp.solutions.hands
 mp_drawing = mp.solutions.drawing_utils
 hands = mp_hands.Hands(
@@ -68,7 +68,7 @@ def send_gripper_command(state, speed):
 
 
 
-def send_coords(coords):
+def send_coords(coords , type = 0):
     """
     Connects to the robot's target coordinates server and sends a 6-float binary payload.
     
@@ -76,7 +76,7 @@ def send_coords(coords):
         coords (list or tuple): A list or tuple containing 6 float values representing the target coordinates.
     """
     # Pack the coordinates into binary data (6 floats).
-    data = struct.pack("6f", *coords)
+    data = struct.pack("6fi", *coords, type)
     
     # Create a socket and connect to the robot's server.
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
@@ -137,11 +137,8 @@ def transform_camera_to_robot(camera_coords, end_effector_coords, euler_angles, 
 
 
 
-    x_offset = 75  # replace with your desired offset in mm
-    y_offset = -35
-    z_offset = -100
 
-    camera_vec = np.array([[x_c + x_offset], [y_c + y_offset], [z_c + z_offset]])
+    camera_vec = np.array([[x_c], [y_c], [z_c]])
 
 
 
@@ -149,8 +146,14 @@ def transform_camera_to_robot(camera_coords, end_effector_coords, euler_angles, 
     transformed_change = R_ee @ (R_fixed @ camera_vec)
     
     # Multiply y and z changes by -1 before adding translation.
-    
-    robot_vec = np.array([[X_ee], [Y_ee], [Z_ee]]) + transformed_change
+    x_offset = 0  # replace with your desired offset in mm
+    y_offset = 60
+    z_offset = 100
+
+
+    robot_vec = np.array([[X_ee+ x_offset], [Y_ee  + y_offset], [Z_ee + z_offset]]) + transformed_change
+
+
     
     return robot_vec.flatten()
 
@@ -204,8 +207,9 @@ def get_hand_coords(color_frame, depth_frame):
                 indexpoint_3d_mm = [coord * 1000 for coord in indexpoint_3d]
                 wristpoint_3d_mm = [coord * 1000 for coord in wristpoint_3d]
 
-                theta = math.radians(44)
-
+                theta = math.radians(45)
+                indexpoint_3d_mm[0] = indexpoint_3d_mm[0]*1.25
+                indexpoint_3d_mm[1] = indexpoint_3d_mm[1]*1.25
                 # Rotation matrix for a rotation around the z-axis:
                 R_z = np.array([
                     [math.cos(theta), -math.sin(theta), 0],
@@ -232,7 +236,7 @@ def get_hand_angles(indexPoint, wristPoint):
     wristy = wristPoint[1]
     # Calculate the angle (in radians) between the wrist and index finger relative to the x-axis.
     theta = math.atan((indexy - wristy)/(indexx - wristx))
-    if (indexy - wristy < 0):
+    if (indexy - wristy > 0):
         theta = math.pi - theta
     
     # Compute the rotation angle needed to align this line with the y-axis.
@@ -277,7 +281,7 @@ try:
             prev_hand_coord = None
             if none_counter >= 10:
                 print("No hand detected for 10 frames. Sending robot home.")
-                send_coords(home)
+                send_coords(home, 1)
                 prev_hand_coord = None
                 state = "home"
                 none_counter = 0
@@ -311,24 +315,28 @@ try:
             continue
 
         end_effector = endEffectorCoords[:3]
-        euler_angles = home[3:]
+        euler_angles = endEffectorCoords[3:]
 
         # Transform the camera coordinates to the robot's coordinate system.
+        
+        turn = get_hand_angles(indexpoint_3d_mm, wristpoint_3d_mm)
+        rz = euler_angles[2]
+        if rz + turn >= 170:
+            rz -= turn
+        else:
+           rz +=turn
+
+
         base_coords = transform_camera_to_robot(indexpoint_3d_mm, end_effector, euler_angles, angles_in_degrees=True)
         print(indexpoint_3d_mm)
         target_coords = np.concatenate((base_coords, euler_angles))
-        #turn = get_hand_angles(indexpoint_3d_mm, wristpoint_3d_mm)
-        #rz = home[5]
-        #if rz + turn >= 170:
-        #    rz -= turn
-        #else:
-        #    rz +=turn
+
         #target_coords[5] = rz
         send_coords(target_coords)
-        time.sleep(2)    
+        time.sleep(4)    
             #send_gripper_command(0, 50)
             #time.sleep(4) 
-        send_coords(home)       
+        send_coords(home, 1)       
         state = "home"
             # Reset the stability counter after sending the move command.
         stable_count = 0

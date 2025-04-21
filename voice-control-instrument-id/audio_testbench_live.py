@@ -16,7 +16,7 @@ from audio_utils import (
 # -----------------------------
 # Configurations
 # -----------------------------
-AUDIO_DIR = Path("/Users/charissaluk/Desktop/DT12/audio_files")
+AUDIO_DIR = Path("voice-control-instrument-id")
 BACKGROUNDS = [
     AUDIO_DIR / "surgery_ambience_talking.mp3",
     AUDIO_DIR / "surgery_ambience_beeps.mp3",
@@ -74,7 +74,11 @@ def choose_volume():
 def choose_tts_voice():
     import pyttsx3
     engine = pyttsx3.init()
-    voices = [v for v in engine.getProperty("voices") if "en" in str(v.languages[0]).lower() or "english" in v.name.lower()]
+    print(engine)
+    # voices = [v for v in engine.getProperty("voices") if "en" in str(v.languages[0]).lower() or "english" in v.name.lower()]
+    # this line gets rid of index out of bounds error
+    voices = [v for v in engine.getProperty("voices") if (v.languages and "en" in str(v.languages[0]).lower()) or "english" in v.name.lower()]
+
     print("\nAvailable English TTS Voices:")
     for i, voice in enumerate(voices):
         print(f"[{i}] {voice.name} ({voice.id})")
@@ -105,11 +109,16 @@ if __name__ == "__main__":
         print("\nLaunching live mode with silent background\n")
 
     adaptive_phrase_time_limit = 10
+
+    done = False
     while True:
         try:
-            done = listen_and_transcribe_live(phrase_time_limit=adaptive_phrase_time_limit)
+            # run this if statement BEFORE listen_and_transcribe_live
+            # so it breaks right after finding an instrument
             if done:
                 break
+            done = listen_and_transcribe_live(phrase_time_limit=adaptive_phrase_time_limit)
+            
         except TypeError:
             # Backward compatibility fallback
             done = listen_and_transcribe_live()
