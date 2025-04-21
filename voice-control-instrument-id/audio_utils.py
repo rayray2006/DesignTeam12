@@ -1,5 +1,4 @@
 # audio_utils.py (Final Synced Version with Two Modes + Wake Word + Feedback + Background Volume Control)
-
 import os
 import sys
 import shutil
@@ -13,27 +12,10 @@ import whisper
 import random
 import nltk
 from nltk.corpus import words
-import nltk
-from nltk.corpus import words
 import speech_recognition as sr
 from pathlib import Path
 from pydub import AudioSegment
 from tqdm import tqdm
-
-#nltk.download('words')
-
-try:
-    nltk.data.find("corpora/words")
-except LookupError:
-    nltk.download("words")
-
-english_words = set(words.words())
-custom_valid = {"astra", "scissors", "scalpel", "forceps", "needle", "give", "me", "please"}
-valid_words = english_words.union(custom_valid)
-
-def is_valid_english(word):
-    return word.lower() in valid_words and word.isascii()
-
 
 #nltk.download('words')
 
@@ -75,11 +57,6 @@ wake_words = [
     "aster", "astro", "austro", "arstrah", "estra", "ausstra", "ausstrah", "ashtar"
 ]
 
-wake_words = [
-    "astra", "hey astra", "astraa", "austrah", "extra", "ast", "astra give", "hey astra give",
-    "aster", "astro", "austro", "arstrah", "estra", "ausstra", "ausstrah", "ashtar"
-]
-
 AUDIO_DIR = Path("/Users/charissaluk/Desktop/DT12/audio_files")
 _tts_voice_id = None
 
@@ -88,14 +65,6 @@ VALID_TOOL_WORDS = {
     "scissors", "scalpel", "forceps", "needle", 
     "give", "me", "please", "grab", "get", "tool", "pass", "hand"
 }
-
-
-# Basic whitelist (extend as needed)
-VALID_TOOL_WORDS = {
-    "scissors", "scalpel", "forceps", "needle", 
-    "give", "me", "please", "grab", "get", "tool", "pass", "hand"
-}
-
 
 # -------------------------------
 # Audio Utils
@@ -118,7 +87,6 @@ def normalize_audio(audio: AudioSegment):
 
 def identify_instruments(command, confidence_threshold=0.7):
     import difflib
-
 
     print(f"[DEBUG] Raw transcription: {command}")
     print(f"[DEBUG] Cleaned command: {command.translate(str.maketrans('', '', string.punctuation)).lower()}")
@@ -171,11 +139,8 @@ def identify_instruments(command, confidence_threshold=0.7):
 
     found = {}
     # Remove punctuation and lowercase
-    # Remove punctuation and lowercase
     cleaned = command.translate(str.maketrans('', '', string.punctuation)).lower()
     words = cleaned.split()
-
-    # Preserve original cleaned command for alias matching
 
     # Preserve original cleaned command for alias matching
     joined_text = " ".join(words)
@@ -186,20 +151,6 @@ def identify_instruments(command, confidence_threshold=0.7):
 
     print(f"[DEBUG] Cleaned command: {joined_text}")
     print(f"[DEBUG] Filtered words: {filtered_words}")
-
-
-        
-
-
-    # Filter out non-English/irrelevant words for primary + fuzzy matching only
-    filtered_words = [w for w in words if is_valid_english(w)]
-    filtered_joined_text = " ".join(filtered_words)
-
-    print(f"[DEBUG] Cleaned command: {joined_text}")
-    print(f"[DEBUG] Filtered words: {filtered_words}")
-
-
-        
 
 
     for inst in instruments:
@@ -303,12 +254,6 @@ def process_mixed_audio_with_background_and_wakeword(
         if play_during_transcription:
             subprocess.run(["ffplay", "-autoexit", "-nodisp", "-loglevel", "quiet", final_mix_path])
 
-        #audio_data, sr = librosa.load(final_mix_path, sr=16000)
-        #result = whisper_model.transcribe(audio_data.astype(np.float32), language="en", fp16=False)
-        #raw_transcription = result.get("text", "")
-        #transcription = raw_transcription.strip().lower()
-        #print(f"\nTranscription result: {transcription if transcription else 'None'}")
-
         result = whisper_model.transcribe(
             final_mix_path,
             language="en",
@@ -321,12 +266,6 @@ def process_mixed_audio_with_background_and_wakeword(
 
 
         transcription = result.get("text", "").strip().lower()
-        print(f"\nTranscription result: {transcription if transcription else 'None'}")
-
-        
-
-
-
         print(f"\nTranscription result: {transcription if transcription else 'None'}")
 
         wake_conf = 1.0 if any(w in transcription.lower().split() for w in wake_words) else (
@@ -473,7 +412,6 @@ def listen_and_transcribe_live(phrase_time_limit=20):
                             with microphone as source:
                                 recognizer.adjust_for_ambient_noise(source, duration=0.5)
                                 print("Listening for instrument...")
-                                #command_audio = recognizer.listen(source, timeout=10, phrase_time_limit=15)
                                 command_audio = recognizer.listen(source, timeout=15, phrase_time_limit=phrase_time_limit) # command for adaptive listening
                             command_text = recognizer.recognize_vosk(command_audio).lower()
                             command_text = command_text.translate(str.maketrans('', '', string.punctuation))
