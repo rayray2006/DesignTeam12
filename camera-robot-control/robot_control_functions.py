@@ -148,7 +148,7 @@ def transform_camera_to_robot(camera_coords, end_effector_coords, euler_angles, 
 
 
     robot_vec = np.array([[X_ee+ x_offset], [Y_ee  + y_offset], [Z_ee + z_offset]]) + transformed_change
-    robot_vec[0] = robot_vec[0] + robot_vec[0]*0.152489 + 10
+    robot_vec[0] = robot_vec[0] + robot_vec[0]*0.152489
 
 
     
@@ -281,10 +281,10 @@ def get_hand_angles(indexPoint, wristPoint):
 def pickSequence(coords, HOST, MOVE_COORDS_PORT, MOVE_GRIPPER_PORT):
     send_gripper_command(100, 100, HOST, MOVE_GRIPPER_PORT)
     time.sleep(1)
-    if coords[5] < 80:
-        coords[5] = coords[5] + 90
-    else:
-        coords[5] = coords[5] -90
+    # if coords[5] < 80:
+    #     coords[5] = coords[5] + 90
+    # else:
+    #     coords[5] = coords[5] -90
     send_coords(coords, HOST, MOVE_COORDS_PORT)
     time.sleep(2)
     send_gripper_command(0, 100, HOST, MOVE_GRIPPER_PORT)
