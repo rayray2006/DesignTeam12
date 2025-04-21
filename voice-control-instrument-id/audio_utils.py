@@ -122,7 +122,7 @@ def identify_instruments(command, confidence_threshold=0.7):
         'needle': [
             'needles', 'kneadle', 'neato', 'knee doll', 'neadle', 'nidho',
             'knead all', 'neato', 'noodle','needle', 'kneel', 'neil', 'nido', 
-            'nidole', 'nitto'
+            'nidole', 'nitto', 'meadle'
         ]
     }
 
