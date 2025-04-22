@@ -10,18 +10,18 @@ import struct
 import socket
 
 # --- Raspberry Pi Connection Details ---
-# HOST = "172.20.10.2"
-# GET_COORDS_PORT = 5006
-# MOVE_COORDS_PORT = 5005
-# MOVE_GRIPPER_PORT = 5007
+HOST = "172.20.10.2"
+GET_COORDS_PORT = 5006
+MOVE_COORDS_PORT = 5005
+MOVE_GRIPPER_PORT = 5007
 # home = [62.5, 81.8, 305.2, -177.21, -2.56, 45.91]
-# mp_hands = mp.solutions.hands
-# mp_drawing = mp.solutions.drawing_utils
-# hands = mp_hands.Hands(
-#     static_image_mode=False,
-#     max_num_hands=1,
-#     min_detection_confidence=0.5,
-#     min_tracking_confidence=0.5)
+mp_hands = mp.solutions.hands
+mp_drawing = mp.solutions.drawing_utils
+hands = mp_hands.Hands(
+    static_image_mode=False,
+    max_num_hands=1,
+    min_detection_confidence=0.5,
+    min_tracking_confidence=0.5)
 # pipeline = rs.pipeline()
 # config = rs.config()
 # config.enable_stream(rs.stream.depth, 640, 480, rs.format.z16, 30)
@@ -142,13 +142,14 @@ def transform_camera_to_robot(camera_coords, end_effector_coords, euler_angles, 
     transformed_change = R_ee @ (R_fixed @ camera_vec)
     
     # Multiply y and z changes by -1 before adding translation.
-    x_offset = 0  # replace with your desired offset in mm
-    y_offset = 60
-    z_offset = 90 + X_ee/10
-
+    x_offset = 15  # replace with your desired offset in mm
+    y_offset = 75
+    z_offset = 100
+    transformed_change[0] = transformed_change[0] + transformed_change[0]*0.165
+    
 
     robot_vec = np.array([[X_ee+ x_offset], [Y_ee  + y_offset], [Z_ee + z_offset]]) + transformed_change
-    robot_vec[0] = robot_vec[0] + robot_vec[0]*0.132489
+    
 
 
     
@@ -317,7 +318,7 @@ def move_to_hand(home, pipeline):
                 prev_hand_coord = None
                 if none_counter >= 10:
                     print("No hand detected for 10 frames. Sending robot home.")
-                    send_coords(home, 1)
+                    send_coords(home, HOST, MOVE_COORDS_PORT, 1)
                     prev_hand_coord = None
                     state = "home"
                     none_counter = 0
@@ -365,11 +366,11 @@ def move_to_hand(home, pipeline):
             #else:
             #    rz +=turn
             #target_coords[5] = rz
-            send_coords(target_coords)
+            send_coords(target_coords, HOST, MOVE_COORDS_PORT)
             time.sleep(4)    
                 #send_gripper_command(0, 50)
                 #time.sleep(4) 
-            send_coords(home, 1)       
+            send_coords(home, HOST, MOVE_COORDS_PORT, 1)       
             state = "home"
                 # Reset the stability counter after sending the move command.
             stable_count = 0
