@@ -10,10 +10,10 @@ import struct
 import socket
 
 # --- Raspberry Pi Connection Details ---
-HOST = "172.20.10.2"
-GET_COORDS_PORT = 5006
-MOVE_COORDS_PORT = 5005
-MOVE_GRIPPER_PORT = 5007
+#HOST = "172.20.10.2"
+#GET_COORDS_PORT = 5006
+#MOVE_COORDS_PORT = 5005
+#MOVE_GRIPPER_PORT = 5007
 # home = [62.5, 81.8, 305.2, -177.21, -2.56, 45.91]
 mp_hands = mp.solutions.hands
 mp_drawing = mp.solutions.drawing_utils
