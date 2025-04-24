@@ -7,24 +7,42 @@ import pyrealsense2 as rs
 mp_hands = mp.solutions.hands
 hands = mp_hands.Hands(static_image_mode=False, max_num_hands=1)
 
-# Initialize RealSense pipeline
+# RealSense pipeline
 pipeline = rs.pipeline()
 config = rs.config()
 config.enable_stream(rs.stream.color, 640, 480, rs.format.bgr8, 30)
 pipeline.start(config)
 
-def flip_x(landmark):
-    return np.array([1.0 - landmark.x, landmark.y])
-
-def calculate_angle(vector):
+def get_hand_angles(indexPoint, wristPoint):
+    """
+    Calculate the rotation angle of the vector formed by the index finger and the wrist point
+    relative to the positive X-axis (to the right).
+    
+    :param indexPoint: Landmark of the index finger (e.g., point 5)
+    :param wristPoint: Landmark of the wrist (e.g., point 0)
+    :return: Angle in degrees
+    """
+    # Calculate the vector from wristPoint to indexPoint
+    vector = indexPoint - wristPoint
     right = np.array([1, 0])  # Positive X-axis
+
+    # Normalize the vector
     unit_vector = vector / np.linalg.norm(vector)
+
+    # Dot product to get the angle between the vector and the rightward direction
     dot = np.dot(unit_vector, right)
+
+    # Clamp dot product to avoid invalid values due to floating point errors
     angle_rad = np.arccos(np.clip(dot, -1.0, 1.0))
+
+    # Calculate the cross product to determine direction (clockwise or counter-clockwise)
     cross = np.cross(right, unit_vector)
     angle_deg = np.degrees(angle_rad)
+
+    # If the cross product is negative, the angle is clockwise (negative)
     if cross < 0:
         angle_deg = -angle_deg
+
     return angle_deg
 
 try:
@@ -37,6 +55,7 @@ try:
         image = np.asanyarray(color_frame.get_data())
         rgb_image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
 
+        # Process hand landmarks
         results = hands.process(rgb_image)
 
         if results.multi_hand_landmarks:
@@ -44,31 +63,27 @@ try:
                 lm = hand_landmarks.landmark
 
                 if len(lm) > 17:
-                    # Flip X-coordinates
-                    p0 = flip_x(lm[0])
-                    p17 = flip_x(lm[17])
-                    p5 = flip_x(lm[5])
+                    # Get points: index (point 5) and wrist (point 0)
+                    wrist = np.array([lm[0].x, lm[0].y])
+                    index = np.array([lm[5].x, lm[5].y])
 
-                    mid = (p0 + p17) / 2
-                    vector = p5 - mid
-                    angle = calculate_angle(vector)
+                    # Call the get_hand_angles function
+                    angle = get_hand_angles(index, wrist)
 
                     h, w, _ = image.shape
-                    start_point = (int(mid[0] * w), int(mid[1] * h))
-                    end_point = (int(p5[0] * w), int(p5[1] * h))
+                    wrist_pt = (int(wrist[0] * w), int(wrist[1] * h))
+                    index_pt = (int(index[0] * w), int(index[1] * h))
 
-                    # Draw vector arrow
-                    cv2.arrowedLine(image, start_point, end_point, (0, 255, 255), 3, tipLength=0.2)
+                    # Draw the vector arrow
+                    cv2.arrowedLine(image, wrist_pt, index_pt, (0, 255, 255), 3, tipLength=0.2)
+                    cv2.circle(image, wrist_pt, 6, (255, 0, 0), -1)
+                    cv2.circle(image, index_pt, 6, (0, 0, 255), -1)
 
-                    # Draw key points
-                    cv2.circle(image, start_point, 5, (255, 0, 0), -1)
-                    cv2.circle(image, end_point, 5, (0, 0, 255), -1)
-
-                    # Draw angle text
-                    cv2.putText(image, f"Angle: {angle:.2f} deg", (10, 30),
+                    # Display the calculated angle
+                    cv2.putText(image, f"Angle: {angle:.2f} deg", (10, 40),
                                 cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
 
-        cv2.imshow('Hand Vector & Angle (RealSense D405)', image)
+        cv2.imshow("Hand Angle - RealSense D405", image)
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
 

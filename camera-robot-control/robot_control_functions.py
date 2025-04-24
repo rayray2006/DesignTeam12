@@ -264,21 +264,37 @@ def get_hand_coords(color_frame, depth_frame):
                 continue
     return None, None
 def get_hand_angles(indexPoint, wristPoint):
-    indexx = indexPoint[0]
-    indexy = indexPoint[1]
-    wristx = wristPoint[0]
-    wristy = wristPoint[1]
-    # Calculate the angle (in radians) between the wrist and index finger relative to the x-axis.
-    theta = math.atan((indexy - wristy)/(indexx - wristx))
-    if (indexy - wristy < 0):
-        theta = math.pi - theta
+    """
+    Calculate the rotation angle of the vector formed by the index finger and the wrist point
+    relative to the positive X-axis (to the right).
     
-    # Compute the rotation angle needed to align this line with the y-axis.
-    rotation_angle = (math.pi / 2) - theta
+    :param indexPoint: Landmark of the index finger (e.g., point 5)
+    :param wristPoint: Landmark of the wrist (e.g., point 0)
+    :return: Angle in degrees
+    """
+    # Calculate the vector from wristPoint to indexPoint
+    vector = indexPoint - wristPoint
+    right = np.array([1, 0])  # Positive X-axis
 
-    # Convert the angle to degrees for readability.
-    rotation_angle_deg = (math.degrees(rotation_angle)) -90
-    return abs(rotation_angle_deg)
+    # Normalize the vector
+    unit_vector = vector / np.linalg.norm(vector)
+
+    # Dot product to get the angle between the vector and the rightward direction
+    dot = np.dot(unit_vector, right)
+
+    # Clamp dot product to avoid invalid values due to floating point errors
+    angle_rad = np.arccos(np.clip(dot, -1.0, 1.0))
+
+    # Calculate the cross product to determine direction (clockwise or counter-clockwise)
+    cross = np.cross(right, unit_vector)
+    angle_deg = np.degrees(angle_rad)
+
+    # If the cross product is negative, the angle is clockwise (negative)
+    if cross < 0:
+        angle_deg = -angle_deg
+
+    return angle_deg
+
 def pickSequence(coords, HOST, MOVE_COORDS_PORT, MOVE_GRIPPER_PORT):
     send_gripper_command(100, 100, HOST, MOVE_GRIPPER_PORT)
     time.sleep(1)
