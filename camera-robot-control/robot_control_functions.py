@@ -377,7 +377,7 @@ def move_to_hand(home, pipeline, MOVE_COORDS_PORT, GET_COORDS_PORT, MOVE_GRIPPER
         turn = get_hand_angles(indexpoint_3d_mm, wristpoint_3d_mm)
         rz = euler_angles[2]
         
-        rz +=turn
+        rz -=turn
         target_coords[5] = rz
         target_coords[1] -= 150
         send_coords(target_coords, HOST, MOVE_COORDS_PORT, 0)
