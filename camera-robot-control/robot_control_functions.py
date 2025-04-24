@@ -15,13 +15,13 @@ import socket
 #MOVE_COORDS_PORT = 5005
 #MOVE_GRIPPER_PORT = 5007
 # home = [62.5, 81.8, 305.2, -177.21, -2.56, 45.91]
-mp_hands = mp.solutions.hands
-mp_drawing = mp.solutions.drawing_utils
-hands = mp_hands.Hands(
-    static_image_mode=False,
-    max_num_hands=1,
-    min_detection_confidence=0.5,
-    min_tracking_confidence=0.5)
+# mp_hands = mp.solutions.hands
+# mp_drawing = mp.solutions.drawing_utils
+# hands = mp_hands.Hands(
+#     static_image_mode=False,
+#     max_num_hands=1,
+#     min_detection_confidence=0.5,
+#     min_tracking_confidence=0.5)
 # pipeline = rs.pipeline()
 # config = rs.config()
 # config.enable_stream(rs.stream.depth, 640, 480, rs.format.z16, 30)
@@ -63,7 +63,7 @@ def send_gripper_command(state, speed, HOST, MOVE_GRIPPER_PORT):
     except Exception as e:
         print("Error sending gripper command:", e)
 
-def send_coords(coords, HOST, MOVE_COORDS_PORT, type = 0):
+def send_coords(coords, HOST, MOVE_COORDS_PORT, type = 0, speed = 100):
     """
     Connects to the robot's target coordinates server and sends a 6-float binary payload.
     
@@ -71,7 +71,7 @@ def send_coords(coords, HOST, MOVE_COORDS_PORT, type = 0):
         coords (list or tuple): A list or tuple containing 6 float values representing the target coordinates.
     """
     # Pack the coordinates into binary data (6 floats).
-    data = struct.pack("6fi", *coords, type)
+    data = struct.pack("6f2i", *coords, type, speed)
     
     # Create a socket and connect to the robot's server.
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
@@ -142,9 +142,9 @@ def transform_camera_to_robot(camera_coords, end_effector_coords, euler_angles, 
     transformed_change = R_ee @ (R_fixed @ camera_vec)
     
     # Multiply y and z changes by -1 before adding translation.
-    x_offset = 15  # replace with your desired offset in mm
+    x_offset = 0  # replace with your desired offset in mm
     y_offset = 75
-    z_offset = 100
+    z_offset = 90
     transformed_change[0] = transformed_change[0] + transformed_change[0]*0.165
     
 
