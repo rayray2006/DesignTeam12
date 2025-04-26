@@ -10,10 +10,10 @@ import struct
 import socket
 
 # --- Raspberry Pi Connection Details ---
-# HOST = "172.20.10.2"
-# GET_COORDS_PORT = 5006
-# MOVE_COORDS_PORT = 5005
-# MOVE_GRIPPER_PORT = 5007
+#HOST = "172.20.10.2"
+#GET_COORDS_PORT = 5006
+#MOVE_COORDS_PORT = 5005
+#MOVE_GRIPPER_PORT = 5007
 # home = [62.5, 81.8, 305.2, -177.21, -2.56, 45.91]
 # mp_hands = mp.solutions.hands
 # mp_drawing = mp.solutions.drawing_utils
@@ -63,7 +63,7 @@ def send_gripper_command(state, speed, HOST, MOVE_GRIPPER_PORT):
     except Exception as e:
         print("Error sending gripper command:", e)
 
-def send_coords(coords, HOST, MOVE_COORDS_PORT, type = 0):
+def send_coords(coords, HOST, MOVE_COORDS_PORT, type = 0, speed = 100):
     """
     Connects to the robot's target coordinates server and sends a 6-float binary payload.
     
@@ -71,7 +71,7 @@ def send_coords(coords, HOST, MOVE_COORDS_PORT, type = 0):
         coords (list or tuple): A list or tuple containing 6 float values representing the target coordinates.
     """
     # Pack the coordinates into binary data (6 floats).
-    data = struct.pack("6fi", *coords, type)
+    data = struct.pack("6f2i", *coords, type, speed)
     
     # Create a socket and connect to the robot's server.
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
@@ -143,11 +143,13 @@ def transform_camera_to_robot(camera_coords, end_effector_coords, euler_angles, 
     
     # Multiply y and z changes by -1 before adding translation.
     x_offset = 0  # replace with your desired offset in mm
-    y_offset = 60
-    z_offset = 120
-
+    y_offset = 75
+    z_offset = 90
+    transformed_change[0] = transformed_change[0] + transformed_change[0]*0.165
+    
 
     robot_vec = np.array([[X_ee+ x_offset], [Y_ee  + y_offset], [Z_ee + z_offset]]) + transformed_change
+    
 
 
     
@@ -166,8 +168,7 @@ def get_inst_coords(color_frame, depth_frame, x_mid, y_mid):
     instpoint_3d_mm = [coord * 1000 for coord in instpoint_3d]
 
     theta = math.radians(45)
-    instpoint_3d_mm[0] = instpoint_3d_mm[0]*1.25
-    instpoint_3d_mm[1] = instpoint_3d_mm[1]*1.25
+   
 
     # Rotation matrix for a rotation around the z-axis:
     R_z = np.array([
@@ -185,7 +186,7 @@ def get_inst_coords(color_frame, depth_frame, x_mid, y_mid):
 
     return insttransformed_coord
 
-def get_hand_coords(color_frame, depth_frame):
+def get_hand_coords(color_frame, depth_frame, hands):
     color_image = np.asanyarray(color_frame.get_data())
     image_rgb = cv2.cvtColor(color_image, cv2.COLOR_BGR2RGB)
     
@@ -236,11 +237,11 @@ def get_hand_coords(color_frame, depth_frame):
                 wristpoint_3d_mm = [coord * 1000 for coord in wristpoint_3d]
 
                 theta = math.radians(45)
-                indexpoint_3d_mm[0] = indexpoint_3d_mm[0]*1.25
-                indexpoint_3d_mm[1] = indexpoint_3d_mm[1]*1.25
+                # indexpoint_3d_mm[0] = indexpoint_3d_mm[0]*1.25
+                # indexpoint_3d_mm[1] = indexpoint_3d_mm[1]*1.25
 
-                wristpoint_3d_mm[0] = wristpoint_3d_mm[0]*1.25
-                wristpoint_3d_mm[1] = wristpoint_3d_mm[1]*1.25
+                # wristpoint_3d_mm[0] = wristpoint_3d_mm[0]*1.25
+                # wristpoint_3d_mm[1] = wristpoint_3d_mm[1]*1.25
                 # Rotation matrix for a rotation around the z-axis:
                 R_z = np.array([
                     [math.cos(theta), -math.sin(theta), 0],
@@ -263,114 +264,133 @@ def get_hand_coords(color_frame, depth_frame):
                 continue
     return None, None
 def get_hand_angles(indexPoint, wristPoint):
-    indexx = indexPoint[0]
-    indexy = indexPoint[1]
-    wristx = wristPoint[0]
-    wristy = wristPoint[1]
-    # Calculate the angle (in radians) between the wrist and index finger relative to the x-axis.
-    theta = math.atan((indexy - wristy)/(indexx - wristx))
-    if (indexy - wristy < 0):
-        theta = math.pi - theta
+    """
+    Calculate the rotation angle of the vector formed by the index finger and the wrist point
+    relative to the positive X-axis (to the right).
     
-    # Compute the rotation angle needed to align this line with the y-axis.
-    rotation_angle = (math.pi / 2) - theta
+    :param indexPoint: Landmark of the index finger (e.g., point 5)
+    :param wristPoint: Landmark of the wrist (e.g., point 0)
+    :return: Angle in degrees
+    """
+    # Calculate the vector from wristPoint to indexPoint
+    vector = indexPoint - wristPoint
+    right = np.array([1, 0])  # Positive X-axis
 
-    # Convert the angle to degrees for readability.
-    rotation_angle_deg = (math.degrees(rotation_angle)) -90
-    return abs(rotation_angle_deg)
+    # Normalize the vector
+    unit_vector = vector / np.linalg.norm(vector)
 
-def move_to_hand(home, pipeline):
-    try:
-        none_counter = 0  # tracks consecutive frames without hand detection
-        stable_count = 0  # counts consecutive frames with stable hand coordinates
-        hand_counter = 0
-        prev_hand_coord = None  # holds the previous hand coordinate for stability comparison
-        state = "home"
+    # Dot product to get the angle between the vector and the rightward direction
+    dot = np.dot(unit_vector, right)
 
-        while True:
-            frames = pipeline.poll_for_frames()
-            if not frames:
-                continue
+    # Clamp dot product to avoid invalid values due to floating point errors
+    angle_rad = np.arccos(np.clip(dot, -1.0, 1.0))
 
-            depth_frame = frames.get_depth_frame()
-            color_frame = frames.get_color_frame()
-            if not depth_frame or not color_frame:
-                continue
+    # Calculate the cross product to determine direction (clockwise or counter-clockwise)
+    cross = np.cross(right, unit_vector)
+    angle_deg = np.degrees(angle_rad)
 
-            indexpoint_3d_mm, wristpoint_3d_mm = get_hand_coords(color_frame, depth_frame)
-            
+    # If the cross product is negative, the angle is clockwise (negative)
+    if cross < 0:
+        angle_deg = -angle_deg
 
-            #if indexpoint_3d_mm is not None and wristpoint_3d_mm is not None:
-                # angle = get_hand_angles(indexpoint_3d_mm, wristpoint_3d_mm)
-            #    get_hand_angles(indexpoint_3d_mm, wristpoint_3d_mm)
+    return angle_deg
 
-            # If no hand is detected, reset stability and count missing frames.
-            if indexpoint_3d_mm is None:
-                none_counter += 1
-                stable_count = 0
-                prev_hand_coord = None
-                if none_counter >= 10:
-                    print("No hand detected for 10 frames. Sending robot home.")
-                    send_coords(home, 1)
-                    prev_hand_coord = None
-                    state = "home"
-                    none_counter = 0
-                    current_coords = 0  # reset after sending home
-                    hand_counter = 0
-                continue
-            else:
-                none_counter = 0
-            if state=="hand":
-                continue
-            # Check hand coordinate stability using point_3d_mm.
-            if prev_hand_coord is None:
-                prev_hand_coord = indexpoint_3d_mm
-                stable_count = 1
-            else:
-                diff = np.linalg.norm(np.array(indexpoint_3d_mm) - np.array(prev_hand_coord))
-                if diff <= 10:  # 10 mm = 1 cm threshold
-                    stable_count += 1
-                else:
-                    stable_count = 1  # reset if the hand moves more than 5cm
-                prev_hand_coord = indexpoint_3d_mm
+def pickSequence(coords, HOST, MOVE_COORDS_PORT, MOVE_GRIPPER_PORT):
+    send_gripper_command(100, 100, HOST, MOVE_GRIPPER_PORT)
+    time.sleep(1)
+    coords[5] = coords[5] - 90
+    send_coords(coords, HOST, MOVE_COORDS_PORT)
+    time.sleep(2)
+    send_gripper_command(0, 50, HOST, MOVE_GRIPPER_PORT)
+def move_to_hand(home, pipeline, MOVE_COORDS_PORT, GET_COORDS_PORT, MOVE_GRIPPER_PORT, hands, HOST):
+    none_counter = 0  # tracks consecutive frames without hand detection
+    stable_count = 0  # counts consecutive frames with stable hand coordinates
+    hand_counter = 0
+    prev_hand_coord = None  # holds the previous hand coordinate for stability comparison
+    state = "home"
 
-            # Only proceed if we have 10 consecutive stable frames.
-            if stable_count < 10:
-                continue
+    while True:
+        frames = pipeline.poll_for_frames()
+        if not frames:
+            continue
 
-            # Once stable for 10 frames, get the robot's current coordinates.
-            endEffectorCoords = get_coords()
-            if endEffectorCoords is None:
-                print("Robot did not return coordinates")
-                continue
+        depth_frame = frames.get_depth_frame()
+        color_frame = frames.get_color_frame()
+        if not depth_frame or not color_frame:
+            continue
 
-            end_effector = endEffectorCoords[:3]
-            euler_angles = endEffectorCoords[3:]
+        indexpoint_3d_mm, wristpoint_3d_mm = get_hand_coords(color_frame, depth_frame, hands)
+        
 
-            # Transform the camera coordinates to the robot's coordinate system.
+        #if indexpoint_3d_mm is not None and wristpoint_3d_mm is not None:
+            # angle = get_hand_angles(indexpoint_3d_mm, wristpoint_3d_mm)
+        #    get_hand_angles(indexpoint_3d_mm, wristpoint_3d_mm)
 
-            base_coords = transform_camera_to_robot(indexpoint_3d_mm, end_effector, euler_angles, angles_in_degrees=True)
-            print(indexpoint_3d_mm)
-            target_coords = np.concatenate((base_coords, euler_angles))
-            #turn = get_hand_angles(indexpoint_3d_mm, wristpoint_3d_mm)
-            #rz = home[5]
-            #if rz + turn >= 170:
-            #    rz -= turn
-            #else:
-            #    rz +=turn
-            #target_coords[5] = rz
-            send_coords(target_coords)
-            time.sleep(4)    
-                #send_gripper_command(0, 50)
-                #time.sleep(4) 
-            send_coords(home, 1)       
-            state = "home"
-                # Reset the stability counter after sending the move command.
+        # If no hand is detected, reset stability and count missing frames.
+        if indexpoint_3d_mm is None:
+            none_counter += 1
             stable_count = 0
-            hand_counter = 0
-            none_counter = 0
             prev_hand_coord = None
-            print(target_coords)
-    finally:
-        pipeline.stop()
-        cv2.destroyAllWindows()
+            if none_counter >= 10:
+                print("No hand detected for 10 frames. Sending robot home.")
+                send_coords(home, HOST, MOVE_COORDS_PORT, 1)
+                prev_hand_coord = None
+                state = "home"
+                none_counter = 0
+                current_coords = 0  # reset after sending home
+                hand_counter = 0
+            continue
+        else:
+            none_counter = 0
+        if state=="hand":
+            continue
+        # Check hand coordinate stability using point_3d_mm.
+        if prev_hand_coord is None:
+            prev_hand_coord = indexpoint_3d_mm
+            stable_count = 1
+        else:
+            diff = np.linalg.norm(np.array(indexpoint_3d_mm) - np.array(prev_hand_coord))
+            if diff <= 10:  # 10 mm = 1 cm threshold
+                stable_count += 1
+            else:
+                stable_count = 1  # reset if the hand moves more than 5cm
+            prev_hand_coord = indexpoint_3d_mm
+
+        # Only proceed if we have 10 consecutive stable frames.
+        if stable_count < 10:
+            continue
+
+        # Once stable for 10 frames, get the robot's current coordinates.
+        endEffectorCoords = get_coords(HOST, GET_COORDS_PORT)
+        if endEffectorCoords is None:
+            print("Robot did not return coordinates")
+            continue
+
+        end_effector = endEffectorCoords[:3]
+        euler_angles = endEffectorCoords[3:]
+
+        # Transform the camera coordinates to the robot's coordinate system.
+
+        base_coords = transform_camera_to_robot(indexpoint_3d_mm, end_effector, euler_angles, angles_in_degrees=True)
+        print(indexpoint_3d_mm)
+        target_coords = np.concatenate((base_coords, euler_angles))
+        turn = get_hand_angles(indexpoint_3d_mm, wristpoint_3d_mm)
+        rz = euler_angles[2]
+        
+        rz -=turn
+        target_coords[5] = rz
+        target_coords[1] -= 150
+        send_coords(target_coords, HOST, MOVE_COORDS_PORT, 0)
+        print(target_coords)
+        time.sleep(2)    
+        send_gripper_command(100, 100, HOST, MOVE_GRIPPER_PORT)
+        time.sleep(1) 
+        send_coords(home, HOST, MOVE_COORDS_PORT, 1)  
+        time.sleep(1)     
+        state = "home"
+            # Reset the stability counter after sending the move command.
+        stable_count = 0
+        hand_counter = 0
+        none_counter = 0
+        prev_hand_coord = None
+        print(target_coords)

@@ -11,7 +11,7 @@ import torch
 # Import modules from voice-control-instrument-id/voice_instrument_functions.py
 instrument_module_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "voice-control-instrument-id"))
 sys.path.append(instrument_module_path) 
-from voice_instrument_functions import *
+#from voice_instrument_functions import *
 
 # Load voice and instrument identification models
 # porcupine, cobra, recorder = load_voice_model()

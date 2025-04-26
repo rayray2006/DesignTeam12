@@ -54,7 +54,7 @@ recognizer = sr.Recognizer()
 microphone = sr.Microphone()
 wake_words = [
     "astra", "hey astra", "astraa", "austrah", "extra", "ast", "astra give", "hey astra give",
-    "aster", "astro", "austro", "arstrah", "estra", "ausstra", "ausstrah", "ashtar"
+    "aster", "astro", "astros", "master", "austro", "arstrah", "estra", "ausstra", "ausstrah", "ashtar"
 ]
 
 AUDIO_DIR = Path("/Users/charissaluk/Desktop/DT12/audio_files")
@@ -109,19 +109,8 @@ def identify_instruments(command, confidence_threshold=0.7):
             'forset', 'for set', '4 set', 'four set', 'for set', '4 set',
             'force', 'forces', 'forecepts', 'forks ups', 'forsyths', 'forcepses',
             'force apps', 'force epts', 'force eps', 'forseps', '4 seps',
-            'for seps', 'four seps', 'forseize', 'fourseize', '4 seize', '4seps',
-    
-            'four steps', 'for steps', '4 steps', 'foursteps', 'forsteps', '4steps',
-            'four seps', 'for step', '4 step', 'fourstep', 'forstep', '4step',
-            'fourceps', 'forceps', '4ceps', 'four ceps', 'for ceps', '4 ceps',
-            'foursips', 'forsips', '4sips', 'four sips', 'for sips', '4 sips',
-            'foursip', 'forsip', '4sip', 'four sip', 'for sip', '4 sip',
-            'foursep', 'forsep', '4sep', 'four sep', 'for sep', '4 sep',
-            'forsets', 'for sets', '4 sets', 'four sets', 'for sets', '4 sets',
-            'forset', 'for set', '4 set', 'four set', 'for set', '4 set',
-            'force', 'forces', 'forecepts', 'forks ups', 'forsyths', 'forcepses',
-            'force apps', 'force epts', 'force eps', 'forseps', '4 seps',
-            'for seps', 'four seps', 'forseize', 'fourseize', '4 seize', '4seps',
+            'for seps', 'four seps', 'forseize', 'fourseize', '4 seize', '4seps'
+            'for sex', 'four sex'
     
         ],
         'scalpel': [
@@ -289,9 +278,6 @@ def process_mixed_audio_with_background_and_wakeword(
 # -------------------------------
 #def listen_and_transcribe_live():
 def listen_and_transcribe_live(phrase_time_limit=20):
-    print("\nEntering live mode. Say 'astra' to begin. Then give a command or say it together like 'astra give me scalpel'")
-    speak_text("Aastra ready.")
-
     tools = []  # Initialize tools to avoid reference before assignment
     last_tool = None
     issued_tools = set()  # ✅ Track issued tools for cancellation
@@ -299,6 +285,8 @@ def listen_and_transcribe_live(phrase_time_limit=20):
     while True:
         with microphone as source:
             recognizer.adjust_for_ambient_noise(source)
+            print("\nEntering live mode. Say 'astra' to begin. Then give a command or say it together like 'astra give me scalpel'")
+            speak_text("Aastra ready.")
             print("Waiting...")
             audio = recognizer.listen(source, timeout=None)
         try:
@@ -358,8 +346,11 @@ def listen_and_transcribe_live(phrase_time_limit=20):
                 # Case 1: wake + tool in same sentence
                 tools = identify_instruments(text)
 
+                if tools:
+                    return True, tools
+
                 # Case 2: wake only → listen again
-                if not tools:
+                else:
                     speak_text("Listening.")
                     retry_count = 0
                     while retry_count < 3:
@@ -373,7 +364,7 @@ def listen_and_transcribe_live(phrase_time_limit=20):
                             print(f"Command heard: {command_text}")
                             tools = identify_instruments(command_text)
                             if tools:
-                                break
+                                return True, tools
                             retry_count += 1
                             speak_text("Sorry, I didn't catch that. Please repeat.")
                         except Exception as e:
