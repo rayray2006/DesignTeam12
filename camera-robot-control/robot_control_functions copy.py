@@ -142,10 +142,10 @@ def transform_camera_to_robot(camera_coords, end_effector_coords, euler_angles, 
     transformed_change = R_ee @ (R_fixed @ camera_vec)
     
     # Multiply y and z changes by -1 before adding translation.
-    x_offset = 10  # replace with your desired offset in mm
+    x_offset = 0  # replace with your desired offset in mm
     y_offset = 75
-    z_offset = 98.5
-    transformed_change[0] = transformed_change[0] + transformed_change[0]*0.18
+    z_offset = 85
+    transformed_change[0] = transformed_change[0] + transformed_change[0]*0.165
     
 
     robot_vec = np.array([[X_ee+ x_offset], [Y_ee  + y_offset], [Z_ee + z_offset]]) + transformed_change
@@ -165,6 +165,7 @@ def get_inst_coords(color_frame, depth_frame, x_mid, y_mid):
     instpoint_3d = rs.rs2_deproject_pixel_to_point(color_intrinsics,
                                                            [x_mid, y_mid],
                                                            instdepth_value)
+
     instpoint_3d_mm = [coord * 1000 for coord in instpoint_3d]
 
     theta = math.radians(45)
@@ -182,6 +183,7 @@ def get_inst_coords(color_frame, depth_frame, x_mid, y_mid):
 
     # Transform the coordinate using the rotation matrix
     insttransformed_coord = R_z @ instpoint_3d_mm_new
+
 
     return insttransformed_coord
 
@@ -293,6 +295,7 @@ def get_hand_angles(indexPoint, wristPoint):
         angle_deg = -angle_deg
 
     return angle_deg
+
 def pickSequence(coords, HOST, MOVE_COORDS_PORT, MOVE_GRIPPER_PORT):
     send_gripper_command(100, 100, HOST, MOVE_GRIPPER_PORT)
     time.sleep(1)
