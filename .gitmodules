@@ -1,0 +1,3 @@
+[submodule "voice-control-instrument-id/whisper.cpp"]
+	path = voice-control-instrument-id/whisper.cpp
+	url = https://github.com/ggerganov/whisper.cpp
