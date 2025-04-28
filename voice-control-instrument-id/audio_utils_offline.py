@@ -77,8 +77,38 @@ def speak(text: str):
 
 # ─── MIC SETUP ─────────────────────────────────────────────────────────────────
 recognizer = sr.Recognizer()
-mic        = sr.Microphone()
+mic = sr.Microphone(device_index=sr.Microphone.list_microphone_names().index("Microphone (USBAudio1.0)"))  # Adjust this index based on your system
 
+# ─── MAC MIC SETUP ────────────────────────────────────────────────────────────────
+'''
+import speech_recognition as sr
+
+def select_microphone():
+    mic_names = sr.Microphone.list_microphone_names()
+    print("Available microphones:")
+    for i, name in enumerate(mic_names):
+        print(f"  {i}: {name}")
+    while True:
+        choice = input("Enter the index of the microphone you want to use: ")
+        if choice.isdigit():
+            idx = int(choice)
+            if 0 <= idx < len(mic_names):
+                return idx
+        print(f"Invalid selection. Please enter a number between 0 and {len(mic_names)-1}.")
+
+# ===== USAGE =====
+mic_index = select_microphone()
+print(f"\n→ Using device {mic_index}: {sr.Microphone.list_microphone_names()[mic_index]}\n")
+
+recognizer = sr.Recognizer()
+with sr.Microphone(device_index=mic_index) as mic:
+    recognizer.adjust_for_ambient_noise(mic)
+    print("Listening...")
+    audio = recognizer.listen(mic)
+    # then pass `audio` to your transcription function, e.g.:
+    # text = recognizer.recognize_whisper(audio, model="base.en")
+    # print("You said:", text)
+'''
 # ─── run whisper-cli → plain text ───────────────────────────────────────────────
 def transcribe_cli(wav: str) -> str:
     p = subprocess.run(
