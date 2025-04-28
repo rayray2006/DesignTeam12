@@ -51,7 +51,10 @@ if not shutil.which("ffmpeg"):
 # -------------------------------
 whisper_model = whisper.load_model("base")
 recognizer = sr.Recognizer()
-microphone = sr.Microphone()
+# get USB microphone
+micIndex = sr.Microphone.list_microphone_names().index('Microphone (USBAudio1.0)')
+print("Microphone (USBAudio1.0): " + str(micIndex))
+microphone = sr.Microphone(device_index=micIndex)
 wake_words = [
     "astra", "hey astra", "astraa", "austrah", "extra", "ast", "astra give", "hey astra give",
     "aster", "astro", "astros", "master", "austro", "arstrah", "estra", "ausstra", "ausstrah", "ashtar"
@@ -277,14 +280,14 @@ def process_mixed_audio_with_background_and_wakeword(
 # Live Listening Mode
 # -------------------------------
 #def listen_and_transcribe_live():
-def listen_and_transcribe_live(phrase_time_limit=20):
+def listen_and_transcribe_live(phrase_time_limit=4):
     tools = []  # Initialize tools to avoid reference before assignment
     last_tool = None
     issued_tools = set()  # ✅ Track issued tools for cancellation
     
     while True:
         with microphone as source:
-            recognizer.adjust_for_ambient_noise(source)
+            # recognizer.adjust_for_ambient_noise(source)
             print("\nEntering live mode. Say 'astra' to begin. Then give a command or say it together like 'astra give me scalpel'")
             speak_text("Aastra ready.")
             print("Waiting...")
@@ -298,7 +301,7 @@ def listen_and_transcribe_live(phrase_time_limit=20):
                 speak_text("Are you sure you want to put Aastra to sleep?")
                 try:
                     with microphone as source:
-                        recognizer.adjust_for_ambient_noise(source, duration=0.3)
+                        #recognizer.adjust_for_ambient_noise(source, duration=0.3)
                         print("Listening for confirmation (yes/no)...")
                         confirm_audio = recognizer.listen(source, timeout=15, phrase_time_limit=15)
 
@@ -356,7 +359,7 @@ def listen_and_transcribe_live(phrase_time_limit=20):
                     while retry_count < 3:
                         try:
                             with microphone as source:
-                                recognizer.adjust_for_ambient_noise(source, duration=0.5)
+                                #recognizer.adjust_for_ambient_noise(source, duration=0.5)
                                 print("Listening for instrument...")
                                 command_audio = recognizer.listen(source, timeout=10, phrase_time_limit=phrase_time_limit)
                             command_text = recognizer.recognize_vosk(command_audio).lower()
@@ -401,7 +404,7 @@ def listen_and_transcribe_live(phrase_time_limit=20):
                     while retry_count < 3 and not tools:
                         try:
                             with microphone as source:
-                                recognizer.adjust_for_ambient_noise(source, duration=0.5)
+                                #recognizer.adjust_for_ambient_noise(source, duration=0.5)
                                 print("Listening for instrument...")
                                 command_audio = recognizer.listen(source, timeout=15, phrase_time_limit=phrase_time_limit) # command for adaptive listening
                             command_text = recognizer.recognize_vosk(command_audio).lower()
@@ -411,7 +414,7 @@ def listen_and_transcribe_live(phrase_time_limit=20):
                                 speak_text("Are you sure you want to put Astra to sleep?")
                                 try:
                                     with microphone as source:
-                                        recognizer.adjust_for_ambient_noise(source, duration=0.3)
+                                        #recognizer.adjust_for_ambient_noise(source, duration=0.3)
                                         print("Listening for confirmation (yes/no)...")
                                         confirm_audio = recognizer.listen(source, timeout=15, phrase_time_limit=15)
                                     confirmation = recognizer.recognize_vosk(confirm_audio).lower()
@@ -477,7 +480,7 @@ def listen_and_transcribe_live(phrase_time_limit=20):
 
                     try:
                         with microphone as source:
-                            recognizer.adjust_for_ambient_noise(source, duration=0.3)
+                            #recognizer.adjust_for_ambient_noise(source, duration=0.3)
                             print("Listening for confirmation...")
                             # confirm_audio = recognizer.listen(source, timeout=10, phrase_time_limit=10)
                             confirm_audio = recognizer.listen(source, timeout=10, phrase_time_limit=phrase_time_limit) # adaptive version

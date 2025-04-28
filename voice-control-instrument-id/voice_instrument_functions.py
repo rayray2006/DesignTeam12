@@ -8,37 +8,12 @@ import string
 from ultralytics import YOLO
 import cv2
 from audio_utils import (
-    listen_and_transcribe_live,
-    set_tts_voice,
-    speak_text
+    listen_and_transcribe_live
 )
-
-def choose_tts_voice():
-    import pyttsx3
-    engine = pyttsx3.init()
-    print(engine)
-    # voices = [v for v in engine.getProperty("voices") if "en" in str(v.languages[0]).lower() or "english" in v.name.lower()]
-    # this line gets rid of index out of bounds error
-    voices = [v for v in engine.getProperty("voices") if (v.languages and "en" in str(v.languages[0]).lower()) or "english" in v.name.lower()]
-
-    print("\nAvailable English TTS Voices:")
-    for i, voice in enumerate(voices):
-        print(f"[{i}] {voice.name} ({voice.id})")
-    try:
-        choice = int(input("\nSelect a voice by number (e.g., 0 for default): "))
-        if 0 <= choice < len(voices):
-            set_tts_voice(voices[choice].id)
-            print(f"Selected voice: {voices[choice].name}\n")
-        else:
-            print("Invalid choice. Using default voice.")
-    except:
-        print("Invalid input. Using default voice.")
-    
 
 # Identify instrument from transcription
 
 def get_instrument_name():
-    adaptive_phrase_time_limit = 10
     done = False
     while True:
         try:
@@ -46,7 +21,7 @@ def get_instrument_name():
             # so it breaks right after finding an instrument
             if done:
                 break
-            done, instruments = listen_and_transcribe_live(phrase_time_limit=adaptive_phrase_time_limit)
+            done, instruments = listen_and_transcribe_live()
 
         except TypeError:
             # Backward compatibility fallback
@@ -68,9 +43,11 @@ def get_camera_img(pipeline):
     else:
         # Convert images to numpy arrays
         color_image = np.asanyarray(color_frame.get_data())
-        cv2.imwrite(img_name, color_image)
+        crop = [0, 0, 540, 340] # x1, y1, x2, y2
+        color_image = color_image[crop[1]:crop[3], crop[0]:crop[2]]
+        cv2.imwrite(img_name, color_image, crop)
     
-    return img_name
+    return img_name, crop
 
 def load_model(path, reload):
     # load yolov5 from online
@@ -78,7 +55,7 @@ def load_model(path, reload):
     model = torch.hub.load('ultralytics/yolov5', 'custom', path=path, force_reload=reload)  # load a custom model
     return model
 
-def identify_instrument(model, img_path, instrument):
+def identify_instrument(model, img_path, instrument, crop):
     results = model(img_path)  # predict on an image
     
 
@@ -147,5 +124,7 @@ def identify_instrument(model, img_path, instrument):
     
     if x_midpoint == 0:
         print("No instrument found")
+    x_midpoint += crop[0]
+    y_midpoint += crop[1]
 
     return x_midpoint, y_midpoint
