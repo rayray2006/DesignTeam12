@@ -1,0 +1,1363 @@
+background,volume,gender,keyword,run,wakeword_detected,tool_detected,tool_confidence,transcription,bg_offset_ms,bg_offset_timestamp
+surgery_ambience_talking,100,female,scissors,1,1,1,0.9,"[00:00:00.000 --> 00:00:01.560]   [blank_audio]
+[00:00:01.560 --> 00:00:05.660]   >> astra, scissors.
+[00:00:05.660 --> 00:00:07.860]   [blank_audio]
+[00:00:07.860 --> 00:00:09.120]   >> you guys ready for a top yet?
+[00:00:09.120 --> 00:00:11.100]   [blank_audio]",10476,00:10
+surgery_ambience_talking,100,female,scalpel,1,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra.
+[00:00:04.000 --> 00:00:08.000]   scalpel.
+[00:00:08.000 --> 00:00:11.000]   you guys ready for a count yet?",10476,00:10
+surgery_ambience_talking,100,female,forceps,1,1,1,0.9,[00:00:00.000 --> 00:00:07.000]   astra. four-seps.,10476,00:10
+surgery_ambience_talking,100,female,needle,1,1,1,0.9,"[00:00:00.000 --> 00:00:01.520]   [blank_audio]
+[00:00:01.520 --> 00:00:05.240]   astra, needle.
+[00:00:05.240 --> 00:00:11.240]   [blank_audio]",10476,00:10
+surgery_ambience_talking,100,female,scissors,2,1,1,0.9,[00:00:00.000 --> 00:00:07.000]   astra. scissors.,1824,00:01
+surgery_ambience_talking,100,female,scalpel,2,1,1,0.9,"[00:00:00.000 --> 00:00:05.760]   astra, scalpel.",1824,00:01
+surgery_ambience_talking,100,female,forceps,2,1,1,0.9,"[00:00:00.000 --> 00:00:07.000]   astra, four seps.",1824,00:01
+surgery_ambience_talking,100,female,needle,2,1,1,0.9,[00:00:00.000 --> 00:00:07.000]   astra. needle.,1824,00:01
+surgery_ambience_talking,100,female,scissors,3,1,1,0.9,[00:00:00.000 --> 00:00:07.000]   astra. scissors.,409,00:00
+surgery_ambience_talking,100,female,scalpel,3,1,1,0.9,"[00:00:00.000 --> 00:00:01.520]   [blank_audio]
+[00:00:01.520 --> 00:00:05.720]   astra, scalpel.
+[00:00:05.720 --> 00:00:13.300]   [blank_audio]",409,00:00
+surgery_ambience_talking,100,female,forceps,3,1,1,0.9,"[00:00:00.000 --> 00:00:06.000]   astra, four steps.",409,00:00
+surgery_ambience_talking,100,female,needle,3,1,1,0.9,"[00:00:00.000 --> 00:00:01.400]   [blank_audio]
+[00:00:01.400 --> 00:00:02.360]   astra.
+[00:00:02.360 --> 00:00:04.400]   [blank_audio]
+[00:00:04.400 --> 00:00:05.180]   needle.
+[00:00:05.180 --> 00:00:08.180]   [blank_audio]
+[00:00:08.180 --> 00:00:10.680]   [blank_audio]",409,00:00
+surgery_ambience_talking,100,female,scissors,4,1,1,0.9,"[00:00:00.000 --> 00:00:01.420]   [blank_audio]
+[00:00:01.420 --> 00:00:06.120]   >> astra, scissors.
+[00:00:06.120 --> 00:00:07.380]   >> you guys ready for a cup yet?
+[00:00:07.380 --> 00:00:09.560]   [blank_audio]
+[00:00:09.560 --> 00:00:10.220]   >> not quite.
+[00:00:10.220 --> 00:00:11.120]   >> nope.",12149,00:12
+surgery_ambience_talking,100,female,scalpel,4,1,1,0.9,"[00:00:00.000 --> 00:00:01.500]   [blank_audio]
+[00:00:01.500 --> 00:00:06.080]   astra, scalpel.
+[00:00:06.080 --> 00:00:08.120]   >> you guys ready for a cup yet?
+[00:00:08.120 --> 00:00:09.300]   [blank_audio]
+[00:00:09.300 --> 00:00:10.320]   >> not quite.
+[00:00:10.320 --> 00:00:10.980]   >> no.",12149,00:12
+surgery_ambience_talking,100,female,forceps,4,1,1,0.9,"[00:00:00.000 --> 00:00:01.940]   [blank_audio]
+[00:00:01.940 --> 00:00:06.220]   >> astra, four steps.
+[00:00:06.220 --> 00:00:07.640]   >> you guys ready for a top yet?
+[00:00:07.640 --> 00:00:09.240]   [blank_audio]
+[00:00:09.240 --> 00:00:10.220]   >> not quite.
+[00:00:10.220 --> 00:00:10.800]   >> nope.
+[00:00:10.800 --> 00:00:11.800]   [blank_audio]",12149,00:12
+surgery_ambience_talking,100,female,needle,4,1,1,0.9,"[00:00:00.000 --> 00:00:06.000]   astra. needle.
+[00:00:06.000 --> 00:00:09.000]   you guys ready for a top yet?
+[00:00:09.000 --> 00:00:11.000]   not yet.",12149,00:12
+surgery_ambience_talking,100,female,scissors,5,1,1,0.9,[00:00:00.000 --> 00:00:07.000]   astra. scissors.,4506,00:04
+surgery_ambience_talking,100,female,scalpel,5,1,1,0.9,"[00:00:00.000 --> 00:00:05.720]   astra, scalpel.",4506,00:04
+surgery_ambience_talking,100,female,forceps,5,1,1,0.9,"[00:00:00.000 --> 00:00:07.000]   astra, four seps.",4506,00:04
+surgery_ambience_talking,100,female,needle,5,1,1,0.9,[00:00:00.000 --> 00:00:07.000]   astra. needle.,4506,00:04
+surgery_ambience_talking,100,female,scissors,6,1,1,0.9,[00:00:00.000 --> 00:00:07.000]   astra. scissors.,4012,00:04
+surgery_ambience_talking,100,female,scalpel,6,1,1,0.9,"[00:00:00.000 --> 00:00:05.760]   astra, scalpel.",4012,00:04
+surgery_ambience_talking,100,female,forceps,6,1,1,0.9,"[00:00:00.000 --> 00:00:07.000]   astra, four seps.",4012,00:04
+surgery_ambience_talking,100,female,needle,6,1,1,0.9,[00:00:00.000 --> 00:00:07.000]   astra. needle.,4012,00:04
+surgery_ambience_talking,100,female,scissors,7,1,1,0.9,[00:00:00.000 --> 00:00:07.000]   astra. scissors.,3657,00:03
+surgery_ambience_talking,100,female,scalpel,7,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra.
+[00:00:04.000 --> 00:00:08.000]   scalpel.",3657,00:03
+surgery_ambience_talking,100,female,forceps,7,1,1,0.9,"[00:00:00.000 --> 00:00:06.000]   astra, four steps.",3657,00:03
+surgery_ambience_talking,100,female,needle,7,1,1,0.9,[00:00:00.000 --> 00:00:07.000]   astra. needle.,3657,00:03
+surgery_ambience_talking,100,female,scissors,8,1,1,0.9,"[00:00:00.000 --> 00:00:01.440]   [blank_audio]
+[00:00:01.440 --> 00:00:02.520]   astra.
+[00:00:02.520 --> 00:00:04.680]   [blank_audio]
+[00:00:04.680 --> 00:00:05.540]   scissors.
+[00:00:05.540 --> 00:00:11.040]   [blank_audio]",2286,00:02
+surgery_ambience_talking,100,female,scalpel,8,1,1,0.9,"[00:00:00.000 --> 00:00:05.760]   astra, scalpel.",2286,00:02
+surgery_ambience_talking,100,female,forceps,8,1,1,0.9,"[00:00:00.000 --> 00:00:07.000]   astra, four seps.",2286,00:02
+surgery_ambience_talking,100,female,needle,8,1,1,0.9,[00:00:00.000 --> 00:00:07.000]   astra. needle.,2286,00:02
+surgery_ambience_talking,100,female,scissors,9,1,1,0.9,"[00:00:00.000 --> 00:00:01.340]   [blank_audio]
+[00:00:01.340 --> 00:00:06.120]   >> astra, scissors.
+[00:00:06.120 --> 00:00:09.000]   >> you guys ready for a cup yet?
+[00:00:09.000 --> 00:00:10.480]   >> not quite.
+[00:00:10.480 --> 00:00:10.980]   >> nope.",12066,00:12
+surgery_ambience_talking,100,female,scalpel,9,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra.
+[00:00:04.000 --> 00:00:08.000]   scalpel.",12066,00:12
+surgery_ambience_talking,100,female,forceps,9,1,1,0.9,[00:00:00.000 --> 00:00:06.000]   astra. four steps.,12066,00:12
+surgery_ambience_talking,100,female,needle,9,1,1,0.9,"[00:00:00.000 --> 00:00:05.000]   astra. needle.
+[00:00:05.000 --> 00:00:07.000]   you guys ready for a cup yet?
+[00:00:07.000 --> 00:00:10.000]   not quite.",12066,00:12
+surgery_ambience_talking,100,female,scissors,10,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra.
+[00:00:04.000 --> 00:00:08.000]   scissors.",1679,00:01
+surgery_ambience_talking,100,female,scalpel,10,1,1,0.9,"[00:00:00.000 --> 00:00:06.000]   astra, scalpel.",1679,00:01
+surgery_ambience_talking,100,female,forceps,10,1,1,0.9,"[00:00:00.000 --> 00:00:06.000]   astra, four steps.",1679,00:01
+surgery_ambience_talking,100,female,needle,10,1,1,0.9,[00:00:00.000 --> 00:00:07.000]   astra. needle.,1679,00:01
+surgery_ambience_talking,100,female,scissors,11,1,1,0.9,"[00:00:00.000 --> 00:00:01.480]   [blank_audio]
+[00:00:01.480 --> 00:00:05.580]   >> astra, scissors.
+[00:00:05.580 --> 00:00:11.140]   [blank_audio]",11087,00:11
+surgery_ambience_talking,100,female,scalpel,11,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra.
+[00:00:04.000 --> 00:00:08.000]   scalpel.
+[00:00:08.000 --> 00:00:11.000]   do you guys ready for a couch yet?",11087,00:11
+surgery_ambience_talking,100,female,forceps,11,1,1,0.9,"[00:00:00.000 --> 00:00:01.560]   [blank_audio]
+[00:00:01.560 --> 00:00:06.880]   >> astra, four steps.
+[00:00:06.880 --> 00:00:08.900]   >> you guys ready for a cup yet?
+[00:00:08.900 --> 00:00:10.900]   [blank_audio]",11087,00:11
+surgery_ambience_talking,100,female,needle,11,1,1,0.9,"[00:00:00.000 --> 00:00:01.460]   [blank_audio]
+[00:00:01.460 --> 00:00:02.420]   astra.
+[00:00:02.420 --> 00:00:04.500]   [blank_audio]
+[00:00:04.500 --> 00:00:05.220]   needle.
+[00:00:05.220 --> 00:00:07.300]   [blank_audio]
+[00:00:07.300 --> 00:00:08.500]   >> you guys ready for a talk yet?
+[00:00:08.500 --> 00:00:10.500]   [blank_audio]",11087,00:11
+surgery_ambience_talking,100,female,scissors,12,1,1,0.9,[00:00:00.000 --> 00:00:06.000]   astra. scissors.,12135,00:12
+surgery_ambience_talking,100,female,scalpel,12,1,1,0.9,"[00:00:00.000 --> 00:00:01.500]   [blank_audio]
+[00:00:01.500 --> 00:00:06.040]   astra, scalpel.
+[00:00:06.040 --> 00:00:07.640]   >> you guys ready for a cup yet?
+[00:00:07.640 --> 00:00:11.220]   [blank_audio]",12135,00:12
+surgery_ambience_talking,100,female,forceps,12,1,1,0.9,"[00:00:00.000 --> 00:00:01.920]   [blank_audio]
+[00:00:01.920 --> 00:00:06.280]   >> astra, four steps.
+[00:00:06.280 --> 00:00:07.560]   >> you guys ready for a count yet?
+[00:00:07.560 --> 00:00:11.820]   [blank_audio]",12135,00:12
+surgery_ambience_talking,100,female,needle,12,1,1,0.9,[00:00:00.000 --> 00:00:05.000]   astra. needle.,12135,00:12
+surgery_ambience_talking,100,female,scissors,13,1,1,0.9,"[00:00:00.000 --> 00:00:01.560]   [blank_audio]
+[00:00:01.560 --> 00:00:05.540]   >> astra, scissors.
+[00:00:05.540 --> 00:00:11.180]   [blank_audio]",8935,00:08
+surgery_ambience_talking,100,female,scalpel,13,1,1,0.9,"[00:00:00.000 --> 00:00:01.580]   [blank_audio]
+[00:00:01.580 --> 00:00:06.720]   >> astra, scalpel.
+[00:00:06.720 --> 00:00:09.500]   [blank_audio]
+[00:00:09.500 --> 00:00:10.760]   >> you guys ready for a cup yet?",8935,00:08
+surgery_ambience_talking,100,female,forceps,13,1,1,0.9,[00:00:00.000 --> 00:00:07.000]   astra. four-seps.,8935,00:08
+surgery_ambience_talking,100,female,needle,13,1,1,0.9,[00:00:00.000 --> 00:00:06.000]   astra. needle.,8935,00:08
+surgery_ambience_talking,100,female,scissors,14,1,1,0.9,[00:00:00.000 --> 00:00:07.000]   astra. scissors.,1424,00:01
+surgery_ambience_talking,100,female,scalpel,14,0,0,0.0,[00:00:00.000 --> 00:00:10.000]   [blank_audio],1424,00:01
+surgery_ambience_talking,100,female,forceps,14,1,1,0.9,"[00:00:00.000 --> 00:00:06.000]   astra, four steps.
+[00:00:06.000 --> 00:00:12.000]   [blank_audio]",1424,00:01
+surgery_ambience_talking,100,female,needle,14,1,1,0.9,[00:00:00.000 --> 00:00:07.000]   astra. needle.,1424,00:01
+surgery_ambience_talking,100,female,scissors,15,1,1,0.9,[00:00:00.000 --> 00:00:07.000]   astra. scissors.,9674,00:09
+surgery_ambience_talking,100,female,scalpel,15,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra.
+[00:00:04.000 --> 00:00:08.000]   scalpel.",9674,00:09
+surgery_ambience_talking,100,female,forceps,15,1,1,0.9,[00:00:00.000 --> 00:00:07.000]   astra. four steps.,9674,00:09
+surgery_ambience_talking,100,female,needle,15,1,1,0.9,[00:00:00.000 --> 00:00:06.000]   astra. needle.,9674,00:09
+surgery_ambience_talking,100,female,scissors,16,1,1,0.9,[00:00:00.000 --> 00:00:07.000]   astra. scissors.,6912,00:06
+surgery_ambience_talking,100,female,scalpel,16,1,1,0.9,"[00:00:00.000 --> 00:00:05.740]   astra, scalpel.",6912,00:06
+surgery_ambience_talking,100,female,forceps,16,1,1,0.9,"[00:00:00.000 --> 00:00:12.000]   astra, four seps.",6912,00:06
+surgery_ambience_talking,100,female,needle,16,1,1,0.9,[00:00:00.000 --> 00:00:07.000]   astra. needle.,6912,00:06
+surgery_ambience_talking,100,female,scissors,17,1,1,0.9,[00:00:00.000 --> 00:00:07.000]   astra. scissors.,520,00:00
+surgery_ambience_talking,100,female,scalpel,17,1,1,0.9,"[00:00:00.000 --> 00:00:05.720]   astra, scalpel.",520,00:00
+surgery_ambience_talking,100,female,forceps,17,1,1,0.9,"[00:00:00.000 --> 00:00:06.000]   astra, four steps.",520,00:00
+surgery_ambience_talking,100,female,needle,17,1,1,0.9,[00:00:00.000 --> 00:00:07.000]   astra. needle.,520,00:00
+surgery_ambience_talking,100,female,scissors,18,1,1,0.9,[00:00:00.000 --> 00:00:07.000]   astra. scissors.,488,00:00
+surgery_ambience_talking,100,female,scalpel,18,1,1,0.9,"[00:00:00.000 --> 00:00:05.760]   astra, scalpel.",488,00:00
+surgery_ambience_talking,100,female,forceps,18,1,1,0.9,"[00:00:00.000 --> 00:00:06.000]   astra, four steps.",488,00:00
+surgery_ambience_talking,100,female,needle,18,1,1,0.9,[00:00:00.000 --> 00:00:07.000]   astra needle.,488,00:00
+surgery_ambience_talking,100,female,scissors,19,1,1,0.9,[00:00:00.000 --> 00:00:07.000]   astra. scissors.,1535,00:01
+surgery_ambience_talking,100,female,scalpel,19,1,1,0.9,"[00:00:00.000 --> 00:00:05.000]   astra.
+[00:00:05.000 --> 00:00:06.000]   scalpel.",1535,00:01
+surgery_ambience_talking,100,female,forceps,19,1,1,0.9,"[00:00:00.000 --> 00:00:07.000]   astra, four seps.",1535,00:01
+surgery_ambience_talking,100,female,needle,19,1,1,0.9,[00:00:00.000 --> 00:00:07.000]   astra. needle.,1535,00:01
+surgery_ambience_talking,100,female,scissors,20,1,1,0.9,[00:00:00.000 --> 00:00:07.000]   astra. scissors.,3582,00:03
+surgery_ambience_talking,100,female,scalpel,20,1,1,0.9,"[00:00:00.000 --> 00:00:01.480]   [blank_audio]
+[00:00:01.480 --> 00:00:03.000]   astra, [blank_audio]
+[00:00:03.000 --> 00:00:10.000]   scalpel, [blank_audio]",3582,00:03
+surgery_ambience_talking,100,female,forceps,20,1,1,0.9,"[00:00:00.000 --> 00:00:07.000]   astra, four seps.",3582,00:03
+surgery_ambience_talking,100,female,needle,20,1,1,0.9,[00:00:00.000 --> 00:00:05.240]   astra needle.,3582,00:03
+surgery_ambience_talking,100,female,scissors,21,1,1,0.9,[00:00:00.000 --> 00:00:07.000]   astra. scissors.,3811,00:03
+surgery_ambience_talking,100,female,scalpel,21,1,1,0.9,"[00:00:00.000 --> 00:00:05.740]   astra, scalpel.",3811,00:03
+surgery_ambience_talking,100,female,forceps,21,1,1,0.9,"[00:00:00.000 --> 00:00:07.000]   astra, four seps.",3811,00:03
+surgery_ambience_talking,100,female,needle,21,1,1,0.9,[00:00:00.000 --> 00:00:07.000]   astra needle.,3811,00:03
+surgery_ambience_talking,100,female,scissors,22,1,1,0.9,[00:00:00.000 --> 00:00:07.000]   astra. scissors.,8279,00:08
+surgery_ambience_talking,100,female,scalpel,22,1,1,0.9,[00:00:00.000 --> 00:00:07.000]   astra. scalpel.,8279,00:08
+surgery_ambience_talking,100,female,forceps,22,1,1,0.9,[00:00:00.000 --> 00:00:07.000]   astra. four-seps.,8279,00:08
+surgery_ambience_talking,100,female,needle,22,1,1,0.9,[00:00:00.000 --> 00:00:07.000]   astra needle.,8279,00:08
+surgery_ambience_talking,100,female,scissors,23,1,1,0.9,[00:00:00.000 --> 00:00:07.000]   astra. scissors.,9863,00:09
+surgery_ambience_talking,100,female,scalpel,23,1,1,0.9,[00:00:00.000 --> 00:00:11.000]   astra. scalpel. you guys ready for a cup yet?,9863,00:09
+surgery_ambience_talking,100,female,forceps,23,1,1,0.9,"[00:00:00.000 --> 00:00:05.000]   astra.
+[00:00:05.000 --> 00:00:06.000]   four seps.
+[00:00:06.000 --> 00:00:09.000]   you guys ready for a cup yet?",9863,00:09
+surgery_ambience_talking,100,female,needle,23,1,1,0.9,[00:00:00.000 --> 00:00:06.000]   astra. needle.,9863,00:09
+surgery_ambience_talking,100,female,scissors,24,1,1,0.9,[00:00:00.000 --> 00:00:07.000]   astra. scissors.,434,00:00
+surgery_ambience_talking,100,female,scalpel,24,1,1,0.9,"[00:00:00.000 --> 00:00:05.000]   astra.
+[00:00:05.000 --> 00:00:06.000]   scalpel.",434,00:00
+surgery_ambience_talking,100,female,forceps,24,1,1,0.9,"[00:00:00.000 --> 00:00:07.000]   astra, four seps.",434,00:00
+surgery_ambience_talking,100,female,needle,24,1,1,0.9,[00:00:00.000 --> 00:00:07.000]   astra needle.,434,00:00
+surgery_ambience_talking,100,female,scissors,25,1,1,0.9,[00:00:00.000 --> 00:00:07.000]   astra. scissors.,9195,00:09
+surgery_ambience_talking,100,female,scalpel,25,1,1,0.9,"[00:00:00.000 --> 00:00:01.600]   [blank_audio]
+[00:00:01.600 --> 00:00:06.700]   >> astra, scalpel.
+[00:00:06.700 --> 00:00:09.260]   [blank_audio]
+[00:00:09.260 --> 00:00:11.340]   >> you guys ready for a cout yet?",9195,00:09
+surgery_ambience_talking,100,female,forceps,25,1,1,0.9,[00:00:00.000 --> 00:00:07.000]   astra. four seps.,9195,00:09
+surgery_ambience_talking,100,female,needle,25,1,1,0.9,[00:00:00.000 --> 00:00:05.000]   astra. needle.,9195,00:09
+surgery_ambience_talking,100,female,scissors,26,1,1,0.9,[00:00:00.000 --> 00:00:07.000]   astra. scissors.,3257,00:03
+surgery_ambience_talking,100,female,scalpel,26,1,1,0.9,"[00:00:00.000 --> 00:00:05.760]   astra, scalpel.",3257,00:03
+surgery_ambience_talking,100,female,forceps,26,1,1,0.9,"[00:00:00.000 --> 00:00:07.000]   astra, four seps.",3257,00:03
+surgery_ambience_talking,100,female,needle,26,1,1,0.9,[00:00:00.000 --> 00:00:07.000]   astra. needle.,3257,00:03
+surgery_ambience_talking,100,female,scissors,27,1,1,0.9,[00:00:00.000 --> 00:00:07.000]   astra. scissors.,11731,00:11
+surgery_ambience_talking,100,female,scalpel,27,1,1,0.9,"[00:00:00.000 --> 00:00:01.520]   [blank_audio]
+[00:00:01.520 --> 00:00:02.560]   astra.
+[00:00:02.560 --> 00:00:04.880]   [blank_audio]
+[00:00:04.880 --> 00:00:05.720]   scalpel.
+[00:00:05.720 --> 00:00:10.720]   [blank_audio]",11731,00:11
+surgery_ambience_talking,100,female,forceps,27,1,1,0.9,"[00:00:00.000 --> 00:00:01.520]   [blank_audio]
+[00:00:01.520 --> 00:00:06.540]   >> astra, four steps.
+[00:00:06.540 --> 00:00:07.940]   >> you guys ready for a count yet?
+[00:00:07.940 --> 00:00:11.720]   [blank_audio]",11731,00:11
+surgery_ambience_talking,100,female,needle,27,1,1,0.9,[00:00:00.000 --> 00:00:05.000]   astra. needle.,11731,00:11
+surgery_ambience_talking,100,female,scissors,28,1,1,0.9,[00:00:00.000 --> 00:00:11.000]   astra. scissors. you guys ready for a cup yet?,10647,00:10
+surgery_ambience_talking,100,female,scalpel,28,1,1,0.9,"[00:00:00.000 --> 00:00:07.000]   astra, scalpel.",10647,00:10
+surgery_ambience_talking,100,female,forceps,28,1,1,0.9,"[00:00:00.000 --> 00:00:01.920]   [blank_audio]
+[00:00:01.920 --> 00:00:06.040]   >> astra, four seps.
+[00:00:06.040 --> 00:00:11.800]   [blank_audio]",10647,00:10
+surgery_ambience_talking,100,female,needle,28,1,1,0.9,"[00:00:00.000 --> 00:00:01.500]   [blank_audio]
+[00:00:01.500 --> 00:00:05.320]   astra, needle.
+[00:00:05.320 --> 00:00:11.320]   [blank_audio]",10647,00:10
+surgery_ambience_talking,100,female,scissors,29,1,1,0.9,"[00:00:00.000 --> 00:00:01.500]   [blank_audio]
+[00:00:01.500 --> 00:00:02.360]   astra.
+[00:00:02.360 --> 00:00:04.700]   [blank_audio]
+[00:00:04.700 --> 00:00:05.500]   scissors.
+[00:00:05.500 --> 00:00:06.500]   [blank_audio]
+[00:00:06.500 --> 00:00:08.040]   >> you guys ready for a cup yet?
+[00:00:08.040 --> 00:00:10.040]   [blank_audio]
+[00:00:10.040 --> 00:00:11.020]   >> not quite.",11490,00:11
+surgery_ambience_talking,100,female,scalpel,29,1,1,0.9,"[00:00:00.000 --> 00:00:01.560]   [blank_audio]
+[00:00:01.560 --> 00:00:02.480]   astra.
+[00:00:02.480 --> 00:00:04.800]   [blank_audio]
+[00:00:04.800 --> 00:00:05.740]   scalpel.
+[00:00:05.740 --> 00:00:07.920]   [blank_audio]",11490,00:11
+surgery_ambience_talking,100,female,forceps,29,1,1,0.9,"[00:00:00.000 --> 00:00:01.800]   [blank_audio]
+[00:00:01.800 --> 00:00:06.800]   >> astra, four seps.
+[00:00:06.800 --> 00:00:08.100]   >> you guys ready for a coffee yet?
+[00:00:08.100 --> 00:00:10.000]   [blank_audio]
+[00:00:10.000 --> 00:00:11.000]   >> not quite.
+[00:00:11.000 --> 00:00:11.760]   >> no.",11490,00:11
+surgery_ambience_talking,100,female,needle,29,1,1,0.9,[00:00:00.000 --> 00:00:05.000]   astra. needle.,11490,00:11
+surgery_ambience_talking,100,female,scissors,30,1,1,0.9,"[00:00:00.000 --> 00:00:01.560]   [blank_audio]
+[00:00:01.560 --> 00:00:05.540]   >> astra, scissors.
+[00:00:05.540 --> 00:00:11.200]   [blank_audio]",8928,00:08
+surgery_ambience_talking,100,female,scalpel,30,1,1,0.9,[00:00:00.000 --> 00:00:07.000]   astra. scalpel.,8928,00:08
+surgery_ambience_talking,100,female,forceps,30,1,1,0.9,[00:00:00.000 --> 00:00:07.000]   astra. four-seps.,8928,00:08
+surgery_ambience_talking,100,female,needle,30,1,1,0.9,"[00:00:00.000 --> 00:00:01.560]   [blank_audio]
+[00:00:01.560 --> 00:00:05.300]   >> astra, needle.
+[00:00:05.300 --> 00:00:09.300]   [blank_audio]
+[00:00:09.300 --> 00:00:11.260]   >> you guys ready for a cup yet?",8928,00:08
+surgery_ambience_talking,100,female,scissors,31,1,1,0.9,[00:00:00.000 --> 00:00:07.000]   astra. scissors.,6873,00:06
+surgery_ambience_talking,100,female,scalpel,31,1,1,0.9,"[00:00:00.000 --> 00:00:05.720]   astra, scalpel.",6873,00:06
+surgery_ambience_talking,100,female,forceps,31,1,1,0.9,[00:00:00.000 --> 00:00:07.000]   astra. four-seps.,6873,00:06
+surgery_ambience_talking,100,female,needle,31,1,1,0.9,[00:00:00.000 --> 00:00:07.000]   astra. needle.,6873,00:06
+surgery_ambience_talking,100,female,scissors,32,1,1,0.9,[00:00:00.000 --> 00:00:07.000]   astra. scissors.,3611,00:03
+surgery_ambience_talking,100,female,scalpel,32,1,1,0.9,"[00:00:00.000 --> 00:00:05.760]   astra, scalpel.",3611,00:03
+surgery_ambience_talking,100,female,forceps,32,1,1,0.9,"[00:00:00.000 --> 00:00:07.000]   astra, four seps.",3611,00:03
+surgery_ambience_talking,100,female,needle,32,1,1,0.9,[00:00:00.000 --> 00:00:07.000]   astra needle.,3611,00:03
+surgery_ambience_talking,100,female,scissors,33,1,1,0.9,[00:00:00.000 --> 00:00:07.000]   astra. scissors.,7359,00:07
+surgery_ambience_talking,100,female,scalpel,33,1,1,0.9,"[00:00:00.000 --> 00:00:07.000]   astra, scalpel.",7359,00:07
+surgery_ambience_talking,100,female,forceps,33,1,1,0.9,[00:00:00.000 --> 00:00:07.000]   astra. four steps.,7359,00:07
+surgery_ambience_talking,100,female,needle,33,1,1,0.9,"[00:00:00.000 --> 00:00:01.360]   [blank_audio]
+[00:00:01.360 --> 00:00:05.420]   astra needle.
+[00:00:05.420 --> 00:00:11.260]   [blank_audio]",7359,00:07
+surgery_ambience_talking,100,female,scissors,34,1,1,0.9,[00:00:00.000 --> 00:00:07.000]   astra. scissors.,9654,00:09
+surgery_ambience_talking,100,female,scalpel,34,1,1,0.9,"[00:00:00.000 --> 00:00:07.000]   astra, scalpel.",9654,00:09
+surgery_ambience_talking,100,female,forceps,34,1,1,0.9,"[00:00:00.000 --> 00:00:09.000]   astra, four seps.
+[00:00:09.000 --> 00:00:11.000]   you guys ready for a count yet?",9654,00:09
+surgery_ambience_talking,100,female,needle,34,1,1,0.9,[00:00:00.000 --> 00:00:05.000]   astra. needle.,9654,00:09
+surgery_ambience_talking,100,female,scissors,35,1,1,0.9,[00:00:00.000 --> 00:00:07.000]   astra. scissors.,4557,00:04
+surgery_ambience_talking,100,female,scalpel,35,1,1,0.9,"[00:00:00.000 --> 00:00:05.720]   astra, scalpel.",4557,00:04
+surgery_ambience_talking,100,female,forceps,35,1,1,0.9,"[00:00:00.000 --> 00:00:06.000]   astra, forceps.",4557,00:04
+surgery_ambience_talking,100,female,needle,35,1,1,0.9,[00:00:00.000 --> 00:00:07.000]   astra. needle.,4557,00:04
+surgery_ambience_talking,100,female,scissors,36,1,1,0.9,[00:00:00.000 --> 00:00:07.000]   astra. scissors.,13261,00:13
+surgery_ambience_talking,100,female,scalpel,36,1,1,0.9,"[00:00:00.000 --> 00:00:05.000]   astra.
+[00:00:05.000 --> 00:00:06.000]   scalpel.",13261,00:13
+surgery_ambience_talking,100,female,forceps,36,1,1,0.9,"[00:00:00.000 --> 00:00:07.000]   astra, four steps.",13261,00:13
+surgery_ambience_talking,100,female,needle,36,0,0,0.0,[00:00:00.000 --> 00:00:10.000]   [blank_audio],13261,00:13
+surgery_ambience_talking,100,female,scissors,37,1,1,0.9,[00:00:00.000 --> 00:00:07.000]   astra. scissors.,106,00:00
+surgery_ambience_talking,100,female,scalpel,37,1,1,0.9,"[00:00:00.000 --> 00:00:01.520]   [blank_audio]
+[00:00:01.520 --> 00:00:05.740]   astra, scalpel.
+[00:00:05.740 --> 00:00:13.340]   [blank_audio]",106,00:00
+surgery_ambience_talking,100,female,forceps,37,1,1,0.9,"[00:00:00.000 --> 00:00:01.920]   [blank_audio]
+[00:00:01.920 --> 00:00:06.100]   astra, four steps.
+[00:00:06.100 --> 00:00:13.800]   [blank_audio]",106,00:00
+surgery_ambience_talking,100,female,needle,37,1,1,0.9,"[00:00:00.000 --> 00:00:01.360]   [blank_audio]
+[00:00:01.360 --> 00:00:02.300]   astra.
+[00:00:02.300 --> 00:00:04.380]   [blank_audio]
+[00:00:04.380 --> 00:00:05.160]   needle.
+[00:00:05.160 --> 00:00:11.160]   [blank_audio]",106,00:00
+surgery_ambience_talking,100,female,scissors,38,1,1,0.9,[00:00:00.000 --> 00:00:06.000]   astra. scissors.,12432,00:12
+surgery_ambience_talking,100,female,scalpel,38,1,1,0.9,"[00:00:00.000 --> 00:00:07.000]   astra, scalpel.",12432,00:12
+surgery_ambience_talking,100,female,forceps,38,1,1,0.9,[00:00:00.000 --> 00:00:07.000]   astra. four steps.,12432,00:12
+surgery_ambience_talking,100,female,needle,38,1,1,0.9,[00:00:00.000 --> 00:00:05.000]   astra. needle.,12432,00:12
+surgery_ambience_talking,100,female,scissors,39,1,1,0.9,[00:00:00.000 --> 00:00:07.000]   astra. scissors.,13202,00:13
+surgery_ambience_talking,100,female,scalpel,39,1,1,0.9,"[00:00:00.000 --> 00:00:01.400]   [blank_audio]
+[00:00:01.400 --> 00:00:06.640]   >> astra, scalpel.
+[00:00:06.640 --> 00:00:11.360]   [blank_audio]",13202,00:13
+surgery_ambience_talking,100,female,forceps,39,1,1,0.9,"[00:00:00.000 --> 00:00:06.000]   astra, four steps.",13202,00:13
+surgery_ambience_talking,100,female,needle,39,1,1,0.9,[00:00:00.000 --> 00:00:05.000]   astra. needle.,13202,00:13
+surgery_ambience_talking,100,female,scissors,40,1,1,0.9,[00:00:00.000 --> 00:00:07.000]   astra. scissors.,2615,00:02
+surgery_ambience_talking,100,female,scalpel,40,1,1,0.9,"[00:00:00.000 --> 00:00:05.760]   astra, scalpel.",2615,00:02
+surgery_ambience_talking,100,female,forceps,40,1,1,0.9,"[00:00:00.000 --> 00:00:07.000]   astra, four seps.",2615,00:02
+surgery_ambience_talking,100,female,needle,40,1,1,0.9,[00:00:00.000 --> 00:00:07.000]   astra. needle.,2615,00:02
+surgery_ambience_talking,100,male,scissors,1,1,1,0.9,[00:00:00.000 --> 00:00:06.000]   astra. scissors.,11438,00:11
+surgery_ambience_talking,100,male,scalpel,1,1,1,0.9,[00:00:00.000 --> 00:00:06.000]   astra. scalpel.,11438,00:11
+surgery_ambience_talking,100,male,forceps,1,1,1,0.9,"[00:00:00.000 --> 00:00:05.000]   astra.
+[00:00:05.000 --> 00:00:07.000]   forceps.
+[00:00:07.000 --> 00:00:10.000]   you guys ready for a count yet?
+[00:00:10.000 --> 00:00:11.000]   not quite.",11438,00:11
+surgery_ambience_talking,100,male,needle,1,1,1,0.9,"[00:00:00.000 --> 00:00:06.000]   astra. needle.
+[00:00:06.000 --> 00:00:09.000]   you guys ready for a cup yet?
+[00:00:09.000 --> 00:00:11.000]   not quite.",11438,00:11
+surgery_ambience_talking,100,male,scissors,2,1,1,0.9,"[00:00:00.000 --> 00:00:02.000]   astra.
+[00:00:02.000 --> 00:00:04.000]   scissors.",6924,00:06
+surgery_ambience_talking,100,male,scalpel,2,0,0,0.0,[00:00:00.000 --> 00:00:10.000]   [blank_audio],6924,00:06
+surgery_ambience_talking,100,male,forceps,2,1,1,0.9,"[00:00:00.000 --> 00:00:06.000]   astra, forceps.",6924,00:06
+surgery_ambience_talking,100,male,needle,2,1,1,0.9,"[00:00:00.000 --> 00:00:01.600]   [blank_audio]
+[00:00:01.600 --> 00:00:05.920]   >> astra, needle.
+[00:00:05.920 --> 00:00:11.920]   [blank_audio]",6924,00:06
+surgery_ambience_talking,100,male,scissors,3,1,1,0.9,[00:00:00.000 --> 00:00:07.000]   astra. scissors.,5574,00:05
+surgery_ambience_talking,100,male,scalpel,3,1,1,0.9,"[00:00:00.000 --> 00:00:06.000]   astra, scalpel.",5574,00:05
+surgery_ambience_talking,100,male,forceps,3,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra.
+[00:00:04.000 --> 00:00:06.000]   forseps.",5574,00:05
+surgery_ambience_talking,100,male,needle,3,1,1,0.9,[00:00:00.000 --> 00:00:05.500]   astra. needle.,5574,00:05
+surgery_ambience_talking,100,male,scissors,4,1,1,0.9,[00:00:00.000 --> 00:00:05.540]   astra. scissors.,4552,00:04
+surgery_ambience_talking,100,male,scalpel,4,1,1,0.9,"[00:00:00.000 --> 00:00:06.000]   astra, scalpel.",4552,00:04
+surgery_ambience_talking,100,male,forceps,4,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra.
+[00:00:04.000 --> 00:00:07.000]   forseps.",4552,00:04
+surgery_ambience_talking,100,male,needle,4,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra.
+[00:00:04.000 --> 00:00:08.000]   needle.",4552,00:04
+surgery_ambience_talking,100,male,scissors,5,1,1,0.9,[00:00:00.000 --> 00:00:07.000]   astra. scissors.,2547,00:02
+surgery_ambience_talking,100,male,scalpel,5,1,1,0.9,[00:00:00.000 --> 00:00:06.000]   astra. scalpel.,2547,00:02
+surgery_ambience_talking,100,male,forceps,5,1,1,0.9,"[00:00:00.000 --> 00:00:06.000]   astra, forceps.",2547,00:02
+surgery_ambience_talking,100,male,needle,5,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra.
+[00:00:04.000 --> 00:00:08.000]   needle.",2547,00:02
+surgery_ambience_talking,100,male,scissors,6,1,1,0.9,[00:00:00.000 --> 00:00:05.520]   astra. scissors.,3527,00:03
+surgery_ambience_talking,100,male,scalpel,6,1,1,0.9,[00:00:00.000 --> 00:00:06.000]   astra. scalpel.,3527,00:03
+surgery_ambience_talking,100,male,forceps,6,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra.
+[00:00:04.000 --> 00:00:07.000]   forceps.",3527,00:03
+surgery_ambience_talking,100,male,needle,6,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra.
+[00:00:04.000 --> 00:00:08.000]   needle.",3527,00:03
+surgery_ambience_talking,100,male,scissors,7,1,1,0.9,"[00:00:00.000 --> 00:00:02.100]   [blank_audio]
+[00:00:02.100 --> 00:00:02.740]   astra.
+[00:00:02.740 --> 00:00:04.900]   [blank_audio]
+[00:00:04.900 --> 00:00:05.740]   scissors.
+[00:00:05.740 --> 00:00:10.760]   [blank_audio]",12509,00:12
+surgery_ambience_talking,100,male,scalpel,7,0,1,0.9,"[00:00:00.000 --> 00:00:02.200]   [blank_audio]
+[00:00:02.200 --> 00:00:05.320]   astro.
+[00:00:05.320 --> 00:00:06.180]   scalpel.
+[00:00:06.180 --> 00:00:10.000]   [blank_audio]",12509,00:12
+surgery_ambience_talking,100,male,forceps,7,1,1,0.9,"[00:00:00.000 --> 00:00:06.000]   astra, forceps.",12509,00:12
+surgery_ambience_talking,100,male,needle,7,1,1,0.9,"[00:00:00.000 --> 00:00:02.120]   [blank_audio]
+[00:00:02.120 --> 00:00:02.660]   astra.
+[00:00:02.660 --> 00:00:04.940]   [blank_audio]
+[00:00:04.940 --> 00:00:05.540]   needle.
+[00:00:05.540 --> 00:00:10.540]   [blank_audio]
+[00:00:10.540 --> 00:00:11.540]   [blank_audio]",12509,00:12
+surgery_ambience_talking,100,male,scissors,8,1,1,0.9,[00:00:00.000 --> 00:00:05.560]   astra. scissors.,5514,00:05
+surgery_ambience_talking,100,male,scalpel,8,1,1,0.9,"[00:00:00.000 --> 00:00:06.000]   astra, scalpel.",5514,00:05
+surgery_ambience_talking,100,male,forceps,8,1,1,0.9,"[00:00:00.000 --> 00:00:06.000]   astra, forceps.",5514,00:05
+surgery_ambience_talking,100,male,needle,8,1,1,0.9,[00:00:00.000 --> 00:00:05.500]   astra. needle.,5514,00:05
+surgery_ambience_talking,100,male,scissors,9,1,1,0.9,"[00:00:00.000 --> 00:00:07.000]   ""astra. scissors.""",1674,00:01
+surgery_ambience_talking,100,male,scalpel,9,1,1,0.9,"[00:00:00.000 --> 00:00:06.000]   astra, scalpel.",1674,00:01
+surgery_ambience_talking,100,male,forceps,9,1,1,0.9,"[00:00:00.000 --> 00:00:06.000]   astra, forceps.",1674,00:01
+surgery_ambience_talking,100,male,needle,9,1,1,0.9,[00:00:00.000 --> 00:00:12.000]   astra. needle.,1674,00:01
+surgery_ambience_talking,100,male,scissors,10,1,1,0.9,[00:00:00.000 --> 00:00:07.000]   astra. scissors.,1519,00:01
+surgery_ambience_talking,100,male,scalpel,10,1,1,0.9,[00:00:00.000 --> 00:00:06.000]   astra. scalpel.,1519,00:01
+surgery_ambience_talking,100,male,forceps,10,1,1,0.9,"[00:00:00.000 --> 00:00:06.000]   astra, forceps.",1519,00:01
+surgery_ambience_talking,100,male,needle,10,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra.
+[00:00:04.000 --> 00:00:08.000]   needle.",1519,00:01
+surgery_ambience_talking,100,male,scissors,11,1,1,0.9,[00:00:00.000 --> 00:00:07.000]   astra. scissors.,6224,00:06
+surgery_ambience_talking,100,male,scalpel,11,1,1,0.9,"[00:00:00.000 --> 00:00:06.000]   astra, scalpel.",6224,00:06
+surgery_ambience_talking,100,male,forceps,11,1,1,0.9,[00:00:00.000 --> 00:00:06.000]   astra. forceps.,6224,00:06
+surgery_ambience_talking,100,male,needle,11,1,1,0.9,"[00:00:00.000 --> 00:00:02.000]   astra.
+[00:00:02.000 --> 00:00:04.000]   needle.",6224,00:06
+surgery_ambience_talking,100,male,scissors,12,1,1,0.9,[00:00:00.000 --> 00:00:07.000]   astra. scissors.,1584,00:01
+surgery_ambience_talking,100,male,scalpel,12,1,1,0.9,[00:00:00.000 --> 00:00:06.000]   astra. scalpel.,1584,00:01
+surgery_ambience_talking,100,male,forceps,12,1,1,0.9,[00:00:00.000 --> 00:00:06.000]   astra. forceps.,1584,00:01
+surgery_ambience_talking,100,male,needle,12,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra.
+[00:00:04.000 --> 00:00:08.000]   needle.",1584,00:01
+surgery_ambience_talking,100,male,scissors,13,1,1,0.9,[00:00:00.000 --> 00:00:07.000]   astra. scissors.,5881,00:05
+surgery_ambience_talking,100,male,scalpel,13,1,1,0.9,"[00:00:00.000 --> 00:00:06.000]   astra, scalpel.",5881,00:05
+surgery_ambience_talking,100,male,forceps,13,1,1,0.9,[00:00:00.000 --> 00:00:06.000]   astra. forceps.,5881,00:05
+surgery_ambience_talking,100,male,needle,13,1,1,0.9,[00:00:00.000 --> 00:00:05.500]   astra. needle.,5881,00:05
+surgery_ambience_talking,100,male,scissors,14,1,1,0.9,"[00:00:00.000 --> 00:00:02.100]   [blank_audio]
+[00:00:02.100 --> 00:00:02.840]   >> astra.
+[00:00:02.840 --> 00:00:04.840]   [blank_audio]
+[00:00:04.840 --> 00:00:05.720]   scissors.
+[00:00:05.720 --> 00:00:11.480]   [blank_audio]",13885,00:13
+surgery_ambience_talking,100,male,scalpel,14,1,1,0.9,"[00:00:00.000 --> 00:00:02.240]   [blank_audio]
+[00:00:02.240 --> 00:00:06.140]   >> astra, scalpel.
+[00:00:06.140 --> 00:00:14.140]   [blank_audio]",13885,00:13
+surgery_ambience_talking,100,male,forceps,14,1,1,0.9,"[00:00:00.000 --> 00:00:02.320]   [blank_audio]
+[00:00:02.320 --> 00:00:06.160]   >> astra, forceps.
+[00:00:06.160 --> 00:00:14.160]   [blank_audio]",13885,00:13
+surgery_ambience_talking,100,male,needle,14,1,1,0.9,"[00:00:00.000 --> 00:00:02.100]   [blank_audio]
+[00:00:02.100 --> 00:00:04.920]   >> astra, [blank_audio]
+[00:00:04.920 --> 00:00:11.960]   needle, [blank_audio]",13885,00:13
+surgery_ambience_talking,100,male,scissors,15,1,1,0.9,[00:00:00.000 --> 00:00:07.000]   astra. scissors.,5635,00:05
+surgery_ambience_talking,100,male,scalpel,15,1,1,0.9,[00:00:00.000 --> 00:00:06.000]   astra. scalpel.,5635,00:05
+surgery_ambience_talking,100,male,forceps,15,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra.
+[00:00:04.000 --> 00:00:06.000]   forseps.",5635,00:05
+surgery_ambience_talking,100,male,needle,15,1,1,0.9,[00:00:00.000 --> 00:00:05.500]   astra. needle.,5635,00:05
+surgery_ambience_talking,100,male,scissors,16,1,1,0.9,"[00:00:00.000 --> 00:00:01.560]   [blank_audio]
+[00:00:01.560 --> 00:00:02.680]   astra.
+[00:00:02.680 --> 00:00:04.840]   [blank_audio]
+[00:00:04.840 --> 00:00:05.680]   scissors.
+[00:00:05.680 --> 00:00:08.480]   [blank_audio]
+[00:00:08.480 --> 00:00:09.640]   >> you guys ready for a top yet?
+[00:00:09.640 --> 00:00:11.120]   [blank_audio]",9891,00:09
+surgery_ambience_talking,100,male,scalpel,16,1,1,0.9,"[00:00:00.000 --> 00:00:01.620]   [blank_audio]
+[00:00:01.620 --> 00:00:02.460]   astra.
+[00:00:02.460 --> 00:00:05.380]   [blank_audio]
+[00:00:05.380 --> 00:00:06.060]   scalpel.
+[00:00:06.060 --> 00:00:08.580]   [blank_audio]
+[00:00:08.580 --> 00:00:09.660]   >> you guys ready for a count yet?
+[00:00:09.660 --> 00:00:11.940]   [blank_audio]",9891,00:09
+surgery_ambience_talking,100,male,forceps,16,1,1,0.9,"[00:00:00.000 --> 00:00:05.000]   astra.
+[00:00:05.000 --> 00:00:07.000]   forceps.",9891,00:09
+surgery_ambience_talking,100,male,needle,16,1,1,0.9,"[00:00:00.000 --> 00:00:02.220]   [blank_audio]
+[00:00:02.220 --> 00:00:05.620]   >> astra, needle.
+[00:00:05.620 --> 00:00:08.620]   [blank_audio]
+[00:00:08.620 --> 00:00:09.700]   >> you guys ready for a count yet?
+[00:00:09.700 --> 00:00:11.940]   [blank_audio]",9891,00:09
+surgery_ambience_talking,100,male,scissors,17,1,1,0.9,[00:00:00.000 --> 00:00:07.000]   astra. scissors.,4333,00:04
+surgery_ambience_talking,100,male,scalpel,17,1,1,0.9,[00:00:00.000 --> 00:00:06.000]   astra. scalpel.,4333,00:04
+surgery_ambience_talking,100,male,forceps,17,1,1,0.9,"[00:00:00.000 --> 00:00:06.000]   astra, forceps.",4333,00:04
+surgery_ambience_talking,100,male,needle,17,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra.
+[00:00:04.000 --> 00:00:08.000]   needle.",4333,00:04
+surgery_ambience_talking,100,male,scissors,18,1,1,0.9,"[00:00:00.000 --> 00:00:02.140]   [blank_audio]
+[00:00:02.140 --> 00:00:02.740]   astra.
+[00:00:02.740 --> 00:00:04.940]   [blank_audio]
+[00:00:04.940 --> 00:00:05.620]   scissors.
+[00:00:05.620 --> 00:00:10.120]   [blank_audio]
+[00:00:10.120 --> 00:00:11.580]   [blank_audio]",13223,00:13
+surgery_ambience_talking,100,male,scalpel,18,1,1,0.9,"[00:00:00.000 --> 00:00:01.560]   [blank_audio]
+[00:00:01.560 --> 00:00:06.920]   >> astra, scalpel.
+[00:00:06.920 --> 00:00:11.920]   [blank_audio]",13223,00:13
+surgery_ambience_talking,100,male,forceps,18,1,1,0.9,"[00:00:00.000 --> 00:00:06.000]   astra, forceps.",13223,00:13
+surgery_ambience_talking,100,male,needle,18,1,1,0.9,[00:00:00.000 --> 00:00:07.000]   astra. needle.,13223,00:13
+surgery_ambience_talking,100,male,scissors,19,1,1,0.9,[00:00:00.000 --> 00:00:06.000]   astra. scissors.,711,00:00
+surgery_ambience_talking,100,male,scalpel,19,1,1,0.9,[00:00:00.000 --> 00:00:06.000]   astra. scalpel.,711,00:00
+surgery_ambience_talking,100,male,forceps,19,1,1,0.9,"[00:00:00.000 --> 00:00:06.000]   astra, forceps.",711,00:00
+surgery_ambience_talking,100,male,needle,19,1,1,0.9,"[00:00:00.000 --> 00:00:02.160]   [blank_audio]
+[00:00:02.160 --> 00:00:03.180]   astra.
+[00:00:03.180 --> 00:00:04.980]   [blank_audio]
+[00:00:04.980 --> 00:00:05.660]   needle.
+[00:00:05.660 --> 00:00:13.940]   [blank_audio]",711,00:00
+surgery_ambience_talking,100,male,scissors,20,1,1,0.9,[00:00:00.000 --> 00:00:05.440]   astra. scissors.,11955,00:11
+surgery_ambience_talking,100,male,scalpel,20,1,1,0.9,"[00:00:00.000 --> 00:00:01.660]   [blank_audio]
+[00:00:01.660 --> 00:00:02.680]   astra.
+[00:00:02.680 --> 00:00:05.260]   [blank_audio]
+[00:00:05.260 --> 00:00:06.040]   scalpel.
+[00:00:06.040 --> 00:00:11.800]   [blank_audio]",11955,00:11
+surgery_ambience_talking,100,male,forceps,20,1,1,0.9,"[00:00:00.000 --> 00:00:01.500]   [blank_audio]
+[00:00:01.500 --> 00:00:06.220]   >> astra, force hips.
+[00:00:06.220 --> 00:00:07.620]   >> you guys heard a trick out yet?
+[00:00:07.620 --> 00:00:10.620]   [blank_audio]",11955,00:11
+surgery_ambience_talking,100,male,needle,20,1,1,0.9,"[00:00:00.000 --> 00:00:02.140]   [blank_audio]
+[00:00:02.140 --> 00:00:02.620]   astra.
+[00:00:02.620 --> 00:00:05.000]   [blank_audio]
+[00:00:05.000 --> 00:00:05.500]   needle.
+[00:00:05.500 --> 00:00:09.500]   [blank_audio]",11955,00:11
+surgery_ambience_talking,100,male,scissors,21,1,1,0.9,[00:00:00.000 --> 00:00:07.000]   astra. scissors.,7527,00:07
+surgery_ambience_talking,100,male,scalpel,21,1,1,0.9,[00:00:00.000 --> 00:00:07.000]   astra. scalpel.,7527,00:07
+surgery_ambience_talking,100,male,forceps,21,0,0,0.0,[00:00:00.000 --> 00:00:10.000]   [blank_audio],7527,00:07
+surgery_ambience_talking,100,male,needle,21,1,1,0.9,[00:00:00.000 --> 00:00:12.000]   astra. needle.,7527,00:07
+surgery_ambience_talking,100,male,scissors,22,1,1,0.9,[00:00:00.000 --> 00:00:07.000]   astra. scissors.,8785,00:08
+surgery_ambience_talking,100,male,scalpel,22,1,1,0.9,"[00:00:00.000 --> 00:00:11.920]   astra, scalpel, you guys ready for a cup yet?",8785,00:08
+surgery_ambience_talking,100,male,forceps,22,1,1,0.9,[00:00:00.000 --> 00:00:06.000]   astra. forceps.,8785,00:08
+surgery_ambience_talking,100,male,needle,22,1,1,0.9,"[00:00:00.000 --> 00:00:06.000]   astra. needle.
+[00:00:06.000 --> 00:00:12.000]   you guys ready for a count yet?",8785,00:08
+surgery_ambience_talking,100,male,scissors,23,1,1,0.9,"[00:00:00.000 --> 00:00:02.240]   [blank_audio]
+[00:00:02.240 --> 00:00:02.740]   astra.
+[00:00:02.740 --> 00:00:05.080]   [blank_audio]
+[00:00:05.080 --> 00:00:05.760]   scissors.
+[00:00:05.760 --> 00:00:11.500]   [blank_audio]",2045,00:02
+surgery_ambience_talking,100,male,scalpel,23,1,1,0.9,[00:00:00.000 --> 00:00:06.000]   astra. scalpel.,2045,00:02
+surgery_ambience_talking,100,male,forceps,23,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra.
+[00:00:04.000 --> 00:00:08.000]   forceps.",2045,00:02
+surgery_ambience_talking,100,male,needle,23,1,1,0.9,"[00:00:00.000 --> 00:00:02.000]   astra.
+[00:00:02.000 --> 00:00:04.000]   needle.",2045,00:02
+surgery_ambience_talking,100,male,scissors,24,1,1,0.9,[00:00:00.000 --> 00:00:06.500]   astra. scissors.,6201,00:06
+surgery_ambience_talking,100,male,scalpel,24,1,1,0.9,"[00:00:00.000 --> 00:00:06.000]   astra, scalpel.",6201,00:06
+surgery_ambience_talking,100,male,forceps,24,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra.
+[00:00:04.000 --> 00:00:07.000]   forseps.",6201,00:06
+surgery_ambience_talking,100,male,needle,24,1,1,0.9,[00:00:00.000 --> 00:00:05.500]   astra. needle.,6201,00:06
+surgery_ambience_talking,100,male,scissors,25,1,1,0.9,[00:00:00.000 --> 00:00:07.000]   astra. scissors.,1291,00:01
+surgery_ambience_talking,100,male,scalpel,25,1,1,0.9,"[00:00:00.000 --> 00:00:06.000]   astra, scalpel.",1291,00:01
+surgery_ambience_talking,100,male,forceps,25,1,1,0.9,"[00:00:00.000 --> 00:00:06.000]   astra, forceps.",1291,00:01
+surgery_ambience_talking,100,male,needle,25,1,1,0.9,"[00:00:00.000 --> 00:00:02.160]   [blank_audio]
+[00:00:02.160 --> 00:00:02.660]   astra.
+[00:00:02.660 --> 00:00:05.520]   needle.
+[00:00:05.520 --> 00:00:11.920]   [blank_audio]",1291,00:01
+surgery_ambience_talking,100,male,scissors,26,1,1,0.9,[00:00:00.000 --> 00:00:07.000]   astra. scissors.,9044,00:09
+surgery_ambience_talking,100,male,scalpel,26,1,1,0.9,"[00:00:00.000 --> 00:00:11.000]   astra, scalpel, you guys ready for a couch yet?",9044,00:09
+surgery_ambience_talking,100,male,forceps,26,1,1,0.9,[00:00:00.000 --> 00:00:06.000]   astra. forceps.,9044,00:09
+surgery_ambience_talking,100,male,needle,26,1,1,0.9,"[00:00:00.000 --> 00:00:01.600]   [blank_audio]
+[00:00:01.600 --> 00:00:02.460]   astra.
+[00:00:02.460 --> 00:00:04.660]   [blank_audio]
+[00:00:04.660 --> 00:00:05.420]   needle.
+[00:00:05.420 --> 00:00:09.020]   [blank_audio]
+[00:00:09.020 --> 00:00:10.500]   >> you guys ready for a count yet?
+[00:00:10.500 --> 00:00:12.000]   [blank_audio]",9044,00:09
+surgery_ambience_talking,100,male,scissors,27,1,1,0.9,[00:00:00.000 --> 00:00:06.000]   astra. scissors.,4803,00:04
+surgery_ambience_talking,100,male,scalpel,27,1,1,0.9,[00:00:00.000 --> 00:00:06.000]   astra. scalpel.,4803,00:04
+surgery_ambience_talking,100,male,forceps,27,1,1,0.9,[00:00:00.000 --> 00:00:06.000]   astra. forceps.,4803,00:04
+surgery_ambience_talking,100,male,needle,27,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra.
+[00:00:04.000 --> 00:00:08.000]   needle.",4803,00:04
+surgery_ambience_talking,100,male,scissors,28,1,1,0.9,"[00:00:00.000 --> 00:00:02.100]   [blank_audio]
+[00:00:02.100 --> 00:00:02.740]   astra.
+[00:00:02.740 --> 00:00:05.140]   [blank_audio]
+[00:00:05.140 --> 00:00:05.740]   scissors.
+[00:00:05.740 --> 00:00:11.660]   [blank_audio]",13588,00:13
+surgery_ambience_talking,100,male,scalpel,28,1,1,0.9,"[00:00:00.000 --> 00:00:01.660]   [blank_audio]
+[00:00:01.660 --> 00:00:02.700]   astra.
+[00:00:02.700 --> 00:00:05.280]   [blank_audio]
+[00:00:05.280 --> 00:00:06.080]   scalpel.
+[00:00:06.080 --> 00:00:11.820]   [blank_audio]",13588,00:13
+surgery_ambience_talking,100,male,forceps,28,1,1,0.9,"[00:00:00.000 --> 00:00:06.000]   astra, forceps.",13588,00:13
+surgery_ambience_talking,100,male,needle,28,1,1,0.9,"[00:00:00.000 --> 00:00:02.220]   [blank_audio]
+[00:00:02.220 --> 00:00:02.700]   astra.
+[00:00:02.700 --> 00:00:04.980]   [blank_audio]
+[00:00:04.980 --> 00:00:05.620]   needle.
+[00:00:05.620 --> 00:00:13.120]   [blank_audio]",13588,00:13
+surgery_ambience_talking,100,male,scissors,29,1,1,0.9,[00:00:00.000 --> 00:00:07.000]   astra. scissors.,10299,00:10
+surgery_ambience_talking,100,male,scalpel,29,0,1,0.9,"[00:00:00.000 --> 00:00:01.720]   [blank_audio]
+[00:00:01.720 --> 00:00:04.920]   astro.
+[00:00:04.920 --> 00:00:08.000]   scalpel.
+[00:00:08.000 --> 00:00:09.500]   >> you guys ready for a call yet?
+[00:00:09.500 --> 00:00:10.000]   [blank_audio]
+[00:00:10.000 --> 00:00:11.000]   [sound]
+[00:00:11.000 --> 00:00:12.000]   [blank_audio]",10299,00:10
+surgery_ambience_talking,100,male,forceps,29,0,1,0.9,[00:00:00.000 --> 00:00:07.000]   astro. forceps.,10299,00:10
+surgery_ambience_talking,100,male,needle,29,1,1,0.9,"[00:00:00.000 --> 00:00:01.660]   [blank_audio]
+[00:00:01.660 --> 00:00:05.680]   >> astra, needle.
+[00:00:05.680 --> 00:00:11.840]   [blank_audio]",10299,00:10
+surgery_ambience_talking,100,male,scissors,30,1,1,0.9,"[00:00:00.000 --> 00:00:02.580]   [blank_audio]
+[00:00:02.580 --> 00:00:05.680]   astra, scissors.
+[00:00:05.680 --> 00:00:08.260]   [blank_audio]
+[00:00:08.260 --> 00:00:09.400]   >> you guys ready for a top yet?
+[00:00:09.400 --> 00:00:11.520]   [blank_audio]",10133,00:10
+surgery_ambience_talking,100,male,scalpel,30,1,1,0.9,"[00:00:00.000 --> 00:00:01.680]   [blank_audio]
+[00:00:01.680 --> 00:00:02.680]   >> astra.
+[00:00:02.680 --> 00:00:05.040]   [blank_audio]
+[00:00:05.040 --> 00:00:06.020]   scalpel.
+[00:00:06.020 --> 00:00:12.020]   [blank_audio]",10133,00:10
+surgery_ambience_talking,100,male,forceps,30,1,1,0.9,[00:00:00.000 --> 00:00:07.000]   astra. forceps.,10133,00:10
+surgery_ambience_talking,100,male,needle,30,0,1,0.9,"[00:00:00.000 --> 00:00:02.500]   [blank_audio]
+[00:00:02.500 --> 00:00:04.980]   astro.
+[00:00:04.980 --> 00:00:06.180]   needle.
+[00:00:06.180 --> 00:00:08.220]   [blank_audio]
+[00:00:08.220 --> 00:00:09.560]   >> you guys ready for a copy of it?
+[00:00:09.560 --> 00:00:11.960]   [blank_audio]",10133,00:10
+surgery_ambience_talking,100,male,scissors,31,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra
+[00:00:04.000 --> 00:00:08.000]   scissors",5925,00:05
+surgery_ambience_talking,100,male,scalpel,31,1,0,0.0,[00:00:00.000 --> 00:00:06.000]   astra. scalfill.,5925,00:05
+surgery_ambience_talking,100,male,forceps,31,1,1,0.9,[00:00:00.000 --> 00:00:06.000]   astra. forceps.,5925,00:05
+surgery_ambience_talking,100,male,needle,31,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra.
+[00:00:04.000 --> 00:00:08.000]   needle.",5925,00:05
+surgery_ambience_talking,100,male,scissors,32,1,1,0.9,[00:00:00.000 --> 00:00:05.440]   astra. scissors.,9459,00:09
+surgery_ambience_talking,100,male,scalpel,32,1,1,0.9,[00:00:00.000 --> 00:00:06.000]   astra. scalpel.,9459,00:09
+surgery_ambience_talking,100,male,forceps,32,1,1,0.9,[00:00:00.000 --> 00:00:07.000]   astra. forceps.,9459,00:09
+surgery_ambience_talking,100,male,needle,32,1,1,0.9,"[00:00:00.000 --> 00:00:06.000]   astra. needle.
+[00:00:06.000 --> 00:00:11.000]   you guys ready for a top yet?",9459,00:09
+surgery_ambience_talking,100,male,scissors,33,1,1,0.9,[00:00:00.000 --> 00:00:05.540]   astra. scissors.,3150,00:03
+surgery_ambience_talking,100,male,scalpel,33,1,1,0.9,"[00:00:00.000 --> 00:00:06.000]   astra, scalpel.",3150,00:03
+surgery_ambience_talking,100,male,forceps,33,1,1,0.9,"[00:00:00.000 --> 00:00:06.000]   astra, forceps.",3150,00:03
+surgery_ambience_talking,100,male,needle,33,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra.
+[00:00:04.000 --> 00:00:08.000]   needle.",3150,00:03
+surgery_ambience_talking,100,male,scissors,34,1,1,0.9,"[00:00:00.000 --> 00:00:06.000]   astra. scissors.
+[00:00:06.000 --> 00:00:09.000]   you guys ready for a cup yet?
+[00:00:09.000 --> 00:00:11.000]   not far.",11543,00:11
+surgery_ambience_talking,100,male,scalpel,34,0,1,0.9,"[00:00:00.000 --> 00:00:01.680]   [blank_audio]
+[00:00:01.680 --> 00:00:02.840]   astro.
+[00:00:02.840 --> 00:00:05.280]   [blank_audio]
+[00:00:05.280 --> 00:00:06.160]   scalpel.
+[00:00:06.160 --> 00:00:11.760]   [blank_audio]",11543,00:11
+surgery_ambience_talking,100,male,forceps,34,1,1,0.9,"[00:00:00.000 --> 00:00:01.560]   [blank_audio]
+[00:00:01.560 --> 00:00:06.560]   >> astra, force hips.
+[00:00:06.560 --> 00:00:07.980]   >> you guys ready for a cup yet?
+[00:00:07.980 --> 00:00:10.480]   [blank_audio]
+[00:00:10.480 --> 00:00:10.980]   >> not quite.
+[00:00:10.980 --> 00:00:11.480]   >> nope.",11543,00:11
+surgery_ambience_talking,100,male,needle,34,0,1,0.9,"[00:00:00.000 --> 00:00:02.200]   [blank_audio]
+[00:00:02.200 --> 00:00:04.700]   astro.
+[00:00:04.700 --> 00:00:06.660]   needle.
+[00:00:06.660 --> 00:00:10.060]   >> you guys ready for a cup yet?
+[00:00:10.060 --> 00:00:10.960]   >> not quite.
+[00:00:10.960 --> 00:00:11.840]   >> no.",11543,00:11
+surgery_ambience_talking,100,male,scissors,35,1,1,0.9,"[00:00:00.000 --> 00:00:07.000]   ""astra. scissors.""",1139,00:01
+surgery_ambience_talking,100,male,scalpel,35,1,1,0.9,"[00:00:00.000 --> 00:00:01.520]   [blank_audio]
+[00:00:01.520 --> 00:00:02.700]   >> astra.
+[00:00:02.700 --> 00:00:05.420]   [blank_audio]
+[00:00:05.420 --> 00:00:06.180]   scalpel.
+[00:00:06.180 --> 00:00:11.960]   [blank_audio]",1139,00:01
+surgery_ambience_talking,100,male,forceps,35,1,1,0.9,"[00:00:00.000 --> 00:00:06.000]   astra, forceps.",1139,00:01
+surgery_ambience_talking,100,male,needle,35,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra.
+[00:00:04.000 --> 00:00:08.000]   needle.",1139,00:01
+surgery_ambience_talking,100,male,scissors,36,1,1,0.9,[00:00:00.000 --> 00:00:06.000]   astra. scissors.,750,00:00
+surgery_ambience_talking,100,male,scalpel,36,1,1,0.9,"[00:00:00.000 --> 00:00:01.660]   [blank_audio]
+[00:00:01.660 --> 00:00:02.720]   astra.
+[00:00:02.720 --> 00:00:04.340]   [blank_audio]
+[00:00:04.340 --> 00:00:06.080]   scalpel.
+[00:00:06.080 --> 00:00:13.960]   [blank_audio]",750,00:00
+surgery_ambience_talking,100,male,forceps,36,1,1,0.9,"[00:00:00.000 --> 00:00:06.000]   astra, forceps.",750,00:00
+surgery_ambience_talking,100,male,needle,36,1,1,0.9,"[00:00:00.000 --> 00:00:02.220]   [blank_audio]
+[00:00:02.220 --> 00:00:02.800]   astra.
+[00:00:02.800 --> 00:00:05.400]   [blank_audio]
+[00:00:05.400 --> 00:00:05.900]   needle.
+[00:00:05.900 --> 00:00:13.900]   [blank_audio]",750,00:00
+surgery_ambience_talking,100,male,scissors,37,1,1,0.9,[00:00:00.000 --> 00:00:05.520]   astra. scissors.,10834,00:10
+surgery_ambience_talking,100,male,scalpel,37,1,1,0.9,"[00:00:00.000 --> 00:00:01.720]   [blank_audio]
+[00:00:01.720 --> 00:00:02.520]   astra.
+[00:00:02.520 --> 00:00:05.200]   [blank_audio]
+[00:00:05.200 --> 00:00:06.000]   scalpel.
+[00:00:06.000 --> 00:00:10.820]   [blank_audio]
+[00:00:10.820 --> 00:00:11.800]   >> not quite.
+[00:00:11.800 --> 00:00:12.300]   >> no.",10834,00:10
+surgery_ambience_talking,100,male,forceps,37,1,1,0.9,[00:00:00.000 --> 00:00:07.000]   astra. force hips.,10834,00:10
+surgery_ambience_talking,100,male,needle,37,1,1,0.9,"[00:00:00.000 --> 00:00:01.660]   [blank_audio]
+[00:00:01.660 --> 00:00:02.700]   astra.
+[00:00:02.700 --> 00:00:04.820]   [blank_audio]
+[00:00:04.820 --> 00:00:05.580]   needle.
+[00:00:05.580 --> 00:00:11.820]   [blank_audio]",10834,00:10
+surgery_ambience_talking,100,male,scissors,38,1,1,0.9,"[00:00:00.000 --> 00:00:02.000]   astra.
+[00:00:02.000 --> 00:00:04.000]   scissors.",3733,00:03
+surgery_ambience_talking,100,male,scalpel,38,1,1,0.9,"[00:00:00.000 --> 00:00:06.000]   astra, scalpel.",3733,00:03
+surgery_ambience_talking,100,male,forceps,38,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra.
+[00:00:04.000 --> 00:00:07.000]   forceps.",3733,00:03
+surgery_ambience_talking,100,male,needle,38,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra.
+[00:00:04.000 --> 00:00:08.000]   needle.",3733,00:03
+surgery_ambience_talking,100,male,scissors,39,1,1,0.9,"[00:00:00.000 --> 00:00:02.120]   [blank_audio]
+[00:00:02.120 --> 00:00:02.740]   astra.
+[00:00:02.740 --> 00:00:04.880]   [blank_audio]
+[00:00:04.880 --> 00:00:05.760]   scissors.
+[00:00:05.760 --> 00:00:10.760]   [blank_audio]
+[00:00:10.760 --> 00:00:16.260]   [blank_audio]",12665,00:12
+surgery_ambience_talking,100,male,scalpel,39,1,1,0.9,"[00:00:00.000 --> 00:00:01.680]   [blank_audio]
+[00:00:01.680 --> 00:00:02.540]   astra.
+[00:00:02.540 --> 00:00:05.180]   [blank_audio]
+[00:00:05.180 --> 00:00:05.940]   scalpel.
+[00:00:05.940 --> 00:00:06.960]   [blank_audio]
+[00:00:06.960 --> 00:00:07.940]   [sound]
+[00:00:07.940 --> 00:00:08.940]   [blank_audio]
+[00:00:08.940 --> 00:00:09.940]   [sound]",12665,00:12
+surgery_ambience_talking,100,male,forceps,39,1,1,0.9,[00:00:00.000 --> 00:00:07.000]   astra. forceps.,12665,00:12
+surgery_ambience_talking,100,male,needle,39,1,1,0.9,"[00:00:00.000 --> 00:00:02.140]   [blank_audio]
+[00:00:02.140 --> 00:00:02.620]   astra.
+[00:00:02.620 --> 00:00:04.980]   [blank_audio]
+[00:00:04.980 --> 00:00:05.560]   needle.
+[00:00:05.560 --> 00:00:07.560]   [blank_audio]
+[00:00:07.560 --> 00:00:09.560]   [blank_audio]",12665,00:12
+surgery_ambience_talking,100,male,scissors,40,1,1,0.9,[00:00:00.000 --> 00:00:06.000]   astra. scissors.,4741,00:04
+surgery_ambience_talking,100,male,scalpel,40,1,1,0.9,"[00:00:00.000 --> 00:00:06.000]   astra, scalpel.",4741,00:04
+surgery_ambience_talking,100,male,forceps,40,1,1,0.9,[00:00:00.000 --> 00:00:06.000]   astra. forceps.,4741,00:04
+surgery_ambience_talking,100,male,needle,40,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra.
+[00:00:04.000 --> 00:00:08.000]   needle.",4741,00:04
+no_background,100,female,scissors,1,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra.
+[00:00:04.000 --> 00:00:06.000]   scissors.",0,00:00
+no_background,100,female,scalpel,1,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra.
+[00:00:04.000 --> 00:00:06.000]   scalpel.",0,00:00
+no_background,100,female,forceps,1,1,1,0.9,"[00:00:00.000 --> 00:00:06.000]   astra, forceps.",0,00:00
+no_background,100,female,needle,1,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra
+[00:00:04.000 --> 00:00:08.000]   needle",0,00:00
+no_background,100,female,scissors,2,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra.
+[00:00:04.000 --> 00:00:06.000]   scissors.",0,00:00
+no_background,100,female,scalpel,2,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra.
+[00:00:04.000 --> 00:00:06.000]   scalpel.",0,00:00
+no_background,100,female,forceps,2,1,1,0.9,"[00:00:00.000 --> 00:00:06.000]   astra, forceps.",0,00:00
+no_background,100,female,needle,2,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra
+[00:00:04.000 --> 00:00:08.000]   needle",0,00:00
+no_background,100,female,scissors,3,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra.
+[00:00:04.000 --> 00:00:06.000]   scissors.",0,00:00
+no_background,100,female,scalpel,3,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra.
+[00:00:04.000 --> 00:00:06.000]   scalpel.",0,00:00
+no_background,100,female,forceps,3,1,1,0.9,"[00:00:00.000 --> 00:00:06.000]   astra, forceps.",0,00:00
+no_background,100,female,needle,3,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra
+[00:00:04.000 --> 00:00:08.000]   needle",0,00:00
+no_background,100,female,scissors,4,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra.
+[00:00:04.000 --> 00:00:06.000]   scissors.",0,00:00
+no_background,100,female,scalpel,4,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra.
+[00:00:04.000 --> 00:00:06.000]   scalpel.",0,00:00
+no_background,100,female,forceps,4,1,1,0.9,"[00:00:00.000 --> 00:00:06.000]   astra, forceps.",0,00:00
+no_background,100,female,needle,4,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra
+[00:00:04.000 --> 00:00:08.000]   needle",0,00:00
+no_background,100,female,scissors,5,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra.
+[00:00:04.000 --> 00:00:06.000]   scissors.",0,00:00
+no_background,100,female,scalpel,5,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra.
+[00:00:04.000 --> 00:00:06.000]   scalpel.",0,00:00
+no_background,100,female,forceps,5,1,1,0.9,"[00:00:00.000 --> 00:00:06.000]   astra, forceps.",0,00:00
+no_background,100,female,needle,5,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra
+[00:00:04.000 --> 00:00:08.000]   needle",0,00:00
+no_background,100,female,scissors,6,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra.
+[00:00:04.000 --> 00:00:06.000]   scissors.",0,00:00
+no_background,100,female,scalpel,6,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra.
+[00:00:04.000 --> 00:00:06.000]   scalpel.",0,00:00
+no_background,100,female,forceps,6,1,1,0.9,"[00:00:00.000 --> 00:00:06.000]   astra, forceps.",0,00:00
+no_background,100,female,needle,6,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra
+[00:00:04.000 --> 00:00:08.000]   needle",0,00:00
+no_background,100,female,scissors,7,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra.
+[00:00:04.000 --> 00:00:06.000]   scissors.",0,00:00
+no_background,100,female,scalpel,7,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra.
+[00:00:04.000 --> 00:00:06.000]   scalpel.",0,00:00
+no_background,100,female,forceps,7,1,1,0.9,"[00:00:00.000 --> 00:00:06.000]   astra, forceps.",0,00:00
+no_background,100,female,needle,7,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra
+[00:00:04.000 --> 00:00:08.000]   needle",0,00:00
+no_background,100,female,scissors,8,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra.
+[00:00:04.000 --> 00:00:06.000]   scissors.",0,00:00
+no_background,100,female,scalpel,8,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra.
+[00:00:04.000 --> 00:00:06.000]   scalpel.",0,00:00
+no_background,100,female,forceps,8,1,1,0.9,"[00:00:00.000 --> 00:00:06.000]   astra, forceps.",0,00:00
+no_background,100,female,needle,8,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra
+[00:00:04.000 --> 00:00:08.000]   needle",0,00:00
+no_background,100,female,scissors,9,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra.
+[00:00:04.000 --> 00:00:06.000]   scissors.",0,00:00
+no_background,100,female,scalpel,9,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra.
+[00:00:04.000 --> 00:00:06.000]   scalpel.",0,00:00
+no_background,100,female,forceps,9,1,1,0.9,"[00:00:00.000 --> 00:00:06.000]   astra, forceps.",0,00:00
+no_background,100,female,needle,9,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra
+[00:00:04.000 --> 00:00:08.000]   needle",0,00:00
+no_background,100,female,scissors,10,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra.
+[00:00:04.000 --> 00:00:06.000]   scissors.",0,00:00
+no_background,100,female,scalpel,10,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra.
+[00:00:04.000 --> 00:00:06.000]   scalpel.",0,00:00
+no_background,100,female,forceps,10,1,1,0.9,"[00:00:00.000 --> 00:00:06.000]   astra, forceps.",0,00:00
+no_background,100,female,needle,10,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra
+[00:00:04.000 --> 00:00:08.000]   needle",0,00:00
+no_background,100,female,scissors,11,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra.
+[00:00:04.000 --> 00:00:06.000]   scissors.",0,00:00
+no_background,100,female,scalpel,11,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra.
+[00:00:04.000 --> 00:00:06.000]   scalpel.",0,00:00
+no_background,100,female,forceps,11,1,1,0.9,"[00:00:00.000 --> 00:00:06.000]   astra, forceps.",0,00:00
+no_background,100,female,needle,11,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra
+[00:00:04.000 --> 00:00:08.000]   needle",0,00:00
+no_background,100,female,scissors,12,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra.
+[00:00:04.000 --> 00:00:06.000]   scissors.",0,00:00
+no_background,100,female,scalpel,12,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra.
+[00:00:04.000 --> 00:00:06.000]   scalpel.",0,00:00
+no_background,100,female,forceps,12,1,1,0.9,"[00:00:00.000 --> 00:00:06.000]   astra, forceps.",0,00:00
+no_background,100,female,needle,12,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra
+[00:00:04.000 --> 00:00:08.000]   needle",0,00:00
+no_background,100,female,scissors,13,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra.
+[00:00:04.000 --> 00:00:06.000]   scissors.",0,00:00
+no_background,100,female,scalpel,13,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra.
+[00:00:04.000 --> 00:00:06.000]   scalpel.",0,00:00
+no_background,100,female,forceps,13,1,1,0.9,"[00:00:00.000 --> 00:00:06.000]   astra, forceps.",0,00:00
+no_background,100,female,needle,13,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra
+[00:00:04.000 --> 00:00:08.000]   needle",0,00:00
+no_background,100,female,scissors,14,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra.
+[00:00:04.000 --> 00:00:06.000]   scissors.",0,00:00
+no_background,100,female,scalpel,14,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra.
+[00:00:04.000 --> 00:00:06.000]   scalpel.",0,00:00
+no_background,100,female,forceps,14,1,1,0.9,"[00:00:00.000 --> 00:00:06.000]   astra, forceps.",0,00:00
+no_background,100,female,needle,14,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra
+[00:00:04.000 --> 00:00:08.000]   needle",0,00:00
+no_background,100,female,scissors,15,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra.
+[00:00:04.000 --> 00:00:06.000]   scissors.",0,00:00
+no_background,100,female,scalpel,15,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra.
+[00:00:04.000 --> 00:00:06.000]   scalpel.",0,00:00
+no_background,100,female,forceps,15,1,1,0.9,"[00:00:00.000 --> 00:00:06.000]   astra, forceps.",0,00:00
+no_background,100,female,needle,15,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra
+[00:00:04.000 --> 00:00:08.000]   needle",0,00:00
+no_background,100,female,scissors,16,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra.
+[00:00:04.000 --> 00:00:06.000]   scissors.",0,00:00
+no_background,100,female,scalpel,16,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra.
+[00:00:04.000 --> 00:00:06.000]   scalpel.",0,00:00
+no_background,100,female,forceps,16,1,1,0.9,"[00:00:00.000 --> 00:00:06.000]   astra, forceps.",0,00:00
+no_background,100,female,needle,16,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra
+[00:00:04.000 --> 00:00:08.000]   needle",0,00:00
+no_background,100,female,scissors,17,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra.
+[00:00:04.000 --> 00:00:06.000]   scissors.",0,00:00
+no_background,100,female,scalpel,17,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra.
+[00:00:04.000 --> 00:00:06.000]   scalpel.",0,00:00
+no_background,100,female,forceps,17,1,1,0.9,"[00:00:00.000 --> 00:00:06.000]   astra, forceps.",0,00:00
+no_background,100,female,needle,17,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra
+[00:00:04.000 --> 00:00:08.000]   needle",0,00:00
+no_background,100,female,scissors,18,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra.
+[00:00:04.000 --> 00:00:06.000]   scissors.",0,00:00
+no_background,100,female,scalpel,18,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra.
+[00:00:04.000 --> 00:00:06.000]   scalpel.",0,00:00
+no_background,100,female,forceps,18,1,1,0.9,"[00:00:00.000 --> 00:00:06.000]   astra, forceps.",0,00:00
+no_background,100,female,needle,18,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra
+[00:00:04.000 --> 00:00:08.000]   needle",0,00:00
+no_background,100,female,scissors,19,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra.
+[00:00:04.000 --> 00:00:06.000]   scissors.",0,00:00
+no_background,100,female,scalpel,19,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra.
+[00:00:04.000 --> 00:00:06.000]   scalpel.",0,00:00
+no_background,100,female,forceps,19,1,1,0.9,"[00:00:00.000 --> 00:00:06.000]   astra, forceps.",0,00:00
+no_background,100,female,needle,19,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra
+[00:00:04.000 --> 00:00:08.000]   needle",0,00:00
+no_background,100,female,scissors,20,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra.
+[00:00:04.000 --> 00:00:06.000]   scissors.",0,00:00
+no_background,100,female,scalpel,20,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra.
+[00:00:04.000 --> 00:00:06.000]   scalpel.",0,00:00
+no_background,100,female,forceps,20,1,1,0.9,"[00:00:00.000 --> 00:00:06.000]   astra, forceps.",0,00:00
+no_background,100,female,needle,20,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra
+[00:00:04.000 --> 00:00:08.000]   needle",0,00:00
+no_background,100,female,scissors,21,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra.
+[00:00:04.000 --> 00:00:06.000]   scissors.",0,00:00
+no_background,100,female,scalpel,21,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra.
+[00:00:04.000 --> 00:00:06.000]   scalpel.",0,00:00
+no_background,100,female,forceps,21,1,1,0.9,"[00:00:00.000 --> 00:00:06.000]   astra, forceps.",0,00:00
+no_background,100,female,needle,21,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra
+[00:00:04.000 --> 00:00:08.000]   needle",0,00:00
+no_background,100,female,scissors,22,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra.
+[00:00:04.000 --> 00:00:06.000]   scissors.",0,00:00
+no_background,100,female,scalpel,22,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra.
+[00:00:04.000 --> 00:00:06.000]   scalpel.",0,00:00
+no_background,100,female,forceps,22,1,1,0.9,"[00:00:00.000 --> 00:00:06.000]   astra, forceps.",0,00:00
+no_background,100,female,needle,22,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra
+[00:00:04.000 --> 00:00:08.000]   needle",0,00:00
+no_background,100,female,scissors,23,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra.
+[00:00:04.000 --> 00:00:06.000]   scissors.",0,00:00
+no_background,100,female,scalpel,23,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra.
+[00:00:04.000 --> 00:00:06.000]   scalpel.",0,00:00
+no_background,100,female,forceps,23,1,1,0.9,"[00:00:00.000 --> 00:00:06.000]   astra, forceps.",0,00:00
+no_background,100,female,needle,23,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra
+[00:00:04.000 --> 00:00:08.000]   needle",0,00:00
+no_background,100,female,scissors,24,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra.
+[00:00:04.000 --> 00:00:06.000]   scissors.",0,00:00
+no_background,100,female,scalpel,24,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra.
+[00:00:04.000 --> 00:00:06.000]   scalpel.",0,00:00
+no_background,100,female,forceps,24,1,1,0.9,"[00:00:00.000 --> 00:00:06.000]   astra, forceps.",0,00:00
+no_background,100,female,needle,24,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra
+[00:00:04.000 --> 00:00:08.000]   needle",0,00:00
+no_background,100,female,scissors,25,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra.
+[00:00:04.000 --> 00:00:06.000]   scissors.",0,00:00
+no_background,100,female,scalpel,25,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra.
+[00:00:04.000 --> 00:00:06.000]   scalpel.",0,00:00
+no_background,100,female,forceps,25,1,1,0.9,"[00:00:00.000 --> 00:00:06.000]   astra, forceps.",0,00:00
+no_background,100,female,needle,25,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra
+[00:00:04.000 --> 00:00:08.000]   needle",0,00:00
+no_background,100,female,scissors,26,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra.
+[00:00:04.000 --> 00:00:06.000]   scissors.",0,00:00
+no_background,100,female,scalpel,26,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra.
+[00:00:04.000 --> 00:00:06.000]   scalpel.",0,00:00
+no_background,100,female,forceps,26,1,1,0.9,"[00:00:00.000 --> 00:00:06.000]   astra, forceps.",0,00:00
+no_background,100,female,needle,26,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra
+[00:00:04.000 --> 00:00:08.000]   needle",0,00:00
+no_background,100,female,scissors,27,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra.
+[00:00:04.000 --> 00:00:06.000]   scissors.",0,00:00
+no_background,100,female,scalpel,27,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra.
+[00:00:04.000 --> 00:00:06.000]   scalpel.",0,00:00
+no_background,100,female,forceps,27,1,1,0.9,"[00:00:00.000 --> 00:00:06.000]   astra, forceps.",0,00:00
+no_background,100,female,needle,27,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra
+[00:00:04.000 --> 00:00:08.000]   needle",0,00:00
+no_background,100,female,scissors,28,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra.
+[00:00:04.000 --> 00:00:06.000]   scissors.",0,00:00
+no_background,100,female,scalpel,28,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra.
+[00:00:04.000 --> 00:00:06.000]   scalpel.",0,00:00
+no_background,100,female,forceps,28,1,1,0.9,"[00:00:00.000 --> 00:00:06.000]   astra, forceps.",0,00:00
+no_background,100,female,needle,28,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra
+[00:00:04.000 --> 00:00:08.000]   needle",0,00:00
+no_background,100,female,scissors,29,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra.
+[00:00:04.000 --> 00:00:06.000]   scissors.",0,00:00
+no_background,100,female,scalpel,29,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra.
+[00:00:04.000 --> 00:00:06.000]   scalpel.",0,00:00
+no_background,100,female,forceps,29,1,1,0.9,"[00:00:00.000 --> 00:00:06.000]   astra, forceps.",0,00:00
+no_background,100,female,needle,29,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra
+[00:00:04.000 --> 00:00:08.000]   needle",0,00:00
+no_background,100,female,scissors,30,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra.
+[00:00:04.000 --> 00:00:06.000]   scissors.",0,00:00
+no_background,100,female,scalpel,30,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra.
+[00:00:04.000 --> 00:00:06.000]   scalpel.",0,00:00
+no_background,100,female,forceps,30,1,1,0.9,"[00:00:00.000 --> 00:00:06.000]   astra, forceps.",0,00:00
+no_background,100,female,needle,30,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra
+[00:00:04.000 --> 00:00:08.000]   needle",0,00:00
+no_background,100,female,scissors,31,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra.
+[00:00:04.000 --> 00:00:06.000]   scissors.",0,00:00
+no_background,100,female,scalpel,31,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra.
+[00:00:04.000 --> 00:00:06.000]   scalpel.",0,00:00
+no_background,100,female,forceps,31,1,1,0.9,"[00:00:00.000 --> 00:00:06.000]   astra, forceps.",0,00:00
+no_background,100,female,needle,31,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra
+[00:00:04.000 --> 00:00:08.000]   needle",0,00:00
+no_background,100,female,scissors,32,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra.
+[00:00:04.000 --> 00:00:06.000]   scissors.",0,00:00
+no_background,100,female,scalpel,32,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra.
+[00:00:04.000 --> 00:00:06.000]   scalpel.",0,00:00
+no_background,100,female,forceps,32,1,1,0.9,"[00:00:00.000 --> 00:00:06.000]   astra, forceps.",0,00:00
+no_background,100,female,needle,32,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra
+[00:00:04.000 --> 00:00:08.000]   needle",0,00:00
+no_background,100,female,scissors,33,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra.
+[00:00:04.000 --> 00:00:06.000]   scissors.",0,00:00
+no_background,100,female,scalpel,33,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra.
+[00:00:04.000 --> 00:00:06.000]   scalpel.",0,00:00
+no_background,100,female,forceps,33,1,1,0.9,"[00:00:00.000 --> 00:00:06.000]   astra, forceps.",0,00:00
+no_background,100,female,needle,33,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra
+[00:00:04.000 --> 00:00:08.000]   needle",0,00:00
+no_background,100,female,scissors,34,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra.
+[00:00:04.000 --> 00:00:06.000]   scissors.",0,00:00
+no_background,100,female,scalpel,34,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra.
+[00:00:04.000 --> 00:00:06.000]   scalpel.",0,00:00
+no_background,100,female,forceps,34,1,1,0.9,"[00:00:00.000 --> 00:00:06.000]   astra, forceps.",0,00:00
+no_background,100,female,needle,34,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra
+[00:00:04.000 --> 00:00:08.000]   needle",0,00:00
+no_background,100,female,scissors,35,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra.
+[00:00:04.000 --> 00:00:06.000]   scissors.",0,00:00
+no_background,100,female,scalpel,35,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra.
+[00:00:04.000 --> 00:00:06.000]   scalpel.",0,00:00
+no_background,100,female,forceps,35,1,1,0.9,"[00:00:00.000 --> 00:00:06.000]   astra, forceps.",0,00:00
+no_background,100,female,needle,35,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra
+[00:00:04.000 --> 00:00:08.000]   needle",0,00:00
+no_background,100,female,scissors,36,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra.
+[00:00:04.000 --> 00:00:06.000]   scissors.",0,00:00
+no_background,100,female,scalpel,36,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra.
+[00:00:04.000 --> 00:00:06.000]   scalpel.",0,00:00
+no_background,100,female,forceps,36,1,1,0.9,"[00:00:00.000 --> 00:00:06.000]   astra, forceps.",0,00:00
+no_background,100,female,needle,36,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra
+[00:00:04.000 --> 00:00:08.000]   needle",0,00:00
+no_background,100,female,scissors,37,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra.
+[00:00:04.000 --> 00:00:06.000]   scissors.",0,00:00
+no_background,100,female,scalpel,37,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra.
+[00:00:04.000 --> 00:00:06.000]   scalpel.",0,00:00
+no_background,100,female,forceps,37,1,1,0.9,"[00:00:00.000 --> 00:00:06.000]   astra, forceps.",0,00:00
+no_background,100,female,needle,37,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra
+[00:00:04.000 --> 00:00:08.000]   needle",0,00:00
+no_background,100,female,scissors,38,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra.
+[00:00:04.000 --> 00:00:06.000]   scissors.",0,00:00
+no_background,100,female,scalpel,38,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra.
+[00:00:04.000 --> 00:00:06.000]   scalpel.",0,00:00
+no_background,100,female,forceps,38,1,1,0.9,"[00:00:00.000 --> 00:00:06.000]   astra, forceps.",0,00:00
+no_background,100,female,needle,38,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra
+[00:00:04.000 --> 00:00:08.000]   needle",0,00:00
+no_background,100,female,scissors,39,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra.
+[00:00:04.000 --> 00:00:06.000]   scissors.",0,00:00
+no_background,100,female,scalpel,39,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra.
+[00:00:04.000 --> 00:00:06.000]   scalpel.",0,00:00
+no_background,100,female,forceps,39,1,1,0.9,"[00:00:00.000 --> 00:00:06.000]   astra, forceps.",0,00:00
+no_background,100,female,needle,39,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra
+[00:00:04.000 --> 00:00:08.000]   needle",0,00:00
+no_background,100,female,scissors,40,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra.
+[00:00:04.000 --> 00:00:06.000]   scissors.",0,00:00
+no_background,100,female,scalpel,40,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra.
+[00:00:04.000 --> 00:00:06.000]   scalpel.",0,00:00
+no_background,100,female,forceps,40,1,1,0.9,"[00:00:00.000 --> 00:00:06.000]   astra, forceps.",0,00:00
+no_background,100,female,needle,40,1,1,0.9,"[00:00:00.000 --> 00:00:04.000]   astra
+[00:00:04.000 --> 00:00:08.000]   needle",0,00:00
+no_background,100,male,scissors,1,1,1,0.9,"[00:00:00.000 --> 00:00:02.100]   [blank_audio]
+[00:00:02.100 --> 00:00:05.700]   >> astra, scissors.",0,00:00
+no_background,100,male,scalpel,1,0,1,0.9,"[00:00:00.000 --> 00:00:01.680]   [blank_audio]
+[00:00:01.680 --> 00:00:02.740]   astro.
+[00:00:02.740 --> 00:00:05.280]   [blank_audio]
+[00:00:05.280 --> 00:00:06.120]   scalpel.",0,00:00
+no_background,100,male,forceps,1,0,1,0.9,[00:00:00.000 --> 00:00:06.000]   astro. forceps.,0,00:00
+no_background,100,male,needle,1,0,1,0.9,"[00:00:00.000 --> 00:00:01.580]   [blank_audio]
+[00:00:01.580 --> 00:00:02.700]   astro.
+[00:00:02.700 --> 00:00:04.720]   [blank_audio]
+[00:00:04.720 --> 00:00:05.580]   needle.",0,00:00
+no_background,100,male,scissors,2,1,1,0.9,"[00:00:00.000 --> 00:00:02.100]   [blank_audio]
+[00:00:02.100 --> 00:00:05.700]   >> astra, scissors.",0,00:00
+no_background,100,male,scalpel,2,0,1,0.9,"[00:00:00.000 --> 00:00:01.680]   [blank_audio]
+[00:00:01.680 --> 00:00:02.740]   astro.
+[00:00:02.740 --> 00:00:05.280]   [blank_audio]
+[00:00:05.280 --> 00:00:06.120]   scalpel.",0,00:00
+no_background,100,male,forceps,2,0,1,0.9,[00:00:00.000 --> 00:00:06.000]   astro. forceps.,0,00:00
+no_background,100,male,needle,2,0,1,0.9,"[00:00:00.000 --> 00:00:01.580]   [blank_audio]
+[00:00:01.580 --> 00:00:02.700]   astro.
+[00:00:02.700 --> 00:00:04.720]   [blank_audio]
+[00:00:04.720 --> 00:00:05.580]   needle.",0,00:00
+no_background,100,male,scissors,3,1,1,0.9,"[00:00:00.000 --> 00:00:02.100]   [blank_audio]
+[00:00:02.100 --> 00:00:05.700]   >> astra, scissors.",0,00:00
+no_background,100,male,scalpel,3,0,1,0.9,"[00:00:00.000 --> 00:00:01.680]   [blank_audio]
+[00:00:01.680 --> 00:00:02.740]   astro.
+[00:00:02.740 --> 00:00:05.280]   [blank_audio]
+[00:00:05.280 --> 00:00:06.120]   scalpel.",0,00:00
+no_background,100,male,forceps,3,0,1,0.9,[00:00:00.000 --> 00:00:06.000]   astro. forceps.,0,00:00
+no_background,100,male,needle,3,0,1,0.9,"[00:00:00.000 --> 00:00:01.580]   [blank_audio]
+[00:00:01.580 --> 00:00:02.700]   astro.
+[00:00:02.700 --> 00:00:04.720]   [blank_audio]
+[00:00:04.720 --> 00:00:05.580]   needle.",0,00:00
+no_background,100,male,scissors,4,1,1,0.9,"[00:00:00.000 --> 00:00:02.100]   [blank_audio]
+[00:00:02.100 --> 00:00:05.700]   >> astra, scissors.",0,00:00
+no_background,100,male,scalpel,4,0,1,0.9,"[00:00:00.000 --> 00:00:01.680]   [blank_audio]
+[00:00:01.680 --> 00:00:02.740]   astro.
+[00:00:02.740 --> 00:00:05.280]   [blank_audio]
+[00:00:05.280 --> 00:00:06.120]   scalpel.",0,00:00
+no_background,100,male,forceps,4,0,1,0.9,[00:00:00.000 --> 00:00:06.000]   astro. forceps.,0,00:00
+no_background,100,male,needle,4,0,1,0.9,"[00:00:00.000 --> 00:00:01.580]   [blank_audio]
+[00:00:01.580 --> 00:00:02.700]   astro.
+[00:00:02.700 --> 00:00:04.720]   [blank_audio]
+[00:00:04.720 --> 00:00:05.580]   needle.",0,00:00
+no_background,100,male,scissors,5,1,1,0.9,"[00:00:00.000 --> 00:00:02.100]   [blank_audio]
+[00:00:02.100 --> 00:00:05.700]   >> astra, scissors.",0,00:00
+no_background,100,male,scalpel,5,0,1,0.9,"[00:00:00.000 --> 00:00:01.680]   [blank_audio]
+[00:00:01.680 --> 00:00:02.740]   astro.
+[00:00:02.740 --> 00:00:05.280]   [blank_audio]
+[00:00:05.280 --> 00:00:06.120]   scalpel.",0,00:00
+no_background,100,male,forceps,5,0,1,0.9,[00:00:00.000 --> 00:00:06.000]   astro. forceps.,0,00:00
+no_background,100,male,needle,5,0,1,0.9,"[00:00:00.000 --> 00:00:01.580]   [blank_audio]
+[00:00:01.580 --> 00:00:02.700]   astro.
+[00:00:02.700 --> 00:00:04.720]   [blank_audio]
+[00:00:04.720 --> 00:00:05.580]   needle.",0,00:00
+no_background,100,male,scissors,6,1,1,0.9,"[00:00:00.000 --> 00:00:02.100]   [blank_audio]
+[00:00:02.100 --> 00:00:05.700]   >> astra, scissors.",0,00:00
+no_background,100,male,scalpel,6,0,1,0.9,"[00:00:00.000 --> 00:00:01.680]   [blank_audio]
+[00:00:01.680 --> 00:00:02.740]   astro.
+[00:00:02.740 --> 00:00:05.280]   [blank_audio]
+[00:00:05.280 --> 00:00:06.120]   scalpel.",0,00:00
+no_background,100,male,forceps,6,0,1,0.9,[00:00:00.000 --> 00:00:06.000]   astro. forceps.,0,00:00
+no_background,100,male,needle,6,0,1,0.9,"[00:00:00.000 --> 00:00:01.580]   [blank_audio]
+[00:00:01.580 --> 00:00:02.700]   astro.
+[00:00:02.700 --> 00:00:04.720]   [blank_audio]
+[00:00:04.720 --> 00:00:05.580]   needle.",0,00:00
+no_background,100,male,scissors,7,1,1,0.9,"[00:00:00.000 --> 00:00:02.100]   [blank_audio]
+[00:00:02.100 --> 00:00:05.700]   >> astra, scissors.",0,00:00
+no_background,100,male,scalpel,7,0,1,0.9,"[00:00:00.000 --> 00:00:01.680]   [blank_audio]
+[00:00:01.680 --> 00:00:02.740]   astro.
+[00:00:02.740 --> 00:00:05.280]   [blank_audio]
+[00:00:05.280 --> 00:00:06.120]   scalpel.",0,00:00
+no_background,100,male,forceps,7,0,1,0.9,[00:00:00.000 --> 00:00:06.000]   astro. forceps.,0,00:00
+no_background,100,male,needle,7,0,1,0.9,"[00:00:00.000 --> 00:00:01.580]   [blank_audio]
+[00:00:01.580 --> 00:00:02.700]   astro.
+[00:00:02.700 --> 00:00:04.720]   [blank_audio]
+[00:00:04.720 --> 00:00:05.580]   needle.",0,00:00
+no_background,100,male,scissors,8,1,1,0.9,"[00:00:00.000 --> 00:00:02.100]   [blank_audio]
+[00:00:02.100 --> 00:00:05.700]   >> astra, scissors.",0,00:00
+no_background,100,male,scalpel,8,0,1,0.9,"[00:00:00.000 --> 00:00:01.680]   [blank_audio]
+[00:00:01.680 --> 00:00:02.740]   astro.
+[00:00:02.740 --> 00:00:05.280]   [blank_audio]
+[00:00:05.280 --> 00:00:06.120]   scalpel.",0,00:00
+no_background,100,male,forceps,8,0,1,0.9,[00:00:00.000 --> 00:00:06.000]   astro. forceps.,0,00:00
+no_background,100,male,needle,8,0,1,0.9,"[00:00:00.000 --> 00:00:01.580]   [blank_audio]
+[00:00:01.580 --> 00:00:02.700]   astro.
+[00:00:02.700 --> 00:00:04.720]   [blank_audio]
+[00:00:04.720 --> 00:00:05.580]   needle.",0,00:00
+no_background,100,male,scissors,9,1,1,0.9,"[00:00:00.000 --> 00:00:02.100]   [blank_audio]
+[00:00:02.100 --> 00:00:05.700]   >> astra, scissors.",0,00:00
+no_background,100,male,scalpel,9,0,1,0.9,"[00:00:00.000 --> 00:00:01.680]   [blank_audio]
+[00:00:01.680 --> 00:00:02.740]   astro.
+[00:00:02.740 --> 00:00:05.280]   [blank_audio]
+[00:00:05.280 --> 00:00:06.120]   scalpel.",0,00:00
+no_background,100,male,forceps,9,0,1,0.9,[00:00:00.000 --> 00:00:06.000]   astro. forceps.,0,00:00
+no_background,100,male,needle,9,0,1,0.9,"[00:00:00.000 --> 00:00:01.580]   [blank_audio]
+[00:00:01.580 --> 00:00:02.700]   astro.
+[00:00:02.700 --> 00:00:04.720]   [blank_audio]
+[00:00:04.720 --> 00:00:05.580]   needle.",0,00:00
+no_background,100,male,scissors,10,1,1,0.9,"[00:00:00.000 --> 00:00:02.100]   [blank_audio]
+[00:00:02.100 --> 00:00:05.700]   >> astra, scissors.",0,00:00
+no_background,100,male,scalpel,10,0,1,0.9,"[00:00:00.000 --> 00:00:01.680]   [blank_audio]
+[00:00:01.680 --> 00:00:02.740]   astro.
+[00:00:02.740 --> 00:00:05.280]   [blank_audio]
+[00:00:05.280 --> 00:00:06.120]   scalpel.",0,00:00
+no_background,100,male,forceps,10,0,1,0.9,[00:00:00.000 --> 00:00:06.000]   astro. forceps.,0,00:00
+no_background,100,male,needle,10,0,1,0.9,"[00:00:00.000 --> 00:00:01.580]   [blank_audio]
+[00:00:01.580 --> 00:00:02.700]   astro.
+[00:00:02.700 --> 00:00:04.720]   [blank_audio]
+[00:00:04.720 --> 00:00:05.580]   needle.",0,00:00
+no_background,100,male,scissors,11,1,1,0.9,"[00:00:00.000 --> 00:00:02.100]   [blank_audio]
+[00:00:02.100 --> 00:00:05.700]   >> astra, scissors.",0,00:00
+no_background,100,male,scalpel,11,0,1,0.9,"[00:00:00.000 --> 00:00:01.680]   [blank_audio]
+[00:00:01.680 --> 00:00:02.740]   astro.
+[00:00:02.740 --> 00:00:05.280]   [blank_audio]
+[00:00:05.280 --> 00:00:06.120]   scalpel.",0,00:00
+no_background,100,male,forceps,11,0,1,0.9,[00:00:00.000 --> 00:00:06.000]   astro. forceps.,0,00:00
+no_background,100,male,needle,11,0,1,0.9,"[00:00:00.000 --> 00:00:01.580]   [blank_audio]
+[00:00:01.580 --> 00:00:02.700]   astro.
+[00:00:02.700 --> 00:00:04.720]   [blank_audio]
+[00:00:04.720 --> 00:00:05.580]   needle.",0,00:00
+no_background,100,male,scissors,12,1,1,0.9,"[00:00:00.000 --> 00:00:02.100]   [blank_audio]
+[00:00:02.100 --> 00:00:05.700]   >> astra, scissors.",0,00:00
+no_background,100,male,scalpel,12,0,1,0.9,"[00:00:00.000 --> 00:00:01.680]   [blank_audio]
+[00:00:01.680 --> 00:00:02.740]   astro.
+[00:00:02.740 --> 00:00:05.280]   [blank_audio]
+[00:00:05.280 --> 00:00:06.120]   scalpel.",0,00:00
+no_background,100,male,forceps,12,0,1,0.9,[00:00:00.000 --> 00:00:06.000]   astro. forceps.,0,00:00
+no_background,100,male,needle,12,0,1,0.9,"[00:00:00.000 --> 00:00:01.580]   [blank_audio]
+[00:00:01.580 --> 00:00:02.700]   astro.
+[00:00:02.700 --> 00:00:04.720]   [blank_audio]
+[00:00:04.720 --> 00:00:05.580]   needle.",0,00:00
+no_background,100,male,scissors,13,1,1,0.9,"[00:00:00.000 --> 00:00:02.100]   [blank_audio]
+[00:00:02.100 --> 00:00:05.700]   >> astra, scissors.",0,00:00
+no_background,100,male,scalpel,13,0,1,0.9,"[00:00:00.000 --> 00:00:01.680]   [blank_audio]
+[00:00:01.680 --> 00:00:02.740]   astro.
+[00:00:02.740 --> 00:00:05.280]   [blank_audio]
+[00:00:05.280 --> 00:00:06.120]   scalpel.",0,00:00
+no_background,100,male,forceps,13,0,1,0.9,[00:00:00.000 --> 00:00:06.000]   astro. forceps.,0,00:00
+no_background,100,male,needle,13,0,1,0.9,"[00:00:00.000 --> 00:00:01.580]   [blank_audio]
+[00:00:01.580 --> 00:00:02.700]   astro.
+[00:00:02.700 --> 00:00:04.720]   [blank_audio]
+[00:00:04.720 --> 00:00:05.580]   needle.",0,00:00
+no_background,100,male,scissors,14,1,1,0.9,"[00:00:00.000 --> 00:00:02.100]   [blank_audio]
+[00:00:02.100 --> 00:00:05.700]   >> astra, scissors.",0,00:00
+no_background,100,male,scalpel,14,0,1,0.9,"[00:00:00.000 --> 00:00:01.680]   [blank_audio]
+[00:00:01.680 --> 00:00:02.740]   astro.
+[00:00:02.740 --> 00:00:05.280]   [blank_audio]
+[00:00:05.280 --> 00:00:06.120]   scalpel.",0,00:00
+no_background,100,male,forceps,14,0,1,0.9,[00:00:00.000 --> 00:00:06.000]   astro. forceps.,0,00:00
+no_background,100,male,needle,14,0,1,0.9,"[00:00:00.000 --> 00:00:01.580]   [blank_audio]
+[00:00:01.580 --> 00:00:02.700]   astro.
+[00:00:02.700 --> 00:00:04.720]   [blank_audio]
+[00:00:04.720 --> 00:00:05.580]   needle.",0,00:00
+no_background,100,male,scissors,15,1,1,0.9,"[00:00:00.000 --> 00:00:02.100]   [blank_audio]
+[00:00:02.100 --> 00:00:05.700]   >> astra, scissors.",0,00:00
+no_background,100,male,scalpel,15,0,1,0.9,"[00:00:00.000 --> 00:00:01.680]   [blank_audio]
+[00:00:01.680 --> 00:00:02.740]   astro.
+[00:00:02.740 --> 00:00:05.280]   [blank_audio]
+[00:00:05.280 --> 00:00:06.120]   scalpel.",0,00:00
+no_background,100,male,forceps,15,0,1,0.9,[00:00:00.000 --> 00:00:06.000]   astro. forceps.,0,00:00
+no_background,100,male,needle,15,0,1,0.9,"[00:00:00.000 --> 00:00:01.580]   [blank_audio]
+[00:00:01.580 --> 00:00:02.700]   astro.
+[00:00:02.700 --> 00:00:04.720]   [blank_audio]
+[00:00:04.720 --> 00:00:05.580]   needle.",0,00:00
+no_background,100,male,scissors,16,1,1,0.9,"[00:00:00.000 --> 00:00:02.100]   [blank_audio]
+[00:00:02.100 --> 00:00:05.700]   >> astra, scissors.",0,00:00
+no_background,100,male,scalpel,16,0,1,0.9,"[00:00:00.000 --> 00:00:01.680]   [blank_audio]
+[00:00:01.680 --> 00:00:02.740]   astro.
+[00:00:02.740 --> 00:00:05.280]   [blank_audio]
+[00:00:05.280 --> 00:00:06.120]   scalpel.",0,00:00
+no_background,100,male,forceps,16,0,1,0.9,[00:00:00.000 --> 00:00:06.000]   astro. forceps.,0,00:00
+no_background,100,male,needle,16,0,1,0.9,"[00:00:00.000 --> 00:00:01.580]   [blank_audio]
+[00:00:01.580 --> 00:00:02.700]   astro.
+[00:00:02.700 --> 00:00:04.720]   [blank_audio]
+[00:00:04.720 --> 00:00:05.580]   needle.",0,00:00
+no_background,100,male,scissors,17,1,1,0.9,"[00:00:00.000 --> 00:00:02.100]   [blank_audio]
+[00:00:02.100 --> 00:00:05.700]   >> astra, scissors.",0,00:00
+no_background,100,male,scalpel,17,0,1,0.9,"[00:00:00.000 --> 00:00:01.680]   [blank_audio]
+[00:00:01.680 --> 00:00:02.740]   astro.
+[00:00:02.740 --> 00:00:05.280]   [blank_audio]
+[00:00:05.280 --> 00:00:06.120]   scalpel.",0,00:00
+no_background,100,male,forceps,17,0,1,0.9,[00:00:00.000 --> 00:00:06.000]   astro. forceps.,0,00:00
+no_background,100,male,needle,17,0,1,0.9,"[00:00:00.000 --> 00:00:01.580]   [blank_audio]
+[00:00:01.580 --> 00:00:02.700]   astro.
+[00:00:02.700 --> 00:00:04.720]   [blank_audio]
+[00:00:04.720 --> 00:00:05.580]   needle.",0,00:00
+no_background,100,male,scissors,18,1,1,0.9,"[00:00:00.000 --> 00:00:02.100]   [blank_audio]
+[00:00:02.100 --> 00:00:05.700]   >> astra, scissors.",0,00:00
+no_background,100,male,scalpel,18,0,1,0.9,"[00:00:00.000 --> 00:00:01.680]   [blank_audio]
+[00:00:01.680 --> 00:00:02.740]   astro.
+[00:00:02.740 --> 00:00:05.280]   [blank_audio]
+[00:00:05.280 --> 00:00:06.120]   scalpel.",0,00:00
+no_background,100,male,forceps,18,0,1,0.9,[00:00:00.000 --> 00:00:06.000]   astro. forceps.,0,00:00
+no_background,100,male,needle,18,0,1,0.9,"[00:00:00.000 --> 00:00:01.580]   [blank_audio]
+[00:00:01.580 --> 00:00:02.700]   astro.
+[00:00:02.700 --> 00:00:04.720]   [blank_audio]
+[00:00:04.720 --> 00:00:05.580]   needle.",0,00:00
+no_background,100,male,scissors,19,1,1,0.9,"[00:00:00.000 --> 00:00:02.100]   [blank_audio]
+[00:00:02.100 --> 00:00:05.700]   >> astra, scissors.",0,00:00
+no_background,100,male,scalpel,19,0,1,0.9,"[00:00:00.000 --> 00:00:01.680]   [blank_audio]
+[00:00:01.680 --> 00:00:02.740]   astro.
+[00:00:02.740 --> 00:00:05.280]   [blank_audio]
+[00:00:05.280 --> 00:00:06.120]   scalpel.",0,00:00
+no_background,100,male,forceps,19,0,1,0.9,[00:00:00.000 --> 00:00:06.000]   astro. forceps.,0,00:00
+no_background,100,male,needle,19,0,1,0.9,"[00:00:00.000 --> 00:00:01.580]   [blank_audio]
+[00:00:01.580 --> 00:00:02.700]   astro.
+[00:00:02.700 --> 00:00:04.720]   [blank_audio]
+[00:00:04.720 --> 00:00:05.580]   needle.",0,00:00
+no_background,100,male,scissors,20,1,1,0.9,"[00:00:00.000 --> 00:00:02.100]   [blank_audio]
+[00:00:02.100 --> 00:00:05.700]   >> astra, scissors.",0,00:00
+no_background,100,male,scalpel,20,0,1,0.9,"[00:00:00.000 --> 00:00:01.680]   [blank_audio]
+[00:00:01.680 --> 00:00:02.740]   astro.
+[00:00:02.740 --> 00:00:05.280]   [blank_audio]
+[00:00:05.280 --> 00:00:06.120]   scalpel.",0,00:00
+no_background,100,male,forceps,20,0,1,0.9,[00:00:00.000 --> 00:00:06.000]   astro. forceps.,0,00:00
+no_background,100,male,needle,20,0,1,0.9,"[00:00:00.000 --> 00:00:01.580]   [blank_audio]
+[00:00:01.580 --> 00:00:02.700]   astro.
+[00:00:02.700 --> 00:00:04.720]   [blank_audio]
+[00:00:04.720 --> 00:00:05.580]   needle.",0,00:00
+no_background,100,male,scissors,21,1,1,0.9,"[00:00:00.000 --> 00:00:02.100]   [blank_audio]
+[00:00:02.100 --> 00:00:05.700]   >> astra, scissors.",0,00:00
+no_background,100,male,scalpel,21,0,1,0.9,"[00:00:00.000 --> 00:00:01.680]   [blank_audio]
+[00:00:01.680 --> 00:00:02.740]   astro.
+[00:00:02.740 --> 00:00:05.280]   [blank_audio]
+[00:00:05.280 --> 00:00:06.120]   scalpel.",0,00:00
+no_background,100,male,forceps,21,0,1,0.9,[00:00:00.000 --> 00:00:06.000]   astro. forceps.,0,00:00
+no_background,100,male,needle,21,0,1,0.9,"[00:00:00.000 --> 00:00:01.580]   [blank_audio]
+[00:00:01.580 --> 00:00:02.700]   astro.
+[00:00:02.700 --> 00:00:04.720]   [blank_audio]
+[00:00:04.720 --> 00:00:05.580]   needle.",0,00:00
+no_background,100,male,scissors,22,1,1,0.9,"[00:00:00.000 --> 00:00:02.100]   [blank_audio]
+[00:00:02.100 --> 00:00:05.700]   >> astra, scissors.",0,00:00
+no_background,100,male,scalpel,22,0,1,0.9,"[00:00:00.000 --> 00:00:01.680]   [blank_audio]
+[00:00:01.680 --> 00:00:02.740]   astro.
+[00:00:02.740 --> 00:00:05.280]   [blank_audio]
+[00:00:05.280 --> 00:00:06.120]   scalpel.",0,00:00
+no_background,100,male,forceps,22,0,1,0.9,[00:00:00.000 --> 00:00:06.000]   astro. forceps.,0,00:00
+no_background,100,male,needle,22,0,1,0.9,"[00:00:00.000 --> 00:00:01.580]   [blank_audio]
+[00:00:01.580 --> 00:00:02.700]   astro.
+[00:00:02.700 --> 00:00:04.720]   [blank_audio]
+[00:00:04.720 --> 00:00:05.580]   needle.",0,00:00
+no_background,100,male,scissors,23,1,1,0.9,"[00:00:00.000 --> 00:00:02.100]   [blank_audio]
+[00:00:02.100 --> 00:00:05.700]   >> astra, scissors.",0,00:00
+no_background,100,male,scalpel,23,0,1,0.9,"[00:00:00.000 --> 00:00:01.680]   [blank_audio]
+[00:00:01.680 --> 00:00:02.740]   astro.
+[00:00:02.740 --> 00:00:05.280]   [blank_audio]
+[00:00:05.280 --> 00:00:06.120]   scalpel.",0,00:00
+no_background,100,male,forceps,23,0,1,0.9,[00:00:00.000 --> 00:00:06.000]   astro. forceps.,0,00:00
+no_background,100,male,needle,23,0,1,0.9,"[00:00:00.000 --> 00:00:01.580]   [blank_audio]
+[00:00:01.580 --> 00:00:02.700]   astro.
+[00:00:02.700 --> 00:00:04.720]   [blank_audio]
+[00:00:04.720 --> 00:00:05.580]   needle.",0,00:00
+no_background,100,male,scissors,24,1,1,0.9,"[00:00:00.000 --> 00:00:02.100]   [blank_audio]
+[00:00:02.100 --> 00:00:05.700]   >> astra, scissors.",0,00:00
+no_background,100,male,scalpel,24,0,1,0.9,"[00:00:00.000 --> 00:00:01.680]   [blank_audio]
+[00:00:01.680 --> 00:00:02.740]   astro.
+[00:00:02.740 --> 00:00:05.280]   [blank_audio]
+[00:00:05.280 --> 00:00:06.120]   scalpel.",0,00:00
+no_background,100,male,forceps,24,0,1,0.9,[00:00:00.000 --> 00:00:06.000]   astro. forceps.,0,00:00
+no_background,100,male,needle,24,0,1,0.9,"[00:00:00.000 --> 00:00:01.580]   [blank_audio]
+[00:00:01.580 --> 00:00:02.700]   astro.
+[00:00:02.700 --> 00:00:04.720]   [blank_audio]
+[00:00:04.720 --> 00:00:05.580]   needle.",0,00:00
+no_background,100,male,scissors,25,1,1,0.9,"[00:00:00.000 --> 00:00:02.100]   [blank_audio]
+[00:00:02.100 --> 00:00:05.700]   >> astra, scissors.",0,00:00
+no_background,100,male,scalpel,25,0,1,0.9,"[00:00:00.000 --> 00:00:01.680]   [blank_audio]
+[00:00:01.680 --> 00:00:02.740]   astro.
+[00:00:02.740 --> 00:00:05.280]   [blank_audio]
+[00:00:05.280 --> 00:00:06.120]   scalpel.",0,00:00
+no_background,100,male,forceps,25,0,1,0.9,[00:00:00.000 --> 00:00:06.000]   astro. forceps.,0,00:00
+no_background,100,male,needle,25,0,1,0.9,"[00:00:00.000 --> 00:00:01.580]   [blank_audio]
+[00:00:01.580 --> 00:00:02.700]   astro.
+[00:00:02.700 --> 00:00:04.720]   [blank_audio]
+[00:00:04.720 --> 00:00:05.580]   needle.",0,00:00
+no_background,100,male,scissors,26,1,1,0.9,"[00:00:00.000 --> 00:00:02.100]   [blank_audio]
+[00:00:02.100 --> 00:00:05.700]   >> astra, scissors.",0,00:00
+no_background,100,male,scalpel,26,0,1,0.9,"[00:00:00.000 --> 00:00:01.680]   [blank_audio]
+[00:00:01.680 --> 00:00:02.740]   astro.
+[00:00:02.740 --> 00:00:05.280]   [blank_audio]
+[00:00:05.280 --> 00:00:06.120]   scalpel.",0,00:00
+no_background,100,male,forceps,26,0,1,0.9,[00:00:00.000 --> 00:00:06.000]   astro. forceps.,0,00:00
+no_background,100,male,needle,26,0,1,0.9,"[00:00:00.000 --> 00:00:01.580]   [blank_audio]
+[00:00:01.580 --> 00:00:02.700]   astro.
+[00:00:02.700 --> 00:00:04.720]   [blank_audio]
+[00:00:04.720 --> 00:00:05.580]   needle.",0,00:00
+no_background,100,male,scissors,27,1,1,0.9,"[00:00:00.000 --> 00:00:02.100]   [blank_audio]
+[00:00:02.100 --> 00:00:05.700]   >> astra, scissors.",0,00:00
+no_background,100,male,scalpel,27,0,1,0.9,"[00:00:00.000 --> 00:00:01.680]   [blank_audio]
+[00:00:01.680 --> 00:00:02.740]   astro.
+[00:00:02.740 --> 00:00:05.280]   [blank_audio]
+[00:00:05.280 --> 00:00:06.120]   scalpel.",0,00:00
+no_background,100,male,forceps,27,0,1,0.9,[00:00:00.000 --> 00:00:06.000]   astro. forceps.,0,00:00
+no_background,100,male,needle,27,0,1,0.9,"[00:00:00.000 --> 00:00:01.580]   [blank_audio]
+[00:00:01.580 --> 00:00:02.700]   astro.
+[00:00:02.700 --> 00:00:04.720]   [blank_audio]
+[00:00:04.720 --> 00:00:05.580]   needle.",0,00:00
+no_background,100,male,scissors,28,1,1,0.9,"[00:00:00.000 --> 00:00:02.100]   [blank_audio]
+[00:00:02.100 --> 00:00:05.700]   >> astra, scissors.",0,00:00
+no_background,100,male,scalpel,28,0,1,0.9,"[00:00:00.000 --> 00:00:01.680]   [blank_audio]
+[00:00:01.680 --> 00:00:02.740]   astro.
+[00:00:02.740 --> 00:00:05.280]   [blank_audio]
+[00:00:05.280 --> 00:00:06.120]   scalpel.",0,00:00
+no_background,100,male,forceps,28,0,1,0.9,[00:00:00.000 --> 00:00:06.000]   astro. forceps.,0,00:00
+no_background,100,male,needle,28,0,1,0.9,"[00:00:00.000 --> 00:00:01.580]   [blank_audio]
+[00:00:01.580 --> 00:00:02.700]   astro.
+[00:00:02.700 --> 00:00:04.720]   [blank_audio]
+[00:00:04.720 --> 00:00:05.580]   needle.",0,00:00
+no_background,100,male,scissors,29,1,1,0.9,"[00:00:00.000 --> 00:00:02.100]   [blank_audio]
+[00:00:02.100 --> 00:00:05.700]   >> astra, scissors.",0,00:00
+no_background,100,male,scalpel,29,0,1,0.9,"[00:00:00.000 --> 00:00:01.680]   [blank_audio]
+[00:00:01.680 --> 00:00:02.740]   astro.
+[00:00:02.740 --> 00:00:05.280]   [blank_audio]
+[00:00:05.280 --> 00:00:06.120]   scalpel.",0,00:00
+no_background,100,male,forceps,29,0,1,0.9,[00:00:00.000 --> 00:00:06.000]   astro. forceps.,0,00:00
+no_background,100,male,needle,29,0,1,0.9,"[00:00:00.000 --> 00:00:01.580]   [blank_audio]
+[00:00:01.580 --> 00:00:02.700]   astro.
+[00:00:02.700 --> 00:00:04.720]   [blank_audio]
+[00:00:04.720 --> 00:00:05.580]   needle.",0,00:00
+no_background,100,male,scissors,30,1,1,0.9,"[00:00:00.000 --> 00:00:02.100]   [blank_audio]
+[00:00:02.100 --> 00:00:05.700]   >> astra, scissors.",0,00:00
+no_background,100,male,scalpel,30,0,1,0.9,"[00:00:00.000 --> 00:00:01.680]   [blank_audio]
+[00:00:01.680 --> 00:00:02.740]   astro.
+[00:00:02.740 --> 00:00:05.280]   [blank_audio]
+[00:00:05.280 --> 00:00:06.120]   scalpel.",0,00:00
+no_background,100,male,forceps,30,0,1,0.9,[00:00:00.000 --> 00:00:06.000]   astro. forceps.,0,00:00
+no_background,100,male,needle,30,0,1,0.9,"[00:00:00.000 --> 00:00:01.580]   [blank_audio]
+[00:00:01.580 --> 00:00:02.700]   astro.
+[00:00:02.700 --> 00:00:04.720]   [blank_audio]
+[00:00:04.720 --> 00:00:05.580]   needle.",0,00:00
+no_background,100,male,scissors,31,1,1,0.9,"[00:00:00.000 --> 00:00:02.100]   [blank_audio]
+[00:00:02.100 --> 00:00:05.700]   >> astra, scissors.",0,00:00
+no_background,100,male,scalpel,31,0,1,0.9,"[00:00:00.000 --> 00:00:01.680]   [blank_audio]
+[00:00:01.680 --> 00:00:02.740]   astro.
+[00:00:02.740 --> 00:00:05.280]   [blank_audio]
+[00:00:05.280 --> 00:00:06.120]   scalpel.",0,00:00
+no_background,100,male,forceps,31,0,1,0.9,[00:00:00.000 --> 00:00:06.000]   astro. forceps.,0,00:00
+no_background,100,male,needle,31,0,1,0.9,"[00:00:00.000 --> 00:00:01.580]   [blank_audio]
+[00:00:01.580 --> 00:00:02.700]   astro.
+[00:00:02.700 --> 00:00:04.720]   [blank_audio]
+[00:00:04.720 --> 00:00:05.580]   needle.",0,00:00
+no_background,100,male,scissors,32,1,1,0.9,"[00:00:00.000 --> 00:00:02.100]   [blank_audio]
+[00:00:02.100 --> 00:00:05.700]   >> astra, scissors.",0,00:00
+no_background,100,male,scalpel,32,0,1,0.9,"[00:00:00.000 --> 00:00:01.680]   [blank_audio]
+[00:00:01.680 --> 00:00:02.740]   astro.
+[00:00:02.740 --> 00:00:05.280]   [blank_audio]
+[00:00:05.280 --> 00:00:06.120]   scalpel.",0,00:00
+no_background,100,male,forceps,32,0,1,0.9,[00:00:00.000 --> 00:00:06.000]   astro. forceps.,0,00:00
+no_background,100,male,needle,32,0,1,0.9,"[00:00:00.000 --> 00:00:01.580]   [blank_audio]
+[00:00:01.580 --> 00:00:02.700]   astro.
+[00:00:02.700 --> 00:00:04.720]   [blank_audio]
+[00:00:04.720 --> 00:00:05.580]   needle.",0,00:00
+no_background,100,male,scissors,33,1,1,0.9,"[00:00:00.000 --> 00:00:02.100]   [blank_audio]
+[00:00:02.100 --> 00:00:05.700]   >> astra, scissors.",0,00:00
+no_background,100,male,scalpel,33,0,1,0.9,"[00:00:00.000 --> 00:00:01.680]   [blank_audio]
+[00:00:01.680 --> 00:00:02.740]   astro.
+[00:00:02.740 --> 00:00:05.280]   [blank_audio]
+[00:00:05.280 --> 00:00:06.120]   scalpel.",0,00:00
+no_background,100,male,forceps,33,0,1,0.9,[00:00:00.000 --> 00:00:06.000]   astro. forceps.,0,00:00
+no_background,100,male,needle,33,0,1,0.9,"[00:00:00.000 --> 00:00:01.580]   [blank_audio]
+[00:00:01.580 --> 00:00:02.700]   astro.
+[00:00:02.700 --> 00:00:04.720]   [blank_audio]
+[00:00:04.720 --> 00:00:05.580]   needle.",0,00:00
+no_background,100,male,scissors,34,1,1,0.9,"[00:00:00.000 --> 00:00:02.100]   [blank_audio]
+[00:00:02.100 --> 00:00:05.700]   >> astra, scissors.",0,00:00
+no_background,100,male,scalpel,34,0,1,0.9,"[00:00:00.000 --> 00:00:01.680]   [blank_audio]
+[00:00:01.680 --> 00:00:02.740]   astro.
+[00:00:02.740 --> 00:00:05.280]   [blank_audio]
+[00:00:05.280 --> 00:00:06.120]   scalpel.",0,00:00
+no_background,100,male,forceps,34,0,1,0.9,[00:00:00.000 --> 00:00:06.000]   astro. forceps.,0,00:00
+no_background,100,male,needle,34,0,1,0.9,"[00:00:00.000 --> 00:00:01.580]   [blank_audio]
+[00:00:01.580 --> 00:00:02.700]   astro.
+[00:00:02.700 --> 00:00:04.720]   [blank_audio]
+[00:00:04.720 --> 00:00:05.580]   needle.",0,00:00
+no_background,100,male,scissors,35,1,1,0.9,"[00:00:00.000 --> 00:00:02.100]   [blank_audio]
+[00:00:02.100 --> 00:00:05.700]   >> astra, scissors.",0,00:00
+no_background,100,male,scalpel,35,0,1,0.9,"[00:00:00.000 --> 00:00:01.680]   [blank_audio]
+[00:00:01.680 --> 00:00:02.740]   astro.
+[00:00:02.740 --> 00:00:05.280]   [blank_audio]
+[00:00:05.280 --> 00:00:06.120]   scalpel.",0,00:00
+no_background,100,male,forceps,35,0,1,0.9,[00:00:00.000 --> 00:00:06.000]   astro. forceps.,0,00:00
+no_background,100,male,needle,35,0,1,0.9,"[00:00:00.000 --> 00:00:01.580]   [blank_audio]
+[00:00:01.580 --> 00:00:02.700]   astro.
+[00:00:02.700 --> 00:00:04.720]   [blank_audio]
+[00:00:04.720 --> 00:00:05.580]   needle.",0,00:00
+no_background,100,male,scissors,36,1,1,0.9,"[00:00:00.000 --> 00:00:02.100]   [blank_audio]
+[00:00:02.100 --> 00:00:05.700]   >> astra, scissors.",0,00:00
+no_background,100,male,scalpel,36,0,1,0.9,"[00:00:00.000 --> 00:00:01.680]   [blank_audio]
+[00:00:01.680 --> 00:00:02.740]   astro.
+[00:00:02.740 --> 00:00:05.280]   [blank_audio]
+[00:00:05.280 --> 00:00:06.120]   scalpel.",0,00:00
+no_background,100,male,forceps,36,0,1,0.9,[00:00:00.000 --> 00:00:06.000]   astro. forceps.,0,00:00
+no_background,100,male,needle,36,0,1,0.9,"[00:00:00.000 --> 00:00:01.580]   [blank_audio]
+[00:00:01.580 --> 00:00:02.700]   astro.
+[00:00:02.700 --> 00:00:04.720]   [blank_audio]
+[00:00:04.720 --> 00:00:05.580]   needle.",0,00:00
+no_background,100,male,scissors,37,1,1,0.9,"[00:00:00.000 --> 00:00:02.100]   [blank_audio]
+[00:00:02.100 --> 00:00:05.700]   >> astra, scissors.",0,00:00
+no_background,100,male,scalpel,37,0,1,0.9,"[00:00:00.000 --> 00:00:01.680]   [blank_audio]
+[00:00:01.680 --> 00:00:02.740]   astro.
+[00:00:02.740 --> 00:00:05.280]   [blank_audio]
+[00:00:05.280 --> 00:00:06.120]   scalpel.",0,00:00
+no_background,100,male,forceps,37,0,1,0.9,[00:00:00.000 --> 00:00:06.000]   astro. forceps.,0,00:00
+no_background,100,male,needle,37,0,1,0.9,"[00:00:00.000 --> 00:00:01.580]   [blank_audio]
+[00:00:01.580 --> 00:00:02.700]   astro.
+[00:00:02.700 --> 00:00:04.720]   [blank_audio]
+[00:00:04.720 --> 00:00:05.580]   needle.",0,00:00
+no_background,100,male,scissors,38,1,1,0.9,"[00:00:00.000 --> 00:00:02.100]   [blank_audio]
+[00:00:02.100 --> 00:00:05.700]   >> astra, scissors.",0,00:00
+no_background,100,male,scalpel,38,0,1,0.9,"[00:00:00.000 --> 00:00:01.680]   [blank_audio]
+[00:00:01.680 --> 00:00:02.740]   astro.
+[00:00:02.740 --> 00:00:05.280]   [blank_audio]
+[00:00:05.280 --> 00:00:06.120]   scalpel.",0,00:00
+no_background,100,male,forceps,38,0,1,0.9,[00:00:00.000 --> 00:00:06.000]   astro. forceps.,0,00:00
+no_background,100,male,needle,38,0,1,0.9,"[00:00:00.000 --> 00:00:01.580]   [blank_audio]
+[00:00:01.580 --> 00:00:02.700]   astro.
+[00:00:02.700 --> 00:00:04.720]   [blank_audio]
+[00:00:04.720 --> 00:00:05.580]   needle.",0,00:00
+no_background,100,male,scissors,39,1,1,0.9,"[00:00:00.000 --> 00:00:02.100]   [blank_audio]
+[00:00:02.100 --> 00:00:05.700]   >> astra, scissors.",0,00:00
+no_background,100,male,scalpel,39,0,1,0.9,"[00:00:00.000 --> 00:00:01.680]   [blank_audio]
+[00:00:01.680 --> 00:00:02.740]   astro.
+[00:00:02.740 --> 00:00:05.280]   [blank_audio]
+[00:00:05.280 --> 00:00:06.120]   scalpel.",0,00:00
+no_background,100,male,forceps,39,0,1,0.9,[00:00:00.000 --> 00:00:06.000]   astro. forceps.,0,00:00
+no_background,100,male,needle,39,0,1,0.9,"[00:00:00.000 --> 00:00:01.580]   [blank_audio]
+[00:00:01.580 --> 00:00:02.700]   astro.
+[00:00:02.700 --> 00:00:04.720]   [blank_audio]
+[00:00:04.720 --> 00:00:05.580]   needle.",0,00:00
+no_background,100,male,scissors,40,1,1,0.9,"[00:00:00.000 --> 00:00:02.100]   [blank_audio]
+[00:00:02.100 --> 00:00:05.700]   >> astra, scissors.",0,00:00
+no_background,100,male,scalpel,40,0,1,0.9,"[00:00:00.000 --> 00:00:01.680]   [blank_audio]
+[00:00:01.680 --> 00:00:02.740]   astro.
+[00:00:02.740 --> 00:00:05.280]   [blank_audio]
+[00:00:05.280 --> 00:00:06.120]   scalpel.",0,00:00
+no_background,100,male,forceps,40,0,1,0.9,[00:00:00.000 --> 00:00:06.000]   astro. forceps.,0,00:00
+no_background,100,male,needle,40,0,1,0.9,"[00:00:00.000 --> 00:00:01.580]   [blank_audio]
+[00:00:01.580 --> 00:00:02.700]   astro.
+[00:00:02.700 --> 00:00:04.720]   [blank_audio]
+[00:00:04.720 --> 00:00:05.580]   needle.",0,00:00
