@@ -120,7 +120,8 @@ def identify_instruments(command, confidence_threshold=0.7):
             'scalpels', 'scalpel blade', 'scalp', 'scale pill', 'scalball', 'skelple',
             'skull pill', 'scapple', 'scalp bell', 'scowl pill', 'sculpel', 'sculptor'
             'scalpels', 'scalpel blade', 'scalp', 'scale pill', 'scalball', 'skelple',
-            'skull pill', 'scapple', 'scalp bell', 'scowl pill', 'sculpel', 'sculptor'
+            'skull pill', 'scapple', 'scalp bell', 'scowl pill', 'sculpel', 'sculptor',
+            'scarborough'
         ],
         'needle': [
             'needles', 'kneadle', 'neato', 'knee doll', 'neadle', 'nidho',
@@ -289,8 +290,9 @@ def listen_and_transcribe_live(phrase_time_limit=4):
         with microphone as source:
             # recognizer.adjust_for_ambient_noise(source)
             print("\nEntering live mode. Say 'astra' to begin. Then give a command or say it together like 'astra give me scalpel'")
+            
+            print("Astra is ready...")
             speak_text("Aastra ready.")
-            print("Waiting...")
             audio = recognizer.listen(source, timeout=None)
         try:
             text = recognizer.recognize_vosk(audio).lower()

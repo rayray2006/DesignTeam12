@@ -133,8 +133,8 @@ def transform_camera_to_robot(camera_coords, end_effector_coords, euler_angles, 
 
 
 
-
-    camera_vec = np.array([[x_c], [y_c], [z_c]])
+    z_offset = -94
+    camera_vec = np.array([[x_c], [y_c], [z_c+z_offset]])
 
 
 
@@ -142,13 +142,13 @@ def transform_camera_to_robot(camera_coords, end_effector_coords, euler_angles, 
     transformed_change = R_ee @ (R_fixed @ camera_vec)
     
     # Multiply y and z changes by -1 before adding translation.
-    x_offset = 10  # replace with your desired offset in mm
+    x_offset = 14  # replace with your desired offset in mm
     y_offset = 75
-    z_offset = 98.5
+    
     transformed_change[0] = transformed_change[0] + transformed_change[0]*0.18
     
 
-    robot_vec = np.array([[X_ee+ x_offset], [Y_ee  + y_offset], [Z_ee + z_offset]]) + transformed_change
+    robot_vec = np.array([[X_ee+ x_offset], [Y_ee  + y_offset], [Z_ee]]) + transformed_change
     
 
 
@@ -294,12 +294,13 @@ def get_hand_angles(indexPoint, wristPoint):
 
     return angle_deg
 def pickSequence(coords, HOST, MOVE_COORDS_PORT, MOVE_GRIPPER_PORT):
-    send_gripper_command(100, 100, HOST, MOVE_GRIPPER_PORT)
-    time.sleep(1)
     coords[5] = coords[5] - 90
     send_coords(coords, HOST, MOVE_COORDS_PORT)
     time.sleep(2)
     send_gripper_command(0, 50, HOST, MOVE_GRIPPER_PORT)
+    time.sleep(1)
+    coords[2] = coords[2] + 10
+    send_coords(coords, HOST, MOVE_COORDS_PORT)
 def move_to_hand(home, pipeline, MOVE_COORDS_PORT, GET_COORDS_PORT, MOVE_GRIPPER_PORT, hands, HOST):
     none_counter = 0  # tracks consecutive frames without hand detection
     stable_count = 0  # counts consecutive frames with stable hand coordinates
@@ -307,7 +308,8 @@ def move_to_hand(home, pipeline, MOVE_COORDS_PORT, GET_COORDS_PORT, MOVE_GRIPPER
     prev_hand_coord = None  # holds the previous hand coordinate for stability comparison
     state = "home"
 
-    while True:
+    for i in range(500):
+        time.sleep(0.001)
         frames = pipeline.poll_for_frames()
         if not frames:
             continue
@@ -385,11 +387,6 @@ def move_to_hand(home, pipeline, MOVE_COORDS_PORT, GET_COORDS_PORT, MOVE_GRIPPER
         time.sleep(1) 
         send_coords(home, HOST, MOVE_COORDS_PORT, 1)  
         time.sleep(1)     
-        break
-        state = "home"
-            # Reset the stability counter after sending the move command.
-        stable_count = 0
-        hand_counter = 0
-        none_counter = 0
-        prev_hand_coord = None
-        print(target_coords)
+        return 1
+    return 0
+    

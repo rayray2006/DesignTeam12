@@ -104,7 +104,7 @@ def identify_instrument(model, img_path, instrument, crop):
 
     detections = results.xyxy[0]
 
-    conf_threshold = 0.10
+    conf_threshold = 0.1
     # instruments = 'forceps'
     
     # TODO: account for when there's multiple types of the same instrument
